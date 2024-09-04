@@ -14,7 +14,7 @@ function SearchBar({ searchTerm, handleSearch }) {
       <button className="flex items-center justify-center w-12 bg-blue-500 text-white rounded-r-full">
       </button>
     </div>
-  );
+  )
 }
 
 export default SearchBar
