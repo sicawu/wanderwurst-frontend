@@ -21,7 +21,7 @@ function CafeList() {
   }
 
   useEffect(() => {
-    getAllCafes();
+    getAllCafes()
   }, [])
 
   const handleSearch = (event) => {
@@ -49,7 +49,7 @@ function CafeList() {
             key={cafe._id}
             className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
           >
-            <Link to={`/cafes/${cafe._id}`}>
+            <Link to={`/cafes/${cafe.urlSlug}`}>
               <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
                 <img
                   src={cafe.image}
