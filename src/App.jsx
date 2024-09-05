@@ -22,7 +22,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/best-cafes" element={<BestCafesPage />} />
       <Route path="/cafes/:urlSlug" element={<CafeDetailsPage />} />
-      <Route path="/cafes/:specs" element={<FilterBySpecsPage />} />  {/* All cafes for one specific spec, e.g. cosy*/}
+      <Route path="/best-cafes/:specs" element={<FilterBySpecsPage />} />  {/* All cafes for one specific spec, e.g. cosy*/}
       <Route path="/best-restaurants" element={<BestRestaurantsPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

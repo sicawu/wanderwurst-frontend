@@ -114,7 +114,7 @@ function CafeDetailsPage() {
                                     {Array.isArray(cafe.specs) &&
                                         cafe.specs.map((spec, index) => (
                                             <Link
-                                            to={`/best-coffees/${spec.toLowerCase()}`} 
+                                                to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific spec; to lowercase + replacing empty spaces in specs
                                                 className="font-bold bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block"
                                                 key={index}>
                                                 {spec}
@@ -145,7 +145,7 @@ function CafeDetailsPage() {
                 </>
             )}
         </div>
-    );
+    )
 }
 
-export default CafeDetailsPage;
+export default CafeDetailsPage
