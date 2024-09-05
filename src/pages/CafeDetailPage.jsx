@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { useNavigate, Link, useParams } from "react-router-dom"
 import axios from "axios"
+import { useNavigate, Link, useParams } from "react-router-dom"
 import { FaStar, FaRegCheckCircle } from "react-icons/fa"
 import { FaLocationDot } from "react-icons/fa6"
-import { LiaJenkins } from "react-icons/lia"
+import { MdLocationCity } from "react-icons/md"
+
+import CafeMaps from "../components/CafeMaps.jsx"
 
 function CafeDetailsPage() {
     const [cafe, setCafe] = useState("")
@@ -102,14 +104,19 @@ function CafeDetailsPage() {
                                     {cafe.description}
                                 </p>
                                 {cafe.location && cafe.location.length > 0 && (
-                                    <div className="px-10 py-5 flex justify-center">
-                                        <p>
-                                            <FaLocationDot className="inline mr-1" />
-                                            {cafe.location[0].city}, {cafe.location[0].neighborhood},
+                                    <div className="px-10 py-5 flex flex-col items-center">
+                                        <p className="flex items-center mb-2">
+                                            <MdLocationCity className="mr-1 text-xl" />
+                                            {cafe.location[0].city}, {cafe.location[0].neighborhood}
                                         </p>
-                                        <p>{cafe.location[0].address}</p>
+                                        <p className="flex items-center">
+                                            <FaLocationDot className="mr-1 text-xl" />
+                                            {cafe.location[0].address}
+                                        </p>
                                     </div>
                                 )}
+
+                                {/* !!!!! Specs !!!!!! */}
                                 <div className="flex flex-wrap px-10 flex justify-center">
                                     {Array.isArray(cafe.specs) &&
                                         cafe.specs.map((spec, index) => (
@@ -121,6 +128,7 @@ function CafeDetailsPage() {
                                             </Link>
                                         ))}
                                 </div>
+
 
                                 {/* !!!!! DELETE & EDIT BUTTONS !!!!!! 
                 {isLoggedIn === true ? (
@@ -140,8 +148,10 @@ function CafeDetailsPage() {
                   </div>
                 ) : null} */}
                             </div>
+
                         </div>
                     </div>
+                    <CafeMaps/>
                 </>
             )}
         </div>
