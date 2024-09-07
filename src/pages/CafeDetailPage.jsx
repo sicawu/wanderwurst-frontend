@@ -107,7 +107,7 @@ function CafeDetailsPage() {
                                     <div className="px-10 py-5 flex flex-col items-center">
                                         <p className="flex items-center mb-2">
                                             <MdLocationCity className="mr-1 text-xl" />
-                                            {cafe.location[0].city}, {cafe.location[0].neighborhood}
+                                            {cafe.location[0].city}, {cafe.location[0].country}
                                         </p>
                                         <p className="flex items-center">
                                             <FaLocationDot className="mr-1 text-xl" />
