@@ -16,7 +16,7 @@ function BestCafesPage() {
         <CafeList className="m-10" />
       </div>
     </>
-  );
+  )
 }
 
 export default BestCafesPage

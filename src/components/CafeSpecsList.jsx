@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
 
-function FilterBySpecsPage() {
+function CafeSpecList() {
     const API_URL = import.meta.env.VITE_API_URL
     const { specs } = useParams()
     const specToFilter = specs
@@ -13,7 +13,7 @@ function FilterBySpecsPage() {
     const getCafes = () => {
         axios.get(`${API_URL}/cafes/tag/${specs}`)
             .then((response) => {
-                setCafeSpec(response.data) // Ensure this matches your response structure
+                setCafeSpec(response.data)
             })
             .catch((error) => {
                 console.log(error)
@@ -37,14 +37,15 @@ function FilterBySpecsPage() {
                     {formatSpecs(specs)} <br /> is what you need.
                 </h1>
             )}
-            <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
+            <p className="text-1xl pt-10 flex justify-center text-center ">
                 No worries, we've got you sorted. Discover all {formatSpecs(specs)} cafes.
             </p>
             <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
                 {cafeSpec.length === 0
                     ? <p>Cafes loading</p>
                     : cafeSpec.map((cafe) => (
-                        <div key={cafe._id} className="grid py-2 px-1 my-5 bg-onyx bg-opacity-10 hover:border-black hover:border rounded-lg">
+                        <div key={cafe._id}
+                            className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
                             <Link to={`/cafes/${cafe.urlSlug}`} >
                                 <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
                                     <img
@@ -69,4 +70,4 @@ function FilterBySpecsPage() {
     )
 }
 
-export default FilterBySpecsPage
+export default CafeSpecList
