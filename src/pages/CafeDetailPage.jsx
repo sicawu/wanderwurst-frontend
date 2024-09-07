@@ -72,7 +72,7 @@ function CafeDetailsPage() {
                                 <img
                                     className="h-full w-full object-cover rounded-2xl"
                                     src={cafe.image}
-                                    alt={cafe.imageAlt}
+                                    alt={`${cafe.title}${cafe.location && cafe.location[0] ? `, ${cafe.location[0].city}` : ''}`}
                                 />
                             </div>
 
@@ -151,7 +151,7 @@ function CafeDetailsPage() {
 
                         </div>
                     </div>
-                    <CafeMaps/>
+                    <CafeMaps />
                 </>
             )}
         </div>

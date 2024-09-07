@@ -10,14 +10,13 @@ function NavBar() {
     const navigate = useNavigate()
 
     return (
-        <div className="m-2.5 flex flex-row w-screen items-center justify-between">
+        <div className="m-2.5 py-3 flex flex-row w-screen items-center justify-between">
             <div className="flex items-center mr-7">
-                <Link
-                    className="flex items-center m-1 px-2 py-0.5 "
-                    to="/"
-                >
+                <Link className="flex items-center px-2 py-0.5 " to="/">
                     <GiBalloonDog size={30} />
                 </Link>
+                </div>
+                <div className="flex items-center mr-7">
                 {isLoggedIn ? (
                     <>
                         <Link to="/best-cafes" className="ml-4 font-extrabold">
@@ -33,12 +32,12 @@ function NavBar() {
                     </>
                 ) : (
                     <>
-                        <Link to="/best-cafes" className="ml-4 font-extrabold">
+                        <Link to="/best-cafes" className="ml-4 font-bold">
                             Explore Cafes
                         </Link>
                     </>
                 )}
-            </div>
+                </div>
 
             {/* Login & Logout functionality - toggle between buttons
       {isLoggedIn === false ? (
