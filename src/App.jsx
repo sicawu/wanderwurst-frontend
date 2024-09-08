@@ -12,13 +12,13 @@ import BestRestaurantsPage from "./pages/BestRestaurantsPage.jsx"
 import NotFoundPage from "./pages/NotFoundPage"
 
 // Import of all components
-import NavBar from "./components/Navbar"
+import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 
 function App() {
   return (
     <>
-    <NavBar />
+    <Navbar />
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/cafes/:urlSlug" element={<CafeDetailsPage />} />
