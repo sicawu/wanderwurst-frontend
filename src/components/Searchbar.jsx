@@ -1,5 +1,5 @@
 import React from "react"
-// import { FaSearch } from "react-icons/fa"
+import { FaSearch } from "react-icons/fa"
 
 function SearchBar({ searchTerm, handleSearch }) {
   return (
@@ -12,6 +12,7 @@ function SearchBar({ searchTerm, handleSearch }) {
         className="py-2 px-4 rounded-l-full flex-grow focus:outline-none"
       />
       <button className="flex items-center justify-center w-12 bg-blue-500 text-white rounded-r-full">
+        <FaSearch />
       </button>
     </div>
   )

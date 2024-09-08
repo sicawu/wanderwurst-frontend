@@ -12,14 +12,6 @@ function Footer() {
             <div className="mb-2 text-sm italic">
                 <p>© SweetSpots by Simona</p>
             </div>
-            <div>
-                <Link
-                    to="/best-cafes"
-                    className="text-white uppercase text-base font-bold"
-                >
-                    Explore Best Cafes
-                </Link>
-            </div>
         </footer>
     )
 }

@@ -1,48 +1,61 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import Searchbar from "../components/Searchbar"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Searchbar from "../components/Searchbar";
+import CafeFilter from "../components/CafeFilter";
 
 function CafeList() {
-  const API_URL = import.meta.env.VITE_API_URL
-  const [allCafes, setAllCafes] = useState([])
-  const [searchTerm, setSearchTerm] = useState("")
+  const API_URL = import.meta.env.VITE_API_URL;
+  const [allCafes, setAllCafes] = useState([]);
+  const [filteredCafes, setFilteredCafes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getAllCafes = () => {
     axios
       .get(`${API_URL}/cafes`)
       .then((response) => {
         setAllCafes(response.data);
+        setFilteredCafes(response.data);  // Initialize filtered cafes with all cafes
       })
       .catch((error) => {
         console.log("Error getting Cafes from the API...");
         console.log(error);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
-    getAllCafes()
-  }, [])
+    getAllCafes();
+  }, []);
 
   const handleSearch = (event) => {
     const searchValue = event.target.value;
     setSearchTerm(searchValue);
-  }
+  };
 
-  const filteredCafes = allCafes.filter((cafe) => {
-    const titleMatch = cafe.title.toLowerCase().includes(searchTerm);
-    const cityMatch = cafe.location.some((location) =>
-      location.city.toLowerCase().includes(searchTerm)
-    );
-    const countryMatch = cafe.location.some((location) =>
-      location.country.toLowerCase().includes(searchTerm)
-    );
-    return titleMatch || cityMatch || countryMatch;
-  })
+  useEffect(() => {
+    const filtered = allCafes.filter((cafe) => {
+      const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const cityMatch = cafe.location.some((location) =>
+        location.city.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      const countryMatch = cafe.location.some((location) =>
+        location.country.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      return titleMatch || cityMatch || countryMatch;
+    });
+    setFilteredCafes(filtered);
+  }, [searchTerm, allCafes]);
+
+  const handleFilter = (filteredCafes) => {
+    setFilteredCafes(filteredCafes);  // Update the list based on the filter
+  };
 
   return (
     <>
-      <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
+    <div className="flex flex-wrap">
+    <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
+    <CafeFilter onFilter={handleFilter} />
+      </div>
       <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
         {filteredCafes.map((cafe) => (
           <div

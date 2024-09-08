@@ -3,7 +3,7 @@ import "./App.css"
 import "./index.css"
 
 // Import of pages
-import HomePage from "./pages/Homepage"
+import HomePage from "./pages/HomePage.jsx"
 import BestCafesPage from "./pages/BestCafesPage.jsx"
 import CafeDetailsPage from "./pages/CafeDetailPage.jsx"
 import CafeSpecsPage from "./pages/CafeSpecsPage.jsx"
@@ -21,8 +21,8 @@ function App() {
     <NavBar />
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/best-cafes" element={<BestCafesPage />} />
       <Route path="/cafes/:urlSlug" element={<CafeDetailsPage />} />
+      <Route path="/best-cafes" element={<BestCafesPage />} />
       <Route path="/best-cafes/:specs" element={<CafeSpecsPage />} />  {/* All cafes for one specific spec, e.g. cosy*/}
       <Route path="/best-cafes/city/:city" element={<CafeCityPage />} />  {/* All cafes for one specific city, e.g. Bangkok*/}
       <Route path="/best-restaurants" element={<BestRestaurantsPage />} />
