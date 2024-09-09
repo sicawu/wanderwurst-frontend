@@ -14,8 +14,8 @@ function CafeList() {
     axios
       .get(`${API_URL}/cafes`)
       .then((response) => {
-        setAllCafes(response.data);
-        setFilteredCafes(response.data);  // Initialize filtered cafes with all cafes
+        setAllCafes(response.data)
+        setFilteredCafes(response.data)
       })
       .catch((error) => {
         console.log("Error getting Cafes from the API...")
@@ -24,31 +24,32 @@ function CafeList() {
   }
 
   useEffect(() => {
-    getAllCafes();
+    getAllCafes()
   }, [])
 
   const handleSearch = (event) => {
-    const searchValue = event.target.value;
-    setSearchTerm(searchValue);
+    const searchValue = event.target.value
+    setSearchTerm(searchValue)
   }
 
   useEffect(() => {
     const filtered = allCafes.filter((cafe) => {
-      const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase())
+      const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase())
       const cityMatch = cafe.location.some((location) =>
         location.city.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      )
       const countryMatch = cafe.location.some((location) =>
         location.country.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      return titleMatch || cityMatch || countryMatch;
-    });
-    setFilteredCafes(filtered);
-  }, [searchTerm, allCafes]);
+      )
+      return titleMatch || descriptionMatch || cityMatch || countryMatch
+    })
+    setFilteredCafes(filtered)
+  }, [searchTerm, allCafes])
 
   const handleFilter = (filteredCafes) => {
     setFilteredCafes(filteredCafes);  // Update the list based on the filter
-  };
+  }
 
   return (
     <>
