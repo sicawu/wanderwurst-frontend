@@ -39,7 +39,7 @@ const CafeMaps = () => {
   console.log("Converted longitude:", longitude)
 
   return (
-    <div className="py-20">
+    <div className="pt-16">
       <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
         <GoogleMap
           mapContainerStyle={containerStyle}

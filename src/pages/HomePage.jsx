@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import "../App.css"
 
 
 function Homepage() {
@@ -19,14 +20,14 @@ function Homepage() {
   }, [API_URL]);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
-      <h1 className="text-5xl p-10 flex justify-center uppercase text-center font-extrabold">
+    <div className="homepage-container min-h-screen flex flex-col justify-center items-center bg-gray-100">
+      <h1 className="text-5xl text-white p-10 flex justify-center uppercase text-center font-extrabold">
         Find your sweet spot
       </h1>
 
       {/* Choose a City Section */}
       <div className="w-full max-w-lg mb-16">
-        <h2 className="text-l text-gray-700 mb-4 italic">
+        <h2 className="text-l text-white mb-4 italic">
           Choose a city
         </h2>
         <div className="flex flex-wrap justify-center gap-4">

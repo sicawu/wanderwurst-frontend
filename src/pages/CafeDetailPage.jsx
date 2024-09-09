@@ -6,6 +6,7 @@ import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
 
 import CafeMaps from "../components/CafeMaps.jsx"
+import CafeOpeningHours from "../components/CafeOpeningHours.jsx"
 
 function CafeDetailsPage() {
     const [cafe, setCafe] = useState("")
@@ -13,18 +14,17 @@ function CafeDetailsPage() {
 
     const API_URL = import.meta.env.VITE_API_URL
     const navigate = useNavigate()
-    const { id } = useParams()
-    const { urlSlug } = useParams()
+    const { id, urlSlug } = useParams()
 
     // Get data from specific cafe
     const getCafe = () => {
         axios
             .get(`${API_URL}/cafes/${urlSlug}`)
             .then((response) => {
-                setCafe(response.data);
+                setCafe(response.data)
             })
             .catch((err) => {
-                setErrorMessage(err.response.data.message);
+                setErrorMessage(err.response.data.message)
             })
     };
     useEffect(() => {
@@ -115,7 +115,6 @@ function CafeDetailsPage() {
                                         </p>
                                     </div>
                                 )}
-
                                 {/* !!!!! Specs !!!!!! */}
                                 <div className="flex flex-wrap px-10 flex justify-center">
                                     {Array.isArray(cafe.specs) &&
@@ -128,7 +127,8 @@ function CafeDetailsPage() {
                                             </Link>
                                         ))}
                                 </div>
-
+                                {/* !!!!! Opening hours !!!!!! */}
+                                <CafeOpeningHours placeId={cafe.placeId} />
 
                                 {/* !!!!! DELETE & EDIT BUTTONS !!!!!! 
                 {isLoggedIn === true ? (
@@ -148,7 +148,6 @@ function CafeDetailsPage() {
                   </div>
                 ) : null} */}
                             </div>
-
                         </div>
                     </div>
                     <CafeMaps />
@@ -157,5 +156,6 @@ function CafeDetailsPage() {
         </div>
     )
 }
+
 
 export default CafeDetailsPage
