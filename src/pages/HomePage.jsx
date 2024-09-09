@@ -26,10 +26,10 @@ function Homepage() {
 
       {/* Choose a City Section */}
       <div className="w-full max-w-lg mb-16">
-        <h2 className="text-xl text-gray-700 mb-4 italic">
+        <h2 className="text-l text-gray-700 mb-4 italic">
           Choose a city
         </h2>
-        <div className="grid grid-cols-2 gap-4 px-3">
+        <div className="flex flex-wrap justify-center gap-4">
           {cities.map((city) => (
             <Link
               key={city}

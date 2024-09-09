@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
+import Searchbar from "../components/Searchbar"
 
 function CafeCityList() {
     const API_URL = import.meta.env.VITE_API_URL
     const { city } = useParams()
     console.log(city)
     const [cafeCity, setcafeCity] = useState([])
+
 
     const getCityCafes = () => {
         axios.get(`${API_URL}/cafes/city/${city}`)
@@ -35,8 +37,8 @@ function CafeCityList() {
                     Best cafes in {formatCity(city)}
                 </h1>
             )}
-            <p className="text-1xl pt-10 flex justify-center text-center ">
-                Time to explore! Discover the best coffee shops in {formatCity(city)}.
+            <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
+                Discover a selected collection of my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}s beauty.
             </p>
             <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
                 {cafeCity.length === 0

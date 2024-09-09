@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Searchbar from "../components/Searchbar";
-import CafeFilter from "../components/CafeFilter";
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import Searchbar from "../components/Searchbar"
+import CafeFilter from "../components/CafeFilter"
 
 function CafeList() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -18,19 +18,19 @@ function CafeList() {
         setFilteredCafes(response.data);  // Initialize filtered cafes with all cafes
       })
       .catch((error) => {
-        console.log("Error getting Cafes from the API...");
-        console.log(error);
-      });
-  };
+        console.log("Error getting Cafes from the API...")
+        console.log(error)
+      })
+  }
 
   useEffect(() => {
     getAllCafes();
-  }, []);
+  }, [])
 
   const handleSearch = (event) => {
     const searchValue = event.target.value;
     setSearchTerm(searchValue);
-  };
+  }
 
   useEffect(() => {
     const filtered = allCafes.filter((cafe) => {
@@ -52,11 +52,8 @@ function CafeList() {
 
   return (
     <>
-    <div className="flex flex-wrap">
-    <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
-    <CafeFilter onFilter={handleFilter} />
-      </div>
-      <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
+      <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
+      <div className="pt-0 px-7 flex flex-wrap justify-center mt-10">
         {filteredCafes.map((cafe) => (
           <div
             key={cafe._id}
@@ -81,6 +78,12 @@ function CafeList() {
           </div>
         ))}
       </div>
+      <div className="mb-10">
+        <CafeFilter
+          onFilter={handleFilter}
+        />
+      </div>
+
     </>
   );
 }
