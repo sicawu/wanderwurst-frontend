@@ -21,26 +21,25 @@ function CafeOpeningHours({ placeId }) {
           setError("Could not fetch opening hours.")
         }
       }
-  
-      fetchOpeningHours();
+      fetchOpeningHours()
     }, [placeId])
 
   return (
     <div>
-      <h3 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
-        Opening Hours
+    {openingHours.length > 0 && (
+      <>
+        <h3 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+          Opening Hours
         </h3>
-      {openingHours.length > 0 ? (
         <ul>
           {openingHours.map((day, index) => (
             <li key={index}>{day}</li>
           ))}
         </ul>
-      ) : (
-        <p>No opening hours available.</p>
-      )}
-    </div>
-  );
+      </>
+    )}
+  </div>
+  )
 }
 
 export default CafeOpeningHours

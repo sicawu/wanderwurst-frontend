@@ -81,7 +81,7 @@ function CafeDetailsPage() {
                                     {cafe.title}
                                 </h1>
 
-                                {/* !!!!! AVERAGE RATING !!!!!! */}
+                                {/* !!!!! AVERAGE RATING !!!!!! 
                                 {cafe.reviews && cafe.reviews.length > 0 && (
                                     <div className="flex justify-center items-center pb-7">
                                         {[...Array(5)].map((stars, index) => (
@@ -97,7 +97,7 @@ function CafeDetailsPage() {
                                             </label>
                                         ))}
                                     </div>
-                                )}
+                                )}  */}
 
                                 {/* !!!!! DESCRIPTION !!!!!! */}
                                 <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
@@ -129,20 +129,23 @@ function CafeDetailsPage() {
                                         ))}
                                 </div>
                                 {/* !!!!! Food !!!!!! */}
-                                <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                    Food Options
-                                </h2>
-                                <div className="flex flex-wrap px-10 justify-center">
-                                    {Array.isArray(cafe.food) &&
-                                        cafe.food.map((food, index) => (
-                                            <span
-                                                className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block"
-                                                key={index}
-                                            >
-                                                {food}
-                                            </span>
-                                        ))}
-                                </div>
+                                {Array.isArray(cafe.food) && cafe.food.length > 0 && (
+  <>
+    <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+      Food Options
+    </h2>
+    <div className="flex flex-wrap px-10 justify-center">
+      {cafe.food.map((food, index) => (
+        <span
+          className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block"
+          key={index}
+        >
+          {food}
+        </span>
+      ))}
+    </div>
+  </>
+)}
                                 {/* !!!!! Opening hours !!!!!! */}
                                 <CafeOpeningHours placeId={cafe.placeId} />
 

@@ -62,7 +62,7 @@ function Homepage() {
             <Link
               key={spec}
               to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-mint text-white border-1 border-black hover:bg-gray-200 font-semibold py-2 px-6 rounded-lg shadow-md text-center"            >
+              className="bg-mint text-white border-1 border-black hover:bg-gray-200 font-semibold py-1 px-3 rounded-lg shadow-md text-center"            >
               {spec}
             </Link>
           ))}
