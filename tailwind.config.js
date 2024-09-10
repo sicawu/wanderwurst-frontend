@@ -6,8 +6,8 @@ export default {
       white: "#F5F5F5",
       grey: "#CECFC7",
       black: "#000000",
-      red: "#ff0000",
-      green:"#67726e"
+      green:"#67726e",
+      mint:"#FF6F61"
     },
     extend: {},
   },

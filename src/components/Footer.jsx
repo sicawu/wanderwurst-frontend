@@ -8,9 +8,15 @@ function Footer() {
             <div className="mb-4">
                 <Link className="flex items-center px-2 py-0.5 " to="/">
                     <GiBalloonDog size={30} />
-                </Link>      </div>
+                </Link>
+            </div>
+            <div className="mb-2 text-sm">
+                <Link to="/about" className="hover:underline">
+                    (hi)story
+                </Link>
+            </div>
             <div className="mb-2 text-sm italic">
-                <p>© SweetSpots by Simona</p>
+                <p>© Sweet Spots by Simona</p>
             </div>
         </footer>
     )

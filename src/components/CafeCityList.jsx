@@ -6,14 +6,11 @@ import Searchbar from "../components/Searchbar"
 function CafeCityList() {
     const API_URL = import.meta.env.VITE_API_URL
     const { city } = useParams()
-    console.log(city)
     const [cafeCity, setcafeCity] = useState([])
-
 
     const getCityCafes = () => {
         axios.get(`${API_URL}/cafes/city/${city}`)
             .then((response) => {
-                console.log("Cafes data:", response.data);
                 setcafeCity(response.data)
             })
             .catch((error) => {
@@ -57,7 +54,7 @@ function CafeCityList() {
                                     <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
                                         {cafe.location[0].city}
                                     </p>
-                                    <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                    <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
                                         {cafe.location[0].country}
                                     </p>
                                     <p className="font-bold">{cafe.title}</p>
