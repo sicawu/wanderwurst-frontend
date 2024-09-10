@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
-import Searchbar from "../components/Searchbar"
+import CafeFilterSpecs from "../components/CafeFilterSpecs"
+
 
 function CafeCityList() {
     const API_URL = import.meta.env.VITE_API_URL
     const { city } = useParams()
     const [cafeCity, setcafeCity] = useState([])
+    const [filteredCafes, setFilteredCafes] = useState([])
 
     const getCityCafes = () => {
         axios.get(`${API_URL}/cafes/city/${city}`)
             .then((response) => {
                 setcafeCity(response.data)
+                setFilteredCafes(response.data)
             })
             .catch((error) => {
                 console.log(error)
@@ -26,6 +29,11 @@ function CafeCityList() {
     const formatCity = (city) => {
         return city.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     }
+
+     // Update the list based on the filter
+     const handleFilter = (filteredCafes) => {
+        setFilteredCafes(filteredCafes)
+    }    
 
     return (
         <>
@@ -62,6 +70,12 @@ function CafeCityList() {
                             </div>
                         ))
                     }
+                </div>
+                <div className="mb-10">
+                    <CafeFilterSpecs
+                        onFilter={handleFilter}
+                        cafes={cafeCity} // Pass the cafes data to the filter component
+                    />
                 </div>
             </div>
         </>

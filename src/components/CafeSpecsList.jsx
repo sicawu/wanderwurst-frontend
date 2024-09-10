@@ -32,8 +32,9 @@ function CafeSpecList() {
         return specs.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     }
 
+     // Update the list based on the filter
     const handleFilter = (filteredCafes) => {
-        setFilteredCafes(filteredCafes);  // Update the list based on the filter
+        setFilteredCafes(filteredCafes)
     }
 
     return (
