@@ -21,6 +21,9 @@ function CafeDetailsPage() {
         axios
             .get(`${API_URL}/cafes/${urlSlug}`)
             .then((response) => {
+                const cafeData = response.data
+                const topPicks = cafeData.topPick
+                const iconUrls = topPicks.map((topPick) => topPick.iconUrl);
                 setCafe(response.data)
             })
             .catch((err) => {
@@ -30,6 +33,15 @@ function CafeDetailsPage() {
     useEffect(() => {
         getCafe()
     }, [id])
+
+    const iconMap = {
+        Working: "../icons/Working.png",
+        BestCoffee: "../icons/Best-Coffee.png",
+        Socializing: "../icons/Socializing.png",
+        GirliesBrunch: "../icons/Girlies-Brunch.png",
+        LocalPlace: "../icons/Local-Place.png",
+        Sustainable: "../icons/Sustainable.png"
+    }
 
     /*
     // Delete function
@@ -80,6 +92,20 @@ function CafeDetailsPage() {
                                 <h1 className="text-5xl p-10 flex justify-center uppercase text-center font-extrabold italic">
                                     {cafe.title}
                                 </h1>
+                                {/* !!!!! ICONS FOR TOP PICKS !!!!!! */}
+                                <div className="flex flex-row justify-center mb-10 gap-5">
+                                    {cafe.topPick && cafe.topPick.map((topPick, index) => {
+                                        const iconUrl = iconMap[topPick];
+                                        return (
+                                            <div className="w-12 h-12">
+                                                <img key={index}
+                                                    src={iconUrl}
+                                                    alt={topPick}
+                                                    className="w-full h-full border-2 rounded-full object-cover object-center" />
+                                            </div>
+                                        )
+                                    })}
+                                </div>
 
                                 {/* !!!!! AVERAGE RATING !!!!!! 
                                 {cafe.reviews && cafe.reviews.length > 0 && (
@@ -128,26 +154,6 @@ function CafeDetailsPage() {
                                             </Link>
                                         ))}
                                 </div>
-                                {/* !!!!! Food !!!!!! */}
-                                {Array.isArray(cafe.food) && cafe.food.length > 0 && (
-  <>
-    <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
-      Food Options
-    </h2>
-    <div className="flex flex-wrap px-10 justify-center">
-      {cafe.food.map((food, index) => (
-        <span
-          className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block"
-          key={index}
-        >
-          {food}
-        </span>
-      ))}
-    </div>
-  </>
-)}
-                                {/* !!!!! Opening hours !!!!!! */}
-                                <CafeOpeningHours placeId={cafe.placeId} />
 
                                 {/* !!!!! DELETE & EDIT BUTTONS !!!!!! 
                 {isLoggedIn === true ? (
@@ -169,7 +175,35 @@ function CafeDetailsPage() {
                             </div>
                         </div>
                     </div>
-                    <CafeMaps />
+                    <div className="flex justify-center items-center bg-grey mt-20">
+                        <div className="grid md:grid-cols-2 sm:grid-cols-1">
+                            <div>
+                                {/* !!!!! Food !!!!!! */}
+                                {Array.isArray(cafe.food) && cafe.food.length > 0 && (
+                                    <>
+                                        <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                            Food Options
+                                        </h2>
+                                        <div className="flex flex-wrap px-10 justify-center">
+                                            {cafe.food.map((food, index) => (
+                                                <span
+                                                    className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block"
+                                                    key={index}
+                                                >
+                                                    {food}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                                {/* !!!!! Opening hours !!!!!! */}
+                                <CafeOpeningHours placeId={cafe.placeId} />
+                            </div>
+                            <div>
+                                <CafeMaps />
+                            </div>
+                        </div>
+                    </div>
                 </>
             )}
         </div>
