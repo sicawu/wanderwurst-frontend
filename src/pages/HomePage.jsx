@@ -87,7 +87,7 @@ function Homepage() {
   return (
     <>
       <div className="homepage-container min-h-screen flex flex-col items-center">
-        <h1 className="text-5xl text-white p-10 flex justify-center uppercase text-center font-extrabold">
+        <h1 className="text-5xl text-white p-10 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
           Find your sweet spot
         </h1>
 
@@ -99,7 +99,7 @@ function Homepage() {
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-mint text-white border-1 border-black hover:bg-gray-200 text-gray-900 font-semibold py-2 px-6 rounded-lg shadow-md text-center"
+                className="bg-mint text-white border-1 border-black hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-lg shadow-md text-center"
               >
                 {city}
               </Link>
@@ -140,14 +140,14 @@ function Homepage() {
       </div>
 
       {/* Food Section */}
-      <div className="min-h-screen w-full bg-green flex flex-col justify-center items-center py-16 px-4">
+      <div className="min-h-screen w-full bg-black flex flex-col justify-center items-center py-16 px-4">
         <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Feed the Monster.</h2>
         <div className="flex flex-wrap justify-center items-center gap-4">
-          {food .map((food) => (
+          {food.map((food) => (
             <Link
               key={food}
               to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-mint text-white border-1 border-black hover:bg-gray-200 font-semibold py-1 px-3 rounded-lg shadow-md text-center"
+              className="bg-green text-white border-1 border-black hover:bg-mint font-semibold py-1 px-3 rounded-lg shadow-md text-center"
             >
               {food}
             </Link>
@@ -163,7 +163,7 @@ function Homepage() {
             <Link
               key={spec}
               to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-mint text-white border-1 border-black hover:bg-gray-200 font-semibold py-1 px-3 rounded-lg shadow-md text-center"
+              className="bg-mint text-white border-1 border-black hover:bg-black font-semibold py-1 px-3 rounded-lg shadow-md text-center"
             >
               {spec}
             </Link>
