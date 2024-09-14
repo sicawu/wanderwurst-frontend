@@ -45,6 +45,33 @@ function Homepage() {
     girliesBrunch: "../icons/Girlies-Brunch.png",
     localPlace: "../icons/Local-Place.png",
     sustainable: "../icons/Sustainable.png"
+  };
+
+  const iconDescriptions = {
+    working: {
+      h3: "Working",
+      p: "Find a cafe with ideal conditions to get some work done."
+    },
+    bestCoffee: {
+      h3: "Best Coffee",
+      p: "Coffee is key. Find the best coffee roasters and baristas in town."
+    },
+    socializing: {
+      h3: "Socializing",
+      p: "Popular social spots in town. Connect with friends & community!"
+    },
+    girliesBrunch: {
+      h3: "Girlies Brunch",
+      p: "Beautiful interior & amazing food. Treat yourselves special."
+    },
+    localPlace: {
+      h3: "Local Place",
+      p: "Local's first choice and hidden gems. Explore local cafes!"
+    },
+    sustainable: {
+      h3: "Sustainability",
+      p: "Find eco-friendly cafes that pay attention to environment."
+    }
   }
 
   return (
@@ -71,6 +98,37 @@ function Homepage() {
         </div>
       </div>
 
+      {/* ICONS FOR TOP PICKS */}
+      <div className="min-h-screen w-full flex flex-col justify-center my-10 gap-5">
+        <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">Find your purpose.</h2>
+        <div className="flex flex-wrap justify-center items-center gap-4">
+          {topPick.map((topPick, index) => {
+            const iconUrl = iconMap[topPick]
+            const linkText = topPick.replace(/([A-Z])/g, '-$1').toLowerCase() // convert camelCase to kebab-case
+            const { h3, p } = iconDescriptions[topPick]; // Get the h3 and p text for each icon
+            return (
+              <div className="flex flex-col items-center mb-5 lg:w-1/4 w-1/3"
+                key={index}>
+                <Link
+                  to={`/best-cafes/for/${linkText}`}
+                  className="w-12 h-12" >
+
+                  <img key={index}
+                    src={iconUrl}
+                    alt={topPick}
+                    className="w-full h-full border-2 rounded-full object-cover object-center" />
+                </Link>
+                <Link
+                  to={`/best-cafes/for/${linkText}`} >
+                <h3 className="text-s pt-3 flex justify-center text-center font-extrabold">{h3}</h3>
+                <p>{p}</p>
+                </Link>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
       {/* Specs Section */}
       <div className="min-h-screen w-full bg-green flex flex-col justify-center items-center py-16 px-4">
         <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Set priorities.</h2>
@@ -86,27 +144,8 @@ function Homepage() {
           ))}
         </div>
       </div>
-
-      {/* ICONS FOR TOP PICKS */}
-      <div className="flex flex-row justify-center mb-10 gap-5">
-        {topPick.map((topPick, index) => {
-          const iconUrl = iconMap[topPick]
-          const linkText = topPick.replace(/([A-Z])/g, '-$1').toLowerCase() // convert camelCase to kebab-case
-          return (
-            <Link
-            to={`/best-cafes/for/${linkText}`}
-              className="w-12 h-12"
-              >
-              <img key={index}
-                src={iconUrl}
-                alt={topPick}
-                className="w-full h-full border-2 rounded-full object-cover object-center" />
-            </Link>
-          )
-        })}
-      </div >
     </>
-  );
+  )
 }
 
 export default Homepage

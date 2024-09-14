@@ -1,11 +1,9 @@
-/// Filter function for cities
-
-import React, { useState, useEffect } from "react"
 import axios from "axios"
+import React, { useState, useEffect } from "react"
 
 function CafeFilter({ onFilter }) {
     const [cities, setCities] = useState([])
-    const [selectedCity, setSelectedCity] = useState("") // To replace "Select a city" and display the chosen city name instead
+    const [selectedCity, setSelectedCity] = useState("") 
     const API_URL = import.meta.env.VITE_API_URL
 
     // Get city names from database
@@ -18,7 +16,6 @@ function CafeFilter({ onFilter }) {
     const handleCityChange = (event) => {
         const city = event.target.value
         setSelectedCity(city)
-        getCafes(city)
 
         if (city === "") {
             // If "Select a City" is chosen, fetch all cafes
@@ -35,7 +32,7 @@ function CafeFilter({ onFilter }) {
                 .then((response) => onFilter(response.data)) // Pass the data to the callback
                 .catch((error) => {
                     console.error("Error fetching cafes:", error)
-                    onFilter(city); // Reset cafes if an error occurs
+                    onFilter([]); // Reset cafes if an error occurs
                 })
         }
     }

@@ -32,8 +32,8 @@ const CafeMaps = () => {
   }, [urlSlug])
 
   // lat & lng is stored as a String in database > converting to number
-  const latitude = parseFloat(cafe.location?.[0]?.lat || 0)
-  const longitude = parseFloat(cafe.location?.[0]?.lng || 0)
+  const latitude = parseFloat(cafe.location.lat || 0)
+  const longitude = parseFloat(cafe.location.lng || 0)
 
   console.log("Converted latitude:", latitude)
   console.log("Converted longitude:", longitude)

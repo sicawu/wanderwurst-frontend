@@ -73,10 +73,10 @@ function CafeSpecList() {
                     />
                   </div>
                   <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
-                    {cafe.location[0].city}
+                    {cafe.location.city}
                   </p>
                   <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
-                    {cafe.location[0].country}
+                    {cafe.location.country}
                   </p>
                   <p className="font-bold">{cafe.title}</p>
                 </Link>
