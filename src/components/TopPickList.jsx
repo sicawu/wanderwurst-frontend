@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
-import axios from "axios"
-import CafeFilter from "../components/CafeFilter"
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import CafeFilter from "../components/CafeFilter";
 
 function CafeSpecList() {
-  const API_URL = import.meta.env.VITE_API_URL
-  const [filteredCafes, setFilteredCafes] = useState([])
-  const [cafeTopPick, setcafeTopPick] = useState([])
-  const { toppick } = useParams()
-  const topPickToFilter = toppick
+  const API_URL = import.meta.env.VITE_API_URL;
+  const [filteredCafes, setFilteredCafes] = useState([]);
+  const [cafeTopPick, setcafeTopPick] = useState([]);
+  const { toppick } = useParams();
+  const topPickToFilter = toppick;
 
   const getCafes = () => {
-    const topPick = topPickToFilter.replace(/-([a-z])/g, (match, group) => group.toUpperCase())
+    const topPick = topPickToFilter.replace(/-([a-z])/g, (match, group) => group.toUpperCase());
     axios.get(`${API_URL}/cafes/for/${topPick}`)
       .then((response) => {
-        setcafeTopPick(response.data)
-        setFilteredCafes(response.data)
+        setcafeTopPick(response.data);
+        setFilteredCafes(response.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    getCafes()
-  }, [topPickToFilter])
+    getCafes();
+  }, [topPickToFilter]);
 
   // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
   const formatTopPicks = (toppick) => {
-    return toppick.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+    return toppick.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   }
 
   // Update the list based on the filter
@@ -47,12 +47,14 @@ function CafeSpecList() {
         <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
           We exactly know what you are looking for. Explore all coffee shops for {formatTopPicks(toppick)}.
         </p>
+        {/*
         <div className="mb-10">
           <CafeFilter
             onFilter={handleFilter}
             cafes={cafeTopPick} // Pass the cafes data to the filter component
           />
         </div>
+        */}
         <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
           {filteredCafes.length === 0 ? (
             <p>Cafes loading...</p>

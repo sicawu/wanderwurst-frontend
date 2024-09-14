@@ -18,6 +18,7 @@ function CafeFilter({ onFilter }) {
     const handleCityChange = (event) => {
         const city = event.target.value
         setSelectedCity(city)
+        getCafes(city)
 
         if (city === "") {
             // If "Select a City" is chosen, fetch all cafes

@@ -35,12 +35,12 @@ function CafeDetailsPage() {
     }, [id])
 
     const iconMap = {
-        Working: "../icons/Working.png",
-        BestCoffee: "../icons/Best-Coffee.png",
-        Socializing: "../icons/Socializing.png",
-        GirliesBrunch: "../icons/Girlies-Brunch.png",
-        LocalPlace: "../icons/Local-Place.png",
-        Sustainable: "../icons/Sustainable.png"
+        working: "../icons/Working.png",
+        bestCoffee: "../icons/Best-Coffee.png",
+        socializing: "../icons/Socializing.png",
+        girliesBrunch: "../icons/Girlies-Brunch.png",
+        localPlace: "../icons/Local-Place.png",
+        sustainable: "../icons/Sustainable.png"
     }
 
     /*
