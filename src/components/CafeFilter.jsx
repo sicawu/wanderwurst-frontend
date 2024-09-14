@@ -29,11 +29,12 @@ function CafeFilter({ onFilter }) {
                 })
         } else {
             // Get all cafes for the selected city
-            axios.get(`${API_URL}/cafes/city/${city.toLowerCase()}`)
+            const formattedCity = city.toLowerCase().replace(/\s+/g, '-')
+            axios.get(`${API_URL}/cafes/city/${formattedCity}`)
                 .then((response) => onFilter(response.data)) // Pass the data to the callback
                 .catch((error) => {
                     console.error("Error fetching cafes:", error)
-                    onFilter([]); // Reset cafes if an error occurs
+                    onFilter(city); // Reset cafes if an error occurs
                 })
         }
     }
