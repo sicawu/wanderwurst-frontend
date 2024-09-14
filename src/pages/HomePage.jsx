@@ -7,6 +7,7 @@ function Homepage() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [cities, setCities] = useState([]);
   const [specs, setSpecs] = useState([]);
+  const [food, setFood] = useState([]);
   const [topPick, setTopPick] = useState([]);
 
   useEffect(() => {
@@ -23,6 +24,15 @@ function Homepage() {
     axios.get(`${API_URL}/specs`)
       .then((response) => {
         setSpecs(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching specs:", error);
+      });
+
+    // Fetch the list of food options from the API
+    axios.get(`${API_URL}/food`)
+      .then((response) => {
+        setFood(response.data);
       })
       .catch((error) => {
         console.error("Error fetching specs:", error);
@@ -120,12 +130,28 @@ function Homepage() {
                 </Link>
                 <Link
                   to={`/best-cafes/for/${linkText}`} >
-                <h3 className="text-s pt-3 flex justify-center text-center font-extrabold">{h3}</h3>
-                <p>{p}</p>
+                  <h3 className="text-s pt-3 flex justify-center text-center font-extrabold">{h3}</h3>
+                  <p>{p}</p>
                 </Link>
               </div>
             )
           })}
+        </div>
+      </div>
+
+      {/* Food Section */}
+      <div className="min-h-screen w-full bg-green flex flex-col justify-center items-center py-16 px-4">
+        <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Feed the Monster.</h2>
+        <div className="flex flex-wrap justify-center items-center gap-4">
+          {food .map((food) => (
+            <Link
+              key={food}
+              to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`}
+              className="bg-mint text-white border-1 border-black hover:bg-gray-200 font-semibold py-1 px-3 rounded-lg shadow-md text-center"
+            >
+              {food}
+            </Link>
+          ))}
         </div>
       </div>
 

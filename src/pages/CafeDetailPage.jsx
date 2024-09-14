@@ -69,13 +69,23 @@ function CafeDetailsPage() {
                                     {cafe.topPick && cafe.topPick.map((topPick, index) => {
                                         const iconUrl = iconMap[topPick];
                                         return (
-                                            <div className="w-12 h-12" key={index}>
-                                                <img
-                                                    src={iconUrl}
-                                                    alt={topPick}
-                                                    className="w-full h-full border-2 rounded-full object-cover object-center"
-                                                />
-                                            </div>
+                                            <Link
+                                                to={`/best-cafes/for/${topPick.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific topPick; to lowercase + replacing empty spaces in specs
+                                                key={index}
+                                                className="relative group"
+                                            >
+                                                <div className="w-12 h-12"
+                                                    key={index}>
+                                                    <img
+                                                        src={iconUrl}
+                                                        alt={topPick}
+                                                        className="w-full h-full border-2 rounded-full object-cover object-center hover:bg-grey"
+                                                    />
+                                                </div>
+                                                <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
+                                                    Top pick for {topPick.toLowerCase().replace(/\s+/g, '-')}
+                                                </span>
+                                            </Link>
                                         )
                                     })}
                                 </div>
@@ -84,7 +94,7 @@ function CafeDetailsPage() {
                                 <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
                                     {cafe.description}
                                 </p>
-                                
+
                                 {/* !!!!! LOCATION !!!!!! */}
                                 {cafe.location && (
                                     <div className="px-10 py-5 flex flex-col items-center">
@@ -109,18 +119,64 @@ function CafeDetailsPage() {
                                         cafe.specs.map((spec, index) => (
                                             <Link
                                                 to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific spec; to lowercase + replacing empty spaces in specs
-                                                className="font-bold bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block"
+                                                className="font-bold bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green"
                                                 key={index}>
                                                 {spec}
                                             </Link>
                                         ))}
                                 </div>
 
-                                {/* Other components remain the same... */}
+                                {/* !!!!! DELETE & EDIT BUTTONS !!!!!! 
+                                {isLoggedIn === true ? (
+                                    <div className="px-10 py-10 flex justify-center">
+                                        <div className="flex flex-col sm:flex-row">
+                                            <button
+                                                className="flex justify-center align-center bg-grey hover:bg-red text-white font-semibold py-2 px-10 border border-grey-200 shadow"
+                                                onClick={handleDelete}
+                                            > Delete Café
+                                            </button>
+                                            <button
+                                                className="flex justify-center align-center bg-black hover:bg-grey text-white font-semibold py-2 px-12 border border-black-200 shadow"
+                                                onClick={() => navigate(`/cafes/edit/${id}`)}
+                                            > Edit Café
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : null} */}
                             </div>
                         </div>
                     </div>
-                    {/* Additional code for other components like maps, food, etc. */}
+                    <div className="flex justify-center items-center bg-grey mt-20">
+                        <div className="grid md:grid-cols-2 sm:grid-cols-1">
+                            <div>
+                                {/* !!!!! Food !!!!!! */}
+                                {Array.isArray(cafe.food) &&
+                                    cafe.food.length > 0 && (
+                                        <>
+                                            <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                                Food Options
+                                            </h2>
+                                            <div className="flex flex-wrap px-10 justify-center">
+                                                {cafe.food.map((food, index) => (
+                                                    <Link
+                                                        to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific food; to lowercase + replacing empty spaces in food
+                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black"
+                                                        key={index}
+                                                    >
+                                                        {food}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
+                                {/* !!!!! Opening hours !!!!!! */}
+                                <CafeOpeningHours placeId={cafe.placeId} />
+                            </div>
+                            <div>
+                                <CafeMaps />
+                            </div>
+                        </div>
+                    </div>
                 </>
             )}
         </div>

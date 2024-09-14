@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
- 
+
 const API_URL = import.meta.env.VITE_API_URL
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
 
@@ -31,29 +31,33 @@ const CafeMaps = () => {
     getCafe()
   }, [urlSlug])
 
-  // lat & lng is stored as a String in database > converting to number
-  const latitude = parseFloat(cafe.location.lat || 0)
-  const longitude = parseFloat(cafe.location.lng || 0)
+  // lat & lng are stored as strings in the database > converting to numbers
+  const latitude = parseFloat(cafe.location?.lat || NaN)
+  const longitude = parseFloat(cafe.location?.lng || NaN)
+
+  const isValidLatLng = !isNaN(latitude) && !isNaN(longitude)
 
   console.log("Converted latitude:", latitude)
   console.log("Converted longitude:", longitude)
 
   return (
     <div className="pt-16">
-      <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={{ lat: latitude, lng: longitude }}
-          zoom={14}
-        >
-          {latitude && longitude && (
+      {isValidLatLng ? (
+        <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={{ lat: latitude, lng: longitude }}
+            zoom={14}
+          >
             <Marker
               position={{ lat: latitude, lng: longitude }}
               title="Cafe Location"
             />
-          )}
-        </GoogleMap>
-      </LoadScript>
+          </GoogleMap>
+        </LoadScript>
+      ) : (
+        <p>{errorMessage || 'Location not available'}</p>
+      )}
     </div>
   )
 }

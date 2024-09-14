@@ -9,6 +9,7 @@ import CafeDetailsPage from "./pages/CafeDetailPage.jsx"
 import CafeSpecsPage from "./pages/CafeSpecsPage.jsx"
 import CafeCityPage from "./pages/CafeCityPage.jsx"
 import TopPickPage from "./pages/TopPickPage.jsx"
+import CafeFoodPage from "./pages/CafeFoodPage.jsx"
 import BestRestaurantsPage from "./pages/BestRestaurantsPage.jsx"
 import AboutPage from "./pages/AboutPage.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
@@ -28,6 +29,7 @@ function App() {
       <Route path="/best-cafes/:specs" element={<CafeSpecsPage />} />  {/* All cafes for one specific spec, e.g. cosy*/}
       <Route path="/best-cafes/city/:city" element={<CafeCityPage />} />  {/* All cafes for one specific city, e.g. Bangkok*/}
       <Route path="/best-cafes/for/:toppick" element={<TopPickPage />} />  {/* All cafes for one specific purpose, e.g. Working, Brunch with the Girlies*/}
+      <Route path="/best-cafes/food/:food" element={<CafeFoodPage />} />  {/* All cafes for one specific food option, e.g. vegan, vegetarian*/}
       <Route path="/best-restaurants" element={<BestRestaurantsPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="*" element={<NotFoundPage />} />
