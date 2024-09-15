@@ -1,10 +1,8 @@
-import TopPickList from "../components/TopPickList"
-import { useNavigate } from "react-router-dom"
+import TopPickList from "../components/CafeTopPickList"
 
 function TopPickPage() {
     const storedToken = localStorage.getItem("authToken");
     const isLoggedIn = storedToken !== null;
-    const navigate = useNavigate();
 
     return (
         <>

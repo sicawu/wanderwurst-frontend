@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import Searchbar from "../components/Searchbar"
-import CafeFilter from "../components/CafeFilter"
+import Searchbar from "./Searchbar"
+import CafeFilter from "./FilterCafeCity"
 
 function CafeList() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -49,6 +49,9 @@ function CafeList() {
 
   return (
     <>
+     <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
+          Best Cafes in the world
+        </h1>
       <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
       <div className="pt-0 px-7 flex flex-wrap justify-center mt-10">
         {filteredCafes.map((cafe) => (

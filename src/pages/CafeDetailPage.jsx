@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { useNavigate, Link, useParams } from "react-router-dom"
-import { FaStar, FaRegCheckCircle } from "react-icons/fa"
 import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
 
-import CafeMaps from "../components/CafeMaps.jsx"
-import CafeOpeningHours from "../components/CafeOpeningHours.jsx"
+// Helmet library for individual SEO title + description
+import { Helmet } from "react-helmet"
+
+
+// GOOGLE Services: Maps & Opening hours
+import CafeMaps from "../components/CafeGoogleMaps.jsx"
+import CafeOpeningHours from "../components/CafeGoogleOpeningHours.jsx"
 
 function CafeDetailsPage() {
     const [cafe, setCafe] = useState("")
@@ -50,6 +54,10 @@ function CafeDetailsPage() {
                 <p>Loading...</p>
             ) : (
                 <>
+                    <Helmet>
+                        <title>{cafe.metaTitle || cafe.title}</title> {/* Fall back to cafe title if metaTitle is not provided */}
+                        <meta name="description" content={cafe.metaDescription || cafe.description} /> {/* Fall back to cafe description if metaDescription is not provided */}
+                    </Helmet>
                     <div className="flex justify-center items-center">
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
                             <div className="flex justify-center p-10">

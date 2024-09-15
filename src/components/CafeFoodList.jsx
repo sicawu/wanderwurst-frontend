@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
-import CafeFilter from "../components/CafeFilter"
+import CafeFilter from "./FilterCafeCity"
 
 
-function CafeSpecList() {
+function CafeFoodList() {
     const API_URL = import.meta.env.VITE_API_URL
     const [filteredCafes, setFilteredCafes] = useState([])
     const [cafeFood, setCafeFood] = useState([])
+    const [city, setCity] = useState("")
     const { food } = useParams()
     const foodToFilter = food
 
@@ -37,23 +38,34 @@ function CafeSpecList() {
         setFilteredCafes(filteredCafes)
     }
 
+      // Filter cafes by city
+
+  const handleCityChange = (city) => {
+    setCity(city);
+    const filteredCafes = cafeFood.filter((cafe) => cafe.location.city === city)
+    setFilteredCafes(filteredCafes)
+  }
+
     return (
         <>
-            <div className="my-3">
+            <div>
                 {food && (
-                    <h1 className="bg-black text-white uppercase text-center text-3xl m-1 px-0.5 py-0.5 font-extrabold italic">
+                    <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
                         {formatFood(food)} <br /> is your food preference.
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
                    If there's one thing in the world I don't make jokes about, then it is food. For me, it decides if the the day's gonna be great - or not. Choose your favorite cafe with {formatFood(food)}.
                 </p>
+                {/*
                 <div className="mb-10">
                     <CafeFilter
                         onFilter={handleFilter}
                         cafes={cafeFood} // Pass the cafes data to the filter component
+                        onCityChange={handleCityChange}
                     />
                 </div>
+                */}
                 <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
                     {filteredCafes.length === 0 ? (
                         <p>Cafes loading...</p>
@@ -88,4 +100,4 @@ function CafeSpecList() {
     )
 }
 
-export default CafeSpecList
+export default CafeFoodList

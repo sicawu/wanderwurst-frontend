@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import CafeFilter from "../components/CafeFilter";
+import CafeFilter from "./FilterCafeCity";
 
 function CafeSpecList() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -38,9 +38,9 @@ function CafeSpecList() {
 
   return (
     <>
-      <div className="my-3">
+      <div>
         {toppick && (
-          <h1 className="bg-black text-white uppercase text-center text-3xl m-1 px-0.5 py-0.5 font-extrabold italic">
+          <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
             {formatTopPicks(toppick)} <br /> is your intention.
           </h1>
         )}

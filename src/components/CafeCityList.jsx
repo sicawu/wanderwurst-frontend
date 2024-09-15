@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
-import CafeFilterSpecs from "../components/CafeFilterSpecs"
+import CafeFilterSpecs from "./FilterCafeSpecs"
 
 
 function CafeCityList() {
@@ -37,9 +37,9 @@ function CafeCityList() {
 
     return (
         <>
-            <div className="my-3">
+            <div>
                 {city && (
-                    <h1 className="bg-black text-white uppercase text-center text-3xl m-1 px-0.5 py-0.5 font-extrabold italic">
+                    <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
                         Best cafes in {formatCity(city)}
                     </h1>
                 )}

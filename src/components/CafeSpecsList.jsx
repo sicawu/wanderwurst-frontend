@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
-import CafeFilter from "../components/CafeFilter"
+import CafeFilter from "./FilterCafeCity"
 
 
 function CafeSpecList() {
@@ -39,9 +39,9 @@ function CafeSpecList() {
 
     return (
         <>
-            <div className="my-3">
+            <div>
                 {specs && (
-                    <h1 className="bg-black text-white uppercase text-center text-3xl m-1 px-0.5 py-0.5 font-extrabold italic">
+                    <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
                         {formatSpecs(specs)} <br /> is what you need.
                     </h1>
                 )}
