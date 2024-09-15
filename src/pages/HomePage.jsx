@@ -86,7 +86,9 @@ function Homepage() {
 
   return (
     <>
-      <div className="homepage-container min-h-screen flex flex-col items-center">
+      <div className="min-h-screen flex flex-col justify-center items-center"
+      style={{ backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726389353/Sweet%20Spots/Namto_House_Da_Nang_mxsdbz.jpg)' }}
+      >
         <h1 className="text-5xl text-white p-10 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
           Find your sweet spot
         </h1>
