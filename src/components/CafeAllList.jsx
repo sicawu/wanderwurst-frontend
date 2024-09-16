@@ -1,72 +1,71 @@
-import axios from "axios"
-import React, { useState, useEffect } from "react"
-import CafeFilter from "./FilterCafe"
-import Searchbar from "./Searchbar"
-import { Link } from "react-router-dom"
-import { TbCoffeeOff } from "react-icons/tb"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Searchbar from "./Searchbar";
+import FilterPopup from "./PopupFilterCafe"; // Import the popup component
+import { Link } from "react-router-dom";
+import { TbCoffeeOff } from "react-icons/tb";
 
 function CafeList() {
-  const API_URL = import.meta.env.VITE_API_URL
-  const [allCafes, setAllCafes] = useState([])
-  const [filteredCafes, setFilteredCafes] = useState([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCity, setSelectedCity] = useState("")
-  const [selectedDrink, setSelectedDrink] = useState("")
-  const [selectedFood, setSelectedFood] = useState("")
+  const API_URL = import.meta.env.VITE_API_URL;
+  const [allCafes, setAllCafes] = useState([]);
+  const [filteredCafes, setFilteredCafes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedDrinks, setSelectedDrinks] = useState("");
+  const [selectedFood, setSelectedFood] = useState("");
+  const [showPopup, setShowPopup] = useState(false); // State to manage popup visibility
 
   // Fetch all cafes
   const getAllCafes = () => {
     axios
       .get(`${API_URL}/cafes`)
       .then((response) => {
-        setAllCafes(response.data)
-        setFilteredCafes(response.data)
+        setAllCafes(response.data);
+        setFilteredCafes(response.data);
       })
       .catch((error) => {
-        console.log("Error getting Cafes from the API...")
-        console.log(error)
-      })
-  }
+        console.log("Error getting Cafes from the API...");
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    getAllCafes()
-  }, [])
+    getAllCafes();
+  }, []);
 
-  // Filter cafes based on search term, city, and food
-// Filter cafes based on search term, city, and drinks
-useEffect(() => {
-  const filtered = allCafes.filter((cafe) => {
-    const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
-    const drinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
-    const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
+  // Filter cafes based on search term, city, drinks, and food
+  useEffect(() => {
+    const filtered = allCafes.filter((cafe) => {
+      const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
+      const drinksMatch = selectedDrinks ? cafe.drinks.includes(selectedDrinks) : true;
+      const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
 
-    return (titleMatch || descriptionMatch) && cityMatch && drinksMatch && foodMatch;
-  });
-  setFilteredCafes(filtered);
-}, [searchTerm, selectedCity, selectedDrink, selectedFood, allCafes]);
-
+      return (titleMatch || descriptionMatch) && cityMatch && drinksMatch && foodMatch;
+    });
+    setFilteredCafes(filtered);
+  }, [searchTerm, selectedCity, selectedDrinks, selectedFood, allCafes]);
 
   // Handle search input change
   const handleSearch = (event) => {
-    setSearchTerm(event.target.value)
-  }
+    setSearchTerm(event.target.value);
+  };
 
   // Handle city filter
   const handleCityFilter = (city) => {
-    setSelectedCity(city)
-  }
+    setSelectedCity(city);
+  };
 
-   // Handle food filter
-   const handleDrinkFilter = (drink) => {
-    setSelectedDrink(drink)
-  }
+  // Handle drinks filter
+  const handleDrinksFilter = (drinks) => {
+    setSelectedDrinks(drinks);
+  };
 
   // Handle food filter
   const handleFoodFilter = (food) => {
-    setSelectedFood(food)
-  }
+    setSelectedFood(food);
+  };
 
   return (
     <>
@@ -74,9 +73,24 @@ useEffect(() => {
         Best Cafes in the world
       </h1>
 
-      {/* Search Bar  & Filter*/}
+      {/* Search Bar  & Filter Toggle Button*/}
       <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
-      <CafeFilter onCityFilter={handleCityFilter} onDrinkFilter={handleDrinkFilter} onFoodFilter={handleFoodFilter}/>
+      <button
+        className="bg-blue-500 py-2 px-4 rounded mt-4 mx-auto block"
+        onClick={() => setShowPopup(true)}
+      >
+        Open Filters
+      </button>
+
+      {/* Popup for Filters */}
+      {showPopup && (
+        <FilterPopup 
+          onCityFilter={handleCityFilter} 
+          onDrinkFilter={handleDrinksFilter} 
+          onFoodFilter={handleFoodFilter} 
+          setShowPopup={setShowPopup} // Pass the setShowPopup function
+        />
+      )}
 
       <div className="pt-0 px-7 flex flex-wrap justify-center mt-10">
         {filteredCafes.length > 0 ? (
@@ -111,7 +125,7 @@ useEffect(() => {
         )}
       </div>
     </>
-  )
+  );
 }
 
-export default CafeList
+export default CafeList;
