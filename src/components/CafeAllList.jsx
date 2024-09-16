@@ -1,70 +1,85 @@
-// CafeList.js
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Searchbar from "./Searchbar";
-import CafeFilter from "./FilterCafeCity";
-import FilterCafeFood from "./FilterCafeFood"; // Import the new food filter component
+import axios from "axios"
+import React, { useState, useEffect } from "react"
+import CafeFilter from "./FilterCafe"
+import Searchbar from "./Searchbar"
+import { Link } from "react-router-dom"
 
 function CafeList() {
-  const API_URL = import.meta.env.VITE_API_URL;
-  const [allCafes, setAllCafes] = useState([]);
-  const [filteredCafes, setFilteredCafes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL
+  const [allCafes, setAllCafes] = useState([])
+  const [filteredCafes, setFilteredCafes] = useState([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedCity, setSelectedCity] = useState("")
+  const [selectedFood, setSelectedFood] = useState("")
 
+  // Fetch all cafes
   const getAllCafes = () => {
     axios
       .get(`${API_URL}/cafes`)
       .then((response) => {
-        setAllCafes(response.data);
-        setFilteredCafes(response.data);
+        setAllCafes(response.data)
+        setFilteredCafes(response.data)
       })
       .catch((error) => {
-        console.log("Error getting Cafes from the API...");
-        console.log(error);
-      });
-  };
+        console.log("Error getting Cafes from the API...")
+        console.log(error)
+      })
+  }
 
   useEffect(() => {
-    getAllCafes();
-  }, []);
+    getAllCafes()
+  }, [])
 
-  const handleSearch = (event) => {
-    const searchValue = event.target.value;
-    setSearchTerm(searchValue);
-  };
-
+  // Handle search term
   useEffect(() => {
     const filtered = allCafes.filter((cafe) => {
       const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
       const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const cityMatch = cafe.location && cafe.location.city && cafe.location.city.toLowerCase().includes(searchTerm.toLowerCase());
-      const countryMatch = cafe.location && cafe.location.country && cafe.location.country.toLowerCase().includes(searchTerm.toLowerCase());
-      return titleMatch || descriptionMatch || cityMatch || countryMatch;
+      const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
+      const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
+
+      return (titleMatch || descriptionMatch) && cityMatch && foodMatch;
     });
     setFilteredCafes(filtered);
-  }, [searchTerm, allCafes]);
+  }, [searchTerm, selectedCity, selectedFood, allCafes])
 
-  const handleCityFilter = (filteredCafes) => {
-    setFilteredCafes(filteredCafes);  // Update the list based on the city filter
-  };
+  // Function to filter cafes based on search term, city, and food
+  const filterCafes = () => {
+    const filtered = allCafes.filter((cafe) => {
+      const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
+      const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
 
-  const handleFoodFilter = (filteredCafes) => {
-    setFilteredCafes(filteredCafes); // Update the list based on the food filter
-  };
+      return (titleMatch || descriptionMatch) && cityMatch && foodMatch;
+    })
+    setFilteredCafes(filtered)
+  }
+
+  // Handle search input
+  const handleSearch = (event) => {
+    const searchValue = event.target.value
+    setSearchTerm(searchValue)
+  }
+
+  // Handle city filter
+  const handleCityFilter = (city) => {
+    setSelectedCity(city)
+  }
+
+  // Handle food filter
+  const handleFoodFilter = (food) => {
+    setSelectedFood(food)
+  }
 
   return (
     <>
       <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
         Best Cafes in the world
       </h1>
+      {/* Search Bar */}
       <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
-      {/* Add Food Filter */}
-      <FilterCafeFood cafes={allCafes} onFilter={handleFoodFilter} />
-      {/* Existing City Filter */}
-      <div className="mb-10">
-        <CafeFilter onFilter={handleCityFilter} />
-      </div>
+      <CafeFilter onCityFilter={handleCityFilter} onFoodFilter={handleFoodFilter} />
       <div className="pt-0 px-7 flex flex-wrap justify-center mt-10">
         {filteredCafes.map((cafe) => (
           <div
@@ -94,4 +109,4 @@ function CafeList() {
   );
 }
 
-export default CafeList;
+export default CafeList
