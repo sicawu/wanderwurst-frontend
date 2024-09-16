@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa"
 
 function SearchBar({ searchTerm, handleSearch }) {
   return (
-    <div className="w-60 flex rounded-full shadow-md max-w-md mx-auto mt-8">
+    <div className="w-60 flex rounded-full shadow-md max-w-md mx-auto">
       <input
         type="text"
         placeholder="Search..."

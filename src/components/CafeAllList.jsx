@@ -4,6 +4,7 @@ import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe"; // Import the popup component
 import { Link } from "react-router-dom";
 import { TbCoffeeOff } from "react-icons/tb";
+import { BsStars } from "react-icons/bs";
 
 function CafeList() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -72,25 +73,28 @@ function CafeList() {
       <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
         Best Cafes in the world
       </h1>
+      <div className="flex justify-center items-center mt-8">
+        {/* Search Bar & Filter Toggle Button */}
+        <div className="flex flex-row items-center space-x-2">
+          <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
+          <button
+            className="bg-blue-500 py-2 px-4 rounded-full"
+            onClick={() => setShowPopup(true)}
+          >
+            <BsStars  className="text-4xl text-gray-900 shadow-md rounded-full" />
+          </button>
+        </div>
 
-      {/* Search Bar  & Filter Toggle Button*/}
-      <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
-      <button
-        className="bg-blue-500 py-2 px-4 rounded mt-4 mx-auto block"
-        onClick={() => setShowPopup(true)}
-      >
-        Open Filters
-      </button>
-
-      {/* Popup for Filters */}
-      {showPopup && (
-        <FilterPopup 
-          onCityFilter={handleCityFilter} 
-          onDrinkFilter={handleDrinksFilter} 
-          onFoodFilter={handleFoodFilter} 
-          setShowPopup={setShowPopup} // Pass the setShowPopup function
-        />
-      )}
+        {/* Popup for Filters */}
+        {showPopup && (
+          <FilterPopup
+            onCityFilter={handleCityFilter}
+            onDrinkFilter={handleDrinksFilter}
+            onFoodFilter={handleFoodFilter}
+            setShowPopup={setShowPopup} // Pass the setShowPopup function
+          />
+        )}
+      </div>
 
       <div className="pt-0 px-7 flex flex-wrap justify-center mt-10">
         {filteredCafes.length > 0 ? (
