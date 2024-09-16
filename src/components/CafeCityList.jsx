@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom"
 import axios from "axios"
 import CafeFilterSpecs from "./FilterCafeSpecs"
 
+// Helmet library for individual SEO title + description
+import { Helmet } from "react-helmet-async"
 
 function CafeCityList() {
     const API_URL = import.meta.env.VITE_API_URL
@@ -30,13 +32,17 @@ function CafeCityList() {
         return city.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     }
 
-     // Update the list based on the filter
-     const handleFilter = (filteredCafes) => {
+    // Update the list based on the filter
+    const handleFilter = (filteredCafes) => {
         setFilteredCafes(filteredCafes)
-    }    
+    }
 
     return (
         <>
+            <Helmet>
+                <title>{`Best Cafes in ${formatCity(city)} | Sweet Spots`}</title>
+                <meta name="description" content={`Discover the best cafes in ${formatCity(city)}. Explore our favorite spots in the city.`} />
+            </Helmet>
             <div>
                 {city && (
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">

@@ -28,9 +28,6 @@ function CafeOpeningHours({ placeId }) {
     <div>
     {openingHours.length > 0 && (
       <>
-        <h3 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
-          Opening Hours
-        </h3>
         <ul>
           {openingHours.map((day, index) => (
             <li key={index}>{day}</li>

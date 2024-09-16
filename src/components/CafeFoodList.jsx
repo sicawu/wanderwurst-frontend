@@ -3,6 +3,9 @@ import { Link, useParams } from "react-router-dom"
 import axios from "axios"
 import CafeFilter from "./FilterCafeCity"
 
+// Helmet library for individual SEO title + description
+//import { Helmet } from "react-helmet"
+import { Helmet, HelmetProvider } from "react-helmet-async"
 
 function CafeFoodList() {
     const API_URL = import.meta.env.VITE_API_URL
@@ -33,21 +36,25 @@ function CafeFoodList() {
         return food.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     }
 
-     // Update the list based on the filter
+    // Update the list based on the filter
     const handleFilter = (filteredCafes) => {
         setFilteredCafes(filteredCafes)
     }
 
-      // Filter cafes by city
+    // Filter cafes by city
 
-  const handleCityChange = (city) => {
-    setCity(city);
-    const filteredCafes = cafeFood.filter((cafe) => cafe.location.city === city)
-    setFilteredCafes(filteredCafes)
-  }
+    const handleCityChange = (city) => {
+        setCity(city);
+        const filteredCafes = cafeFood.filter((cafe) => cafe.location.city === city)
+        setFilteredCafes(filteredCafes)
+    }
 
     return (
         <>
+            <Helmet>
+                <title>{`Best Cafes for ${formatFood(food)} | Sweet Spots`}</title>
+                <meta name="description" content={`Choose your favorite Cafe, ${formatFood(food)}. We exactly have the right cafe for you.`} />
+            </Helmet>
             <div>
                 {food && (
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
@@ -55,7 +62,7 @@ function CafeFoodList() {
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                   If there's one thing in the world I don't make jokes about, then it is food. For me, it decides if the the day's gonna be great - or not. Choose your favorite cafe with {formatFood(food)}.
+                    If there's one thing in the world I don't make jokes about, then it is food. For me, it decides if the the day's gonna be great - or not. Choose your favorite cafe with {formatFood(food)}.
                 </p>
                 {/*
                 <div className="mb-10">

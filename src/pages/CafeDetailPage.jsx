@@ -3,9 +3,11 @@ import axios from "axios"
 import { useNavigate, Link, useParams } from "react-router-dom"
 import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
+import { TbBulb } from "react-icons/tb"
 
 // Helmet library for individual SEO title + description
-import { Helmet } from "react-helmet"
+// import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet-async"
 
 
 // GOOGLE Services: Maps & Opening hours
@@ -55,8 +57,8 @@ function CafeDetailsPage() {
             ) : (
                 <>
                     <Helmet>
-                        <title>{cafe.metaTitle || cafe.title}</title> {/* Fall back to cafe title if metaTitle is not provided */}
-                        <meta name="description" content={cafe.metaDescription || cafe.description} /> {/* Fall back to cafe description if metaDescription is not provided */}
+                        <title>{`${cafe.metaTitle || cafe.title} | Sweet Spots`}</title>
+                        <meta name="description" content={cafe.metaDescription || cafe.description} />
                     </Helmet>
                     <div className="flex justify-center items-center">
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
@@ -103,22 +105,12 @@ function CafeDetailsPage() {
                                     {cafe.description}
                                 </p>
 
-                                {/* !!!!! LOCATION !!!!!! */}
-                                {cafe.location && (
-                                    <div className="px-10 py-5 flex flex-col items-center">
-                                        {cafe.location.city && cafe.location.country && (
-                                            <p className="flex items-center mb-2">
-                                                <MdLocationCity className="mr-1 text-xl" />
-                                                {cafe.location.city}, {cafe.location.country}
-                                            </p>
-                                        )}
-                                        {cafe.location.address && (
-                                            <p className="flex items-center">
-                                                <FaLocationDot className="mr-1 text-xl" />
-                                                {cafe.location.address}
-                                            </p>
-                                        )}
-                                    </div>
+                                {/* !!!!! RECOMMENDATION !!!!!! */}
+                                {cafe.recommendation && (
+                                    <p className="text-1xl px-10 pb-5 flex justify-center text-center">
+                                        <TbBulb className="mr-1 text-xl" />
+                                        <span className="font-bold">MUST TRY:&nbsp;</span>{cafe.recommendation}
+                                    </p>
                                 )}
 
                                 {/* !!!!! Specs !!!!!! */}
@@ -177,7 +169,31 @@ function CafeDetailsPage() {
                                             </div>
                                         </>
                                     )}
+
+                                {/* !!!!! LOCATION !!!!!! */}
+                                <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                    How To Get There
+                                </h2>
+                                {cafe.location && (
+                                    <div className="px-10 pb-5 flex flex-col items-center">
+                                        {cafe.location.city && cafe.location.country && (
+                                            <p className="flex items-center mb-2">
+                                                <MdLocationCity className="mr-1 text-xl" />
+                                                {cafe.location.city}, {cafe.location.country}
+                                            </p>
+                                        )}
+                                        {cafe.location.address && (
+                                            <p className="flex items-center">
+                                                <FaLocationDot className="mr-1 text-xl" />
+                                                {cafe.location.address}
+                                            </p>
+                                        )}
+                                    </div>
+                                )}
                                 {/* !!!!! Opening hours !!!!!! */}
+                                <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                    Opening Hours
+                                </h2>
                                 <CafeOpeningHours placeId={cafe.placeId} />
                             </div>
                             <div>

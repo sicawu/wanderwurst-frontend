@@ -95,7 +95,7 @@ function Homepage() {
 
         {/* Choose a City Section */}
         <div className="w-full max-w-lg mb-16 bg-cover bg-center" style={{ backgroundImage: 'url(/path-to-your-background-image.jpg)' }}>
-          <h2 className="text-l text-white mb-4 italic">Choose a city</h2>
+          <h2 className="text-xl text-white mb-4" style={{ backgroundImage: 'url(/path-to-your-background-image.jpg)' }}>Choose a city</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {cities.map((city) => (
               <Link

@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../context/auth.context";
-import { Link, useNavigate } from "react-router-dom";
-import { GiBalloonDog } from "react-icons/gi";
-import { Navigate } from "react-router-dom";
+import React, { useState, useContext } from "react"
+import { AuthContext } from "../context/auth.context"
+import { Link, useNavigate } from "react-router-dom"
+import { GiBalloonDog } from "react-icons/gi"
+import { Navigate } from "react-router-dom"
 
 function NavBar() {
     const { isAuthenticated, user, isLoggedIn, logOutUser } =
@@ -12,7 +12,7 @@ function NavBar() {
     return (
         <div className="sticky bg-white py-3 flex flex-row w-screen items-center justify-between">
             <div className="flex items-center mr-7">
-                <Link className="flex items-center px-2 py-0.5 " to="/">
+                <Link className="flex items-center px-2 py-0.5" to="/">
                     <GiBalloonDog size={30} />
                 </Link>
                 </div>
