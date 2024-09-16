@@ -17,6 +17,8 @@ import CafeFoodPage from "./pages/CafeFoodPage.jsx"
 import BestRestaurantsPage from "./pages/BestRestaurantsPage.jsx"
 import AboutPage from "./pages/AboutPage.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
+import RandomCafePage from "./pages/RandomCafePage.jsx"
+
 
 // Import of all components
 import Navbar from "./components/Navbar"
@@ -38,6 +40,7 @@ function App() {
           <Route path="/best-cafes/food/:food" element={<CafeFoodPage />} />  {/* All cafes for one specific food option, e.g. vegan, vegetarian*/}
           <Route path="/best-restaurants" element={<BestRestaurantsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/random" element={<RandomCafePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
