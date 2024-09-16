@@ -112,7 +112,7 @@ function Homepage() {
 
       {/* ICONS FOR TOP PICKS */}
       <div className="min-h-screen w-full flex flex-col justify-center my-10 gap-5">
-        <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">Find your purpose.</h2>
+        <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">Know your purpose.</h2>
         <div className="flex flex-wrap justify-center items-center gap-4">
           {topPick.map((topPick, index) => {
             const iconUrl = iconMap[topPick]
