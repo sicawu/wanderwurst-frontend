@@ -8,6 +8,7 @@ function Homepage() {
   const [cities, setCities] = useState([]);
   const [specs, setSpecs] = useState([]);
   const [food, setFood] = useState([]);
+  const [drinks, setDrinks] = useState([]);
   const [topPick, setTopPick] = useState([]);
 
   useEffect(() => {
@@ -33,6 +34,15 @@ function Homepage() {
     axios.get(`${API_URL}/food`)
       .then((response) => {
         setFood(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching specs:", error);
+      });
+
+    // Fetch the list of food options from the API
+    axios.get(`${API_URL}/drinks`)
+      .then((response) => {
+        setDrinks(response.data);
       })
       .catch((error) => {
         console.error("Error fetching specs:", error);
@@ -87,7 +97,7 @@ function Homepage() {
   return (
     <>
       <div className="min-h-screen flex flex-col justify-center items-center"
-      style={{ backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726389353/Sweet%20Spots/Namto_House_Da_Nang_mxsdbz.jpg)' }}
+        style={{ backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726389353/Sweet%20Spots/Namto_House_Da_Nang_mxsdbz.jpg)' }}
       >
         <h1 className="text-5xl text-white p-10 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
           Find your sweet spot
@@ -138,6 +148,22 @@ function Homepage() {
               </div>
             )
           })}
+        </div>
+      </div>
+
+       {/* Drinks Section */}
+       <div className="min-h-screen w-full bg-black flex flex-col justify-center items-center py-16 px-4">
+        <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Find your Fuel.</h2>
+        <div className="flex flex-wrap justify-center items-center gap-4">
+          {drinks.map((drinks) => (
+            <Link
+              key={drinks}
+              to={`/best-cafes/drinks/${drinks.toLowerCase().replace(/\s+/g, '-')}`}
+              className="bg-green text-white border-1 border-black hover:bg-mint font-semibold py-1 px-3 rounded-lg shadow-md text-center"
+            >
+              {drinks}
+            </Link>
+          ))}
         </div>
       </div>
 

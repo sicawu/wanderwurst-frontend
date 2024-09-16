@@ -38,7 +38,7 @@ function CafeFilter({ onCityFilter, onFoodFilter }) {
     };
 
     return (
-        <div className="flex space-x-4 mx-auto mt-8">
+        <div className="flex justify-center space-x-4 mx-auto mt-8">
             {/* City Filter Dropdown */}
             <div className="w-60 rounded-full shadow-md">
                 <select

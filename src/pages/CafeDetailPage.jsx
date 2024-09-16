@@ -149,7 +149,28 @@ function CafeDetailsPage() {
                     <div className="flex justify-center items-center bg-grey mt-20">
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
                             <div>
-                                {/* !!!!! Food !!!!!! */}
+                                {/* !!!!! Drinks !!!!!! */}
+                                {Array.isArray(cafe.drinks) &&
+                                    cafe.drinks.length > 0 && (
+                                        <>
+                                            <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                                Drinks Options
+                                            </h2>
+                                            <div className="flex flex-wrap px-10 justify-center">
+                                                {cafe.drinks.map((drinks, index) => (
+                                                    <Link
+                                                        to={`/best-cafes/drinks/${drinks.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific drinks; to lowercase + replacing empty spaces in food
+                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black"
+                                                        key={index}
+                                                    >
+                                                        {drinks}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
+
+                                     {/* !!!!! Food !!!!!! */}
                                 {Array.isArray(cafe.food) &&
                                     cafe.food.length > 0 && (
                                         <>
