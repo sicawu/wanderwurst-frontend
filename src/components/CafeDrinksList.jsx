@@ -53,16 +53,16 @@ function CafeFoodList() {
         <>
             <Helmet>
                 <title>{`Best Cafes for ${formatDrinks(drinks)} | Sweet Spots`}</title>
-                <meta name="description" content={`Choose your favorite Cafe, ${formatDrinks(drinks)}. We exactly have the right cafe for you.`} />
+                <meta name="description" content={`Choose your favorite Cafe for ${formatDrinks(drinks)}. We exactly have the right cafe for you.`} />
             </Helmet>
             <div>
                 {drinks && (
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                        {formatDrinks(drinks)} <br /> is your food preference.
+                        {formatDrinks(drinks)} <br /> - your elixir of the day.
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                    If there's one thing in the world I don't make jokes about, then it is food. For me, it decides if the the day's gonna be great - or not. Choose your favorite cafe with {formatDrinks(drinks)}.
+                I know you are craving {formatDrinks(drinks)}. Explore my favorite coffee shops for that.
                 </p>
                 {/*
                 <div className="mb-10">

@@ -111,7 +111,7 @@ function Homepage() {
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-mint text-white border-1 border-black hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-lg shadow-md text-center"
+                className="bg-mint text-white border-1 border-black hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-full shadow-md text-center"
               >
                 {city}
               </Link>
@@ -159,7 +159,7 @@ function Homepage() {
             <Link
               key={drinks}
               to={`/best-cafes/drinks/${drinks.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-green text-white border-1 border-black hover:bg-mint font-semibold py-1 px-3 rounded-lg shadow-md text-center"
+              className="bg-green text-white border-1 border-black hover:bg-mint font-semibold py-1 px-5 rounded-full shadow-md text-center"
             >
               {drinks}
             </Link>
@@ -175,7 +175,7 @@ function Homepage() {
             <Link
               key={food}
               to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-green text-white border-1 border-black hover:bg-mint font-semibold py-1 px-3 rounded-lg shadow-md text-center"
+              className="bg-green text-white border-1 border-black hover:bg-mint font-semibold py-1 px-5 rounded-full shadow-md text-center"
             >
               {food}
             </Link>
@@ -191,7 +191,7 @@ function Homepage() {
             <Link
               key={spec}
               to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-              className="bg-mint text-white border-1 border-black hover:bg-black font-semibold py-1 px-3 rounded-lg shadow-md text-center"
+              className="bg-mint text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center"
             >
               {spec}
             </Link>
