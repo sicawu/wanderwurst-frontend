@@ -49,7 +49,7 @@ function RandomCafe() {
     };
 
     return (
-<div className="min-h-screen flex flex-col justify-center items-center">           
+<div className="bg-grey min-h-screen flex flex-col justify-center items-center">           
 <h1 className="text-5xl text-white p-10 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
         Tame the Monster
         </h1>
@@ -78,7 +78,7 @@ function RandomCafe() {
                 {/* Random Cafe Button */}
                 <button
                     onClick={getRandomCafe}
-                    className="mb-5 bg-mint-500 py-2 px-4 rounded-full shadow-md"
+                    className="mb-5 bg-mint py-2 px-4 rounded-full shadow-md"
                     disabled={cafes.length === 0}
                 >
                     Get Random Cafe
