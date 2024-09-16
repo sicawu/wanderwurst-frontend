@@ -3,11 +3,14 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-function CafeFilter({ onCityFilter, onFoodFilter }) {
+function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
     const [cities, setCities] = useState([]);
-    const [foods, setFoods] = useState([]); // State for food options
-    const [selectedCity, setSelectedCity] = useState(""); 
-    const [selectedFood, setSelectedFood] = useState(""); // State for selected food
+    const [foods, setFoods] = useState([]);
+    const [drinks, setDrinks] = useState([]);
+    const [selectedCity, setSelectedCity] = useState("");
+    const [selectedFood, setSelectedFood] = useState("");
+    const [selectedDrink, setSelectedDrink] = useState("");
+
     const API_URL = import.meta.env.VITE_API_URL;
 
     // Get city names and food options from the database
@@ -16,29 +19,43 @@ function CafeFilter({ onCityFilter, onFoodFilter }) {
         axios.get(`${API_URL}/cities`)
             .then((response) => setCities(response.data))
             .catch((error) => console.error("Error fetching cities:", error));
-        
+
+        // Fetch drinks options
+        axios.get(`${API_URL}/drinks`)
+            .then((response) => setDrinks(response.data))
+            .catch((error) => console.error("Error fetching drinks:", error));
+
         // Fetch food options
         axios.get(`${API_URL}/food`)
             .then((response) => setFoods(response.data))
             .catch((error) => console.error("Error fetching foods:", error));
     }, [API_URL]);
 
+
     // Handle city selection
     const handleCityChange = (event) => {
         const city = event.target.value;
         setSelectedCity(city);
         onCityFilter(city); // Call the city filter callback
-    };
+    }
+
+    // Handle drinks selection
+    const handleDrinkChange = (event) => {
+        const drink = event.target.value;
+        setSelectedDrink(drink);
+        onDrinkFilter(drink); // Call the food filter callback
+    }
 
     // Handle food selection
     const handleFoodChange = (event) => {
         const food = event.target.value;
         setSelectedFood(food);
         onFoodFilter(food); // Call the food filter callback
-    };
+    }
 
     return (
-        <div className="flex flex-col justify-center sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mx-auto mt-5">            {/* City Filter Dropdown */}
+        <div className="flex flex-col justify-center sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mx-auto mt-5">
+            {/* City Filter Dropdown */}
             <div className="w-60 rounded-full shadow-md">
                 <select
                     id="city"
@@ -54,7 +71,24 @@ function CafeFilter({ onCityFilter, onFoodFilter }) {
                     ))}
                 </select>
             </div>
-            
+
+            {/* Drinks Filter Dropdown */}
+            <div className="w-60 rounded-full shadow-md">
+                <select
+                    id="drink"
+                    value={selectedDrink}
+                    onChange={handleDrinkChange}
+                    className="py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+                >
+                    <option value="">Select a Drink</option>
+                    {drinks.map((drink, index) => (
+                        <option key={index} value={drink}>
+                            {drink}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
             {/* Food Filter Dropdown */}
             <div className="w-60 rounded-full shadow-md">
                 <select

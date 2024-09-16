@@ -11,6 +11,7 @@ function CafeList() {
   const [filteredCafes, setFilteredCafes] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCity, setSelectedCity] = useState("")
+  const [selectedDrink, setSelectedDrink] = useState("")
   const [selectedFood, setSelectedFood] = useState("")
 
   // Fetch all cafes
@@ -32,17 +33,20 @@ function CafeList() {
   }, [])
 
   // Filter cafes based on search term, city, and food
-  useEffect(() => {
-    const filtered = allCafes.filter((cafe) => {
-      const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase())
-      const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase())
-      const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true
-      const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true
+// Filter cafes based on search term, city, and drinks
+useEffect(() => {
+  const filtered = allCafes.filter((cafe) => {
+    const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
+    const drinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
+    const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
 
-      return (titleMatch || descriptionMatch) && cityMatch && foodMatch
-    });
-    setFilteredCafes(filtered);
-  }, [searchTerm, selectedCity, selectedFood, allCafes])
+    return (titleMatch || descriptionMatch) && cityMatch && drinksMatch && foodMatch;
+  });
+  setFilteredCafes(filtered);
+}, [searchTerm, selectedCity, selectedDrink, selectedFood, allCafes]);
+
 
   // Handle search input change
   const handleSearch = (event) => {
@@ -52,6 +56,11 @@ function CafeList() {
   // Handle city filter
   const handleCityFilter = (city) => {
     setSelectedCity(city)
+  }
+
+   // Handle food filter
+   const handleDrinkFilter = (drink) => {
+    setSelectedDrink(drink)
   }
 
   // Handle food filter
@@ -67,7 +76,7 @@ function CafeList() {
 
       {/* Search Bar  & Filter*/}
       <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
-      <CafeFilter onCityFilter={handleCityFilter} onFoodFilter={handleFoodFilter} />
+      <CafeFilter onCityFilter={handleCityFilter} onDrinkFilter={handleDrinkFilter} onFoodFilter={handleFoodFilter}/>
 
       <div className="pt-0 px-7 flex flex-wrap justify-center mt-10">
         {filteredCafes.length > 0 ? (
