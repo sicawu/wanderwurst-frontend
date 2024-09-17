@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Searchbar from "./Searchbar";
-import FilterPopup from "./PopupFilterCafe"; // Import the popup component
+import FilterPopup from "./PopupFilterCafe"; // Ensure the correct import name
 import { Link } from "react-router-dom";
 import { TbCoffeeOff } from "react-icons/tb";
 import { BsStars } from "react-icons/bs";
+import { GoFilter } from "react-icons/go";
 
 function CafeList() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -15,6 +16,13 @@ function CafeList() {
   const [selectedDrinks, setSelectedDrinks] = useState("");
   const [selectedFood, setSelectedFood] = useState("");
   const [showPopup, setShowPopup] = useState(false); // State to manage popup visibility
+
+  // State to hold the selected filters' descriptions
+  const [filters, setFilters] = useState({
+    city: "",
+    drinks: "",
+    food: "",
+  });
 
   // Fetch all cafes
   const getAllCafes = () => {
@@ -56,16 +64,27 @@ function CafeList() {
   // Handle city filter
   const handleCityFilter = (city) => {
     setSelectedCity(city);
+    setFilters((prev) => ({ ...prev, city }));
   };
 
   // Handle drinks filter
   const handleDrinksFilter = (drinks) => {
     setSelectedDrinks(drinks);
+    setFilters((prev) => ({ ...prev, drinks }));
   };
 
   // Handle food filter
   const handleFoodFilter = (food) => {
     setSelectedFood(food);
+    setFilters((prev) => ({ ...prev, food }));
+  };
+
+  // Clear all filters
+  const clearFilters = () => {
+    setSelectedCity("");
+    setSelectedDrinks("");
+    setSelectedFood("");
+    setFilters({ city: "", drinks: "", food: "" });
   };
 
   return (
@@ -81,7 +100,7 @@ function CafeList() {
             className="bg-blue-500 py-2 px-4 rounded-full"
             onClick={() => setShowPopup(true)}
           >
-            <BsStars  className="text-4xl text-gray-900 shadow-md rounded-full" />
+            <GoFilter  size={40} className=" rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
           </button>
         </div>
 
@@ -91,8 +110,39 @@ function CafeList() {
             onCityFilter={handleCityFilter}
             onDrinkFilter={handleDrinksFilter}
             onFoodFilter={handleFoodFilter}
-            setShowPopup={setShowPopup} // Pass the setShowPopup function
+            setShowPopup={setShowPopup}
           />
+        )}
+      </div>
+
+      {/* Display selected filters */}
+      <div className="mt-4 px-7">
+        {Object.entries(filters).map(([key, value]) =>
+          value ? (
+            <span key={key} className="inline-block border border-grey py-0.5 px-2 mr-2 mb-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300">
+              {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
+              <button
+                onClick={() => {
+                  // Clear individual filter
+                  setFilters((prev) => ({ ...prev, [key]: "" }));
+                  if (key === "city") setSelectedCity("");
+                  if (key === "drinks") setSelectedDrinks("");
+                  if (key === "food") setSelectedFood("");
+                }}
+                className="ml-2"
+              >
+                x
+              </button>
+            </span>
+          ) : null
+        )}
+        {(selectedCity || selectedDrinks || selectedFood) && (
+          <button
+            onClick={clearFilters}
+            className="bg-grey border border-grey px-2 py-0.5 mt-1 text-sm shadow-md hover:bg-mint hover:shadow-lg transition duration-300"
+          >
+            Clear Filters
+          </button>
         )}
       </div>
 
