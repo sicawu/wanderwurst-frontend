@@ -96,7 +96,7 @@ function CafeList() {
         )}
       </div>
 
-      <div className="pt-0 px-7 flex flex-wrap justify-center mt-10">
+      <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
         {filteredCafes.length > 0 ? (
           filteredCafes.map((cafe) => (
             <div
@@ -122,9 +122,9 @@ function CafeList() {
             </div>
           ))
         ) : (
-          <p className="flex flex-col text-center items-center text-xl my-10 mb-20 gap-3">
-            <TbCoffeeOff className="text-4xl" />
-            <br /> Well... It looks like I haven't found a cafe that exactly matches your criteria - YET! Please try another search + filter.
+          <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3">
+            <TbCoffeeOff size={30} />
+            <br /> Well... It looks like I haven't found a cafe that exactly matches your criteria - YET! <br/>Please try another search + filter.
           </p>
         )}
       </div>
