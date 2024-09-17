@@ -124,7 +124,7 @@ function CafeList() {
         ) : (
           <p className="flex flex-col text-center items-center text-xl my-10 mb-20 gap-3">
             <TbCoffeeOff className="text-4xl" />
-            <br /> Well... It looks like I haven't found your ideal cafe that matches your criteria - YET! Please try another search + filter.
+            <br /> Well... It looks like I haven't found a cafe that exactly matches your criteria - YET! Please try another search + filter.
           </p>
         )}
       </div>

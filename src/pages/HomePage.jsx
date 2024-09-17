@@ -111,7 +111,7 @@ function Homepage() {
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-mint text-white border-1 border-black hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-full shadow-md text-center"
+                className="bg-mint text-black border-1 border-black hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-full shadow-md text-center"
               >
                 {city}
               </Link>
@@ -123,27 +123,25 @@ function Homepage() {
       {/* ICONS FOR TOP PICKS */}
       <div className="min-h-screen w-full flex flex-col justify-center my-10 gap-5">
         <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">Know your purpose.</h2>
-        <div className="flex flex-wrap justify-center items-center gap-4">
+        <div className="flex flex-wrap justify-center items-stretch gap-4"> {/* Added items-stretch */}
           {topPick.map((topPick, index) => {
-            const iconUrl = iconMap[topPick]
-            const linkText = topPick.replace(/([A-Z])/g, '-$1').toLowerCase() // convert camelCase to kebab-case
+            const iconUrl = iconMap[topPick];
+            const linkText = topPick.replace(/([A-Z])/g, '-$1').toLowerCase(); // convert camelCase to kebab-case
             const { h3, p } = iconDescriptions[topPick]; // Get the h3 and p text for each icon
             return (
-              <div className="flex flex-col items-center mb-5 lg:w-1/4 w-1/3"
-                key={index}>
-                <Link
-                  to={`/best-cafes/for/${linkText}`}
-                  className="w-12 h-12" >
-
-                  <img key={index}
+              <div className="flex flex-col items-center mb-5 lg:w-1/4 w-1/3" key={index}>
+                <Link to={`/best-cafes/for/${linkText}`} className="w-12 h-12">
+                  <img
                     src={iconUrl}
                     alt={topPick}
-                    className="w-full h-full border-2 rounded-full object-cover object-center" />
+                    className="w-full h-full border-2 rounded-full object-cover object-center"
+                  />
                 </Link>
-                <Link
-                  to={`/best-cafes/for/${linkText}`} >
-                  <h3 className="text-s pt-3 flex justify-center text-center font-extrabold">{h3}</h3>
-                  <p>{p}</p>
+                <Link to={`/best-cafes/for/${linkText}`}>
+                  <div className="flex flex-col items-center min-h-[4rem] flex-grow"> {/* Set min-height and allow flex-grow */}
+                    <h3 className="text-s pt-3 flex justify-center text-center font-extrabold">{h3}</h3>
+                    <p className="text-center">{p}</p> {/* Center text */}
+                  </div>
                 </Link>
               </div>
             )
@@ -151,8 +149,8 @@ function Homepage() {
         </div>
       </div>
 
-       {/* Drinks Section */}
-       <div className="min-h-screen w-full bg-black flex flex-col justify-center items-center py-16 px-4">
+      {/* Drinks Section */}
+      <div className="min-h-screen w-full bg-black flex flex-col justify-center items-center py-16 px-4">
         <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Find your Fuel.</h2>
         <div className="flex flex-wrap justify-center items-center gap-4">
           {drinks.map((drinks) => (

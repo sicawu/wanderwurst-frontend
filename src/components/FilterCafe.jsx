@@ -54,14 +54,14 @@ function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
     }
 
     return (
-        <div className="w-full flex flex-col justify-center items-center space-y-4 mx-auto mt-5">
+        <div className="w-full flex flex-col justify-center items-center space-y-5 mx-auto mt-5">
             {/* City Filter Dropdown */}
             <div className="w-60 rounded-full shadow-md">
                 <select
                     id="city"
                     value={selectedCity}
                     onChange={handleCityChange}
-                    className="py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
                 >
                     <option value="">Select a City</option>
                     {cities.map((city, index) => (
@@ -78,7 +78,7 @@ function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
                     id="drink"
                     value={selectedDrink}
                     onChange={handleDrinkChange}
-                    className="py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
                 >
                     <option value="">Select a Drink</option>
                     {drinks.map((drink, index) => (
@@ -95,7 +95,7 @@ function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
                     id="food"
                     value={selectedFood}
                     onChange={handleFoodChange}
-                    className="py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
                 >
                     <option value="">Select Food</option>
                     {foods.map((food, index) => (
