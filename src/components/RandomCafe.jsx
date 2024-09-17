@@ -1,42 +1,39 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import { Link } from "react-router-dom"
 
 function RandomCafe() {
-    const API_URL = import.meta.env.VITE_API_URL;
+    const API_URL = import.meta.env.VITE_API_URL
 
-    const [cities, setCities] = useState([]); // Store the list of cities
-    const [selectedCity, setSelectedCity] = useState("");
-    const [isHungry, setIsHungry] = useState(false); // Store hungry checkbox state
-    const [cafes, setCafes] = useState([]);
-    const [randomCafe, setRandomCafe] = useState(null);
-    const [noCafesFound, setNoCafesFound] = useState(false); // Add a state for no cafes found
+    const [cities, setCities] = useState([])
+    const [selectedCity, setSelectedCity] = useState("")
+    const [isHungry, setIsHungry] = useState(false)
+    const [cafes, setCafes] = useState([])
+    const [randomCafe, setRandomCafe] = useState(null)
+    const [noCafesFound, setNoCafesFound] = useState(false)
 
-    // Fetch available cities from the database on component mount
     useEffect(() => {
         axios.get(`${API_URL}/cities`)
             .then((response) => {
-                setCities(response.data);
+                setCities(response.data)
             })
             .catch((error) => {
-                console.error("Error fetching cities:", error);
-            });
-    }, [API_URL]);
+                console.error("Error fetching cities:", error)
+            })
+    }, [API_URL])
 
-    // Fetch cafes based on the selected city or fetch all cafes if no city is selected
     useEffect(() => {
-        let url = `${API_URL}/cafes`;
+        let url = `${API_URL}/cafes`
 
-        // Add query params based on selectedCity and isHungry
-        const params = new URLSearchParams();
+        const params = new URLSearchParams()
         if (selectedCity) {
-            params.append('city', selectedCity);
+            params.append('city', selectedCity)
         }
         if (isHungry) {
-            params.append('hungry', true);
+            params.append('hungry', true)
         }
         if (params.toString()) {
-            url += `?${params.toString()}`;
+            url += `?${params.toString()}`
         }
 
         axios.get(url)
@@ -44,36 +41,32 @@ function RandomCafe() {
                 const fetchedCafes = response.data;
                 setCafes(fetchedCafes);
 
-                // Check if there are no cafes found and update state
                 if (fetchedCafes.length === 0) {
                     setNoCafesFound(true);
                 } else {
-                    setNoCafesFound(false);
+                    setNoCafesFound(false)
                 }
 
-                setRandomCafe(null); // Reset randomCafe on new fetch
+                setRandomCafe(null)
             })
             .catch((error) => {
-                console.error("Error fetching cafes:", error);
-                setNoCafesFound(true);
+                console.error("Error fetching cafes:", error)
+                setNoCafesFound(true)
             });
-    }, [selectedCity, isHungry, API_URL]);
+    }, [selectedCity, isHungry, API_URL])
 
-    // Handle city selection
     const handleCityChange = (event) => {
-        setSelectedCity(event.target.value);
+        setSelectedCity(event.target.value)
     };
 
-    // Handle hungry checkbox change
     const handleHungryChange = (event) => {
-        setIsHungry(event.target.checked);
+        setIsHungry(event.target.checked)
     };
 
-    // Get a random cafe from the list of cafes
     const getRandomCafe = () => {
         if (cafes.length > 0) {
-            const randomIndex = Math.floor(Math.random() * cafes.length);
-            setRandomCafe(cafes[randomIndex]);
+            const randomIndex = Math.floor(Math.random() * cafes.length)
+            setRandomCafe(cafes[randomIndex])
         }
     };
 
@@ -84,12 +77,10 @@ function RandomCafe() {
             </h1>
             <div className="flex flex-col items-center justify-center">
                 <p className="text-sm italic pb-10 px-10 flex justify-center text-center">
-                People aren't that jummy.<br />
-                Get some drinks & food in your tummy.
+                    People aren't that jummy.<br />
+                    Get some drinks & food in your tummy.
                 </p>
 
-                
-                {/* Hungry Checkbox */}
                 <div className="mb-5">
                     <label className="flex items-center space-x-4">
                         <input
@@ -102,8 +93,7 @@ function RandomCafe() {
                     </label>
                 </div>
 
-                {/* City Selection */}
-                <div className="mb-5">
+                <div className="mb-5 flex justify-center">
                     <select
                         id="city"
                         value={selectedCity}
@@ -119,8 +109,6 @@ function RandomCafe() {
                     </select>
                 </div>
 
-
-                {/* Random Cafe Button */}
                 <button
                     onClick={getRandomCafe}
                     className="w-60 mb-5 bg-mint py-2 px-4 rounded-full shadow-md"
@@ -129,15 +117,13 @@ function RandomCafe() {
                     Get Random Cafe
                 </button>
 
-                {/* No Cafes Found Message */}
                 {noCafesFound && (
-                    <p className="text-red-500">No cafes found matching your criteria.</p>
+                    <p className="text-red-500">Looks like I dont't have a cafe matching your criteria. Change the settings!</p>
                 )}
 
-                {/* Display Random Cafe */}
                 {randomCafe && (
                     <Link to={`/cafes/${randomCafe.urlSlug}`}>
-                        <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
+                        <div className="h-80 w-64 max-w-full overflow-hidden border-solid rounded-2xl">
                             <img
                                 src={randomCafe.image}
                                 alt={randomCafe.title}
