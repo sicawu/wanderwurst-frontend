@@ -52,8 +52,8 @@ function CafeFoodList() {
     return (
         <>
             <Helmet>
-                <title>{`Best Cafes for ${formatDrinks(drinks)} | Sweet Spots`}</title>
-                <meta name="description" content={`Choose your favorite Cafe for ${formatDrinks(drinks)}. We exactly have the right cafe for you.`} />
+                <title>{`${filteredCafes.length} Best Cafes for ${formatDrinks(drinks)} | Sweet Spots`}</title>
+                <meta name="description" content={`Choose your favorite cafe for ${formatDrinks(drinks)}.`} />
             </Helmet>
             <div>
                 {drinks && (
@@ -62,7 +62,7 @@ function CafeFoodList() {
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                I know you are craving {formatDrinks(drinks)}. Explore my favorite coffee shops for that.
+                    Craving {formatDrinks(drinks)}? Explore my {filteredCafes.length} favorite cafes for that.
                 </p>
                 {/*
                 <div className="mb-10">

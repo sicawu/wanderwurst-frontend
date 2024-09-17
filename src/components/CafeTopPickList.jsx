@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import CafeFilter from "./FilterCafe";
+import React, { useState, useEffect } from "react"
+import { Link, useParams } from "react-router-dom"
+import axios from "axios"
+import CafeFilter from "./FilterCafe"
+
+// Helmet library for individual SEO title + description
+//import { Helmet } from "react-helmet"
+import { Helmet, HelmetProvider } from "react-helmet-async"
+
 
 function CafeSpecList() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -38,6 +43,10 @@ function CafeSpecList() {
 
   return (
     <>
+      <Helmet>
+        <title>{`${filteredCafes.length} Best Cafes for ${formatTopPicks(toppick)} | Sweet Spots`}</title>
+        <meta name="description" content={`${formatTopPicks(toppick)} is your purpose. Discover my ${filteredCafes.length} favorite cafes worldwide and find your sweet spot.`} />
+      </Helmet>
       <div>
         {toppick && (
           <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">

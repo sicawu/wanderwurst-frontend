@@ -52,7 +52,7 @@ function CafeFoodList() {
     return (
         <>
             <Helmet>
-                <title>{`Best Cafes for ${formatFood(food)} | Sweet Spots`}</title>
+                <title>{`${filteredCafes.length} Best Cafes for ${formatFood(food)} | Sweet Spots`}</title>
                 <meta name="description" content={`Choose your favorite Cafe, ${formatFood(food)}. We exactly have the right cafe for you.`} />
             </Helmet>
             <div>

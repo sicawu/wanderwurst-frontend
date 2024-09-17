@@ -3,6 +3,10 @@ import { Link, useParams } from "react-router-dom"
 import axios from "axios"
 import CafeFilter from "./FilterCafe"
 
+// Helmet library for individual SEO title + description
+//import { Helmet } from "react-helmet"
+import { Helmet, HelmetProvider } from "react-helmet-async"
+
 
 function CafeSpecList() {
     const API_URL = import.meta.env.VITE_API_URL
@@ -39,6 +43,10 @@ function CafeSpecList() {
 
     return (
         <>
+         <Helmet>
+                <title>{`${filteredCafes.length} Best Cafes for ${formatSpecs(specs)} | Sweet Spots`}</title>
+                <meta name="description" content={`Sometimes it's hard to find a cafe with ${formatSpecs(specs)}. No worries, I've got you. Discover my ${filteredCafes.length} top cafes wordwide. `} />
+            </Helmet>
             <div>
                 {specs && (
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">

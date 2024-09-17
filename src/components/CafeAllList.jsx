@@ -90,7 +90,7 @@ function CafeList() {
   return (
     <>
       <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
-        Best Cafes in the world
+        Top {filteredCafes.length} Cafes in the world
       </h1>
       <div className="flex justify-center items-center mt-8">
         {/* Search Bar & Filter Toggle Button */}
@@ -100,7 +100,7 @@ function CafeList() {
             className="bg-blue-500 py-2 px-4 rounded-full"
             onClick={() => setShowPopup(true)}
           >
-            <GoFilter  size={40} className=" rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
+            <GoFilter size={40} className=" rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
           </button>
         </div>
 
@@ -174,7 +174,7 @@ function CafeList() {
         ) : (
           <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3">
             <TbCoffeeOff size={30} />
-            <br /> Well... It looks like I haven't found a cafe that exactly matches your criteria - YET! <br/>Please try another search + filter.
+            <br /> Well... It looks like I haven't found a cafe that exactly matches your criteria - YET! <br />Please try another search + filter.
           </p>
         )}
       </div>

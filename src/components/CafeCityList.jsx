@@ -40,17 +40,17 @@ function CafeCityList() {
     return (
         <>
             <Helmet>
-                <title>{`Best Cafes in ${formatCity(city)} | Sweet Spots`}</title>
+                <title>{`${filteredCafes.length} Best Cafes in ${formatCity(city)} | Sweet Spots`}</title>
                 <meta name="description" content={`Discover the best cafes in ${formatCity(city)}. Explore our favorite spots in the city.`} />
             </Helmet>
             <div>
                 {city && (
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                        Best cafes in {formatCity(city)}
+                        {filteredCafes.length} Best cafes in {formatCity(city)}
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                    Discover a selected collection of my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}s beauty.
+                Carefully curated, discover my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}s beauty.
                 </p>
                 <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
                     {cafeCity.length === 0
