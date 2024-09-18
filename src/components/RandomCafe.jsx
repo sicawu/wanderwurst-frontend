@@ -115,7 +115,7 @@ function RandomCafe() {
                 <div className="w-full flex justify-center">
                     <button
                         onClick={getRandomCafe}
-                        className="w-60 mb-5 bg-mint py-2 px-4 rounded-full shadow-md"
+                        className="w-60 mb-5 bg-gold py-2 px-4 rounded-full shadow-md"
                         disabled={cafes.length === 0 || noCafesFound}
                     >
                         Get Random Cafe
@@ -123,7 +123,7 @@ function RandomCafe() {
                 </div>
     
                 {noCafesFound && (
-                    <p className="text-red-500 text-center md:text-left">Looks like I don't have a cafe matching your criteria. Change the settings!</p>
+                    <p className="text-red text-center md:text-left">Meow, looks like I don't have a cafe matching your criteria. Change the settings!</p>
                 )}
             </div>
     

@@ -5,9 +5,13 @@ export default {
     colors: {
       white: "#F5F5F5",
       grey: "#CECFC7",
-      black: "#000000",
+      beige: "#F8F8F8",
+      gold: "#DAA520",
+      black: "#36454F",
+      darkgreen: "#3e513f",
       green:"#67726e",
-      mint:"#FF6F61"
+      mint:"#537970",
+      orange:"#6B8E23"
     },
     extend: {},
   },

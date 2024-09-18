@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
-import CafeFilter from "./FilterCafe"
 
 // Helmet library for individual SEO title + description
-//import { Helmet } from "react-helmet"
 import { Helmet } from "react-helmet-async"
 
 
@@ -30,15 +28,9 @@ function CafeSpecList() {
         getCafes()
     }, [specToFilter])
 
-
     // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
     const formatSpecs = (specs) => {
         return specs.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    }
-
-    // Update the list based on the filter
-    const handleFilter = (filteredCafes) => {
-        setFilteredCafes(filteredCafes)
     }
 
     return (
@@ -56,12 +48,6 @@ function CafeSpecList() {
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
                     No worries, we've got you sorted. Discover all {formatSpecs(specs)} cafes.
                 </p>
-                <div className="mb-10">
-                    <CafeFilter
-                        onFilter={handleFilter}
-                        cafes={cafeSpec} // Pass the cafes data to the filter component
-                    />
-                </div>
                 <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
                     {filteredCafes.length === 0 ? (
                         <p>Cafes loading...</p>

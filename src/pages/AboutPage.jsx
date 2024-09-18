@@ -1,7 +1,7 @@
 function AboutPage() {
     return (
         <>
-            <h1 className="bg-black text-white uppercase text-center text-3xl m-1 px-0.5 py-0.5 mb-10 font-extrabold italic">
+            <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 mb-10 font-extrabold italic">
                 The Story behind
                 </h1>
                 <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">

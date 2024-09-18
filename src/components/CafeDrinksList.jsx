@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import axios from "axios"
-import CafeFilter from "./FilterCafe"
+import TopPickSection from "../components/SectionTopPick"
 
 // Helmet library for individual SEO title + description
-//import { Helmet } from "react-helmet"
 import { Helmet } from "react-helmet-async"
 
-function CafeFoodList() {
+function CafeDrinkList() {
     const API_URL = import.meta.env.VITE_API_URL
     const [filteredCafes, setFilteredCafes] = useState([])
-    const [cafeDrinks, setCafeDrinks] = useState([])
-    const [city, setCity] = useState("")
+    const [cafeDrinks, setCafeDrinks] = useState([]);
+    const [topPick, setTopPick] = useState([])
+
     const { drinks } = useParams()
     const drinksToFilter = drinks
     const encodedDrinks = encodeURIComponent(drinks)
@@ -27,27 +27,20 @@ function CafeFoodList() {
             })
     }
 
+    // TopPick Section: Fetch the list of topPick from the API
+    useEffect(() => {
+        axios.get(`${API_URL}/topPick`)
+            .then((response) => setTopPick(response.data))
+            .catch((error) => console.error("Error fetching topPick:", error))
+    }, [API_URL])
+
     useEffect(() => {
         getCafes()
     }, [drinksToFilter])
 
-
     // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
     const formatDrinks = (drinks) => {
         return drinks.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    }
-
-    // Update the list based on the filter
-    const handleFilter = (filteredCafes) => {
-        setFilteredCafes(filteredCafes)
-    }
-
-    // Filter cafes by city
-
-    const handleCityChange = (city) => {
-        setCity(city);
-        const filteredCafes = cafeFood.filter((cafe) => cafe.location.city === city)
-        setFilteredCafes(filteredCafes)
     }
 
     return (
@@ -104,8 +97,11 @@ function CafeFoodList() {
                     )}
                 </div>
             </div>
+            <div className="bg-beige">
+                <TopPickSection topPick={topPick} />
+            </div>
         </>
     )
 }
 
-export default CafeFoodList
+export default CafeDrinkList

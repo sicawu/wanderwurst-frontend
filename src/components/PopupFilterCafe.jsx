@@ -24,7 +24,7 @@ function FilterPopup({ onCityFilter, onDrinkFilter, onFoodFilter, setShowPopup }
             onFoodFilter={onFoodFilter}
           />
           <button
-            className="w-60 mb-5 bg-mint py-2 px-4 rounded-full shadow-md"
+            className="w-60 mb-5 bg-gold py-2 px-4 rounded-full shadow-md"
             onClick={() => setShowPopup(false)}
           >
             Apply

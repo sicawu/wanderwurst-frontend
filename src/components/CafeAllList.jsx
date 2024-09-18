@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe"
+import TopPickSection from "../components/SectionTopPick"
 import { Link } from "react-router-dom"
 import { TbCoffeeOff } from "react-icons/tb"
 import { GoFilter } from "react-icons/go"
@@ -9,11 +10,13 @@ import { GoFilter } from "react-icons/go"
 function CafeList() {
   const API_URL = import.meta.env.VITE_API_URL
   const [allCafes, setAllCafes] = useState([])
+  const [topPick, setTopPick] = useState([])
   const [filteredCafes, setFilteredCafes] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCity, setSelectedCity] = useState("")
   const [selectedDrinks, setSelectedDrinks] = useState("")
   const [selectedFood, setSelectedFood] = useState("")
+  const [selectedSpecs, setSelectedSpecs] = useState("")
   const [showPopup, setShowPopup] = useState(false)
 
   // State to hold the selected filters' descriptions
@@ -28,12 +31,12 @@ function CafeList() {
     axios
       .get(`${API_URL}/cafes`)
       .then((response) => {
-        setAllCafes(response.data);
-        setFilteredCafes(response.data);
+        setAllCafes(response.data)
+        setFilteredCafes(response.data)
       })
       .catch((error) => {
-        console.log("Error getting Cafes from the API...");
-        console.log(error);
+        console.log("Error getting Cafes from the API...")
+        console.log(error)
       })
   }
 
@@ -41,7 +44,16 @@ function CafeList() {
     getAllCafes()
   }, [])
 
-  // Filter cafes based on search term, city, drinks, and food
+
+  // Fetch the list of topPick from the API
+  useEffect(() => {
+    axios.get(`${API_URL}/topPick`)
+      .then((response) => setTopPick(response.data))
+      .catch((error) => console.error("Error fetching topPick:", error))
+  }, [API_URL])
+
+
+  // Search through cafes based on search term, city, drinks, food and specs
   useEffect(() => {
     const filtered = allCafes.filter((cafe) => {
       const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -49,11 +61,12 @@ function CafeList() {
       const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
       const drinksMatch = selectedDrinks ? cafe.drinks.includes(selectedDrinks) : true;
       const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
-
-      return (titleMatch || descriptionMatch) && cityMatch && drinksMatch && foodMatch;
+      const specsMatch = cafe.specs.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()));
+            
+      return (titleMatch || descriptionMatch || specsMatch) && cityMatch && drinksMatch && foodMatch;
     })
     setFilteredCafes(filtered)
-  }, [searchTerm, selectedCity, selectedDrinks, selectedFood, allCafes])
+  }, [searchTerm, selectedCity, selectedDrinks, selectedFood, selectedSpecs, allCafes])
 
   // Handle search input change
   const handleSearch = (event) => {
@@ -153,7 +166,7 @@ function CafeList() {
               className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
             >
               <Link to={`/cafes/${cafe.urlSlug}`}>
-                <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
+                <div className="h-80 w-full max-w-full overflow-hidden border-solid rounded-2xl">
                   <img
                     src={cafe.image}
                     alt={cafe.title}
@@ -177,8 +190,11 @@ function CafeList() {
           </p>
         )}
       </div>
+      <div className="bg-beige">
+      <TopPickSection topPick={topPick} />
+      </div>
     </>
-  );
+  )
 }
 
-export default CafeList;
+export default CafeList

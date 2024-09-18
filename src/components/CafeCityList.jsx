@@ -50,7 +50,7 @@ function CafeCityList() {
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                Carefully curated, discover my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}s beauty.
+                    Carefully curated, discover my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}s beauty.
                 </p>
                 <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
                     {cafeCity.length === 0
