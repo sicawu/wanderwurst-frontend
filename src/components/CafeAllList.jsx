@@ -185,7 +185,7 @@ function CafeList() {
                   <img
                     src={cafe.image}
                     alt={cafe.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover "
                   />
                 </div>
                 <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">

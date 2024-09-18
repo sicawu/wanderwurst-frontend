@@ -14,6 +14,10 @@ import { Helmet } from "react-helmet-async"
 import CafeMaps from "../components/CafeGoogleMaps.jsx"
 import CafeOpeningHours from "../components/CafeGoogleOpeningHours.jsx"
 
+//Leaflet Map
+import LeafletMap from "../components/CafeLeafletMaps.jsx"
+import 'leaflet/dist/leaflet.css'
+
 function CafeDetailsPage() {
     const [cafe, setCafe] = useState("")
     const [errorMessage, setErrorMessage] = useState('')
@@ -219,7 +223,7 @@ function CafeDetailsPage() {
                                 <CafeOpeningHours placeId={cafe.placeId} />
                             </div>
                             <div>
-                                <CafeMaps />
+                                <LeafletMap cafe={cafe}/>
                             </div>
                         </div>
                     </div>

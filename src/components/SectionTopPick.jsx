@@ -11,7 +11,8 @@ function TopPickSection({ topPick }) {
           const linkText = pick.replace(/([A-Z])/g, '-$1').toLowerCase(); // convert camelCase to kebab-case
           const { h3, p } = iconDescriptions[pick];
           return (
-            <div className="flex flex-col items-center mb-5 lg:w-1/4 w-1/3" key={index}>
+            <div className="flex flex-col items-center mb-5 lg:w-1/4 w-1/3 rounded-2xl hover:bg-white hover:shadow-xl hover:bg-white" 
+            key={index}>
               <Link to={`/best-cafes/for/${linkText}`} className="w-12 h-12">
                 <img
                   src={iconUrl}
