@@ -146,7 +146,7 @@ function CafeList() {
         {Object.entries(filters).map(([key, value]) =>
           value ? (
             <span key={key} className="inline-block border border-grey py-0.5 px-2 mr-2 mb-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300">
-              {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
+              {value}
               <button
                 onClick={() => {
                   // Clear individual filter

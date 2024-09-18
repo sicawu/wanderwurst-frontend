@@ -68,7 +68,7 @@ function CafeDetailsPage() {
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
                             <div className="flex justify-center p-10">
                                 <img
-                                    className="h-full w-full object-cover rounded-2xl"
+                                    className="h-[100vh] w-full object-cover rounded-2xl"
                                     src={cafe.image}
                                     alt={`${cafe.title}${cafe.location && cafe.location.city ? `, ${cafe.location.city}, ${cafe.location.country}` : ''}`}
                                 />
