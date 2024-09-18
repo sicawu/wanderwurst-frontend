@@ -2,7 +2,7 @@ import React from "react";
 import CafeFilter from "./FilterCafe";
 import { RxCrossCircled } from "react-icons/rx";
 
-function FilterPopup({ onCityFilter, onDrinkFilter, onFoodFilter, setShowPopup }) {
+function FilterPopup({ onCityFilter, onDrinkFilter, onFoodFilter, onSpecFilter, setShowPopup }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
       <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -22,6 +22,7 @@ function FilterPopup({ onCityFilter, onDrinkFilter, onFoodFilter, setShowPopup }
             onCityFilter={onCityFilter}
             onDrinkFilter={onDrinkFilter}
             onFoodFilter={onFoodFilter}
+            onSpecFilter={onSpecFilter}
           />
           <button
             className="w-60 mb-5 bg-gold py-2 px-4 rounded-full shadow-md"

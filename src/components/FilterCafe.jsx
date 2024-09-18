@@ -3,13 +3,15 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
+function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter, onSpecFilter }) {
     const [cities, setCities] = useState([]);
     const [foods, setFoods] = useState([]);
     const [drinks, setDrinks] = useState([]);
+    const [specs, setSpecs] = useState([]);
     const [selectedCity, setSelectedCity] = useState("");
     const [selectedFood, setSelectedFood] = useState("");
     const [selectedDrink, setSelectedDrink] = useState("");
+    const [selectedSpec, setSelectedSpec] = useState("");
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -29,6 +31,11 @@ function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
         axios.get(`${API_URL}/food`)
             .then((response) => setFoods(response.data))
             .catch((error) => console.error("Error fetching foods:", error));
+
+                    // Fetch specs options
+        axios.get(`${API_URL}/specs`)
+        .then((response) => setSpecs(response.data))
+        .catch((error) => console.error("Error fetching specs:", error));
     }, [API_URL]);
 
 
@@ -52,6 +59,13 @@ function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
         setSelectedFood(food);
         onFoodFilter(food); // Call the food filter callback
     }
+
+       // Handle specs selection
+       const handleSpecChange = (event) => {
+        const spec = event.target.value;
+        setSelectedSpec(spec);
+        onSpecFilter(spec); // Call the spec filter callback
+      }
 
     return (
         <div className="w-full flex flex-col justify-center items-center space-y-5 mx-auto mt-5">
@@ -101,6 +115,23 @@ function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter }) {
                     {foods.map((food, index) => (
                         <option key={index} value={food}>
                             {food}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+               {/* Specs Filter Dropdown */}
+               <div className="w-60 rounded-full shadow-md">
+                <select
+                    id="spec"
+                    value={selectedSpec}
+                    onChange={handleSpecChange}
+                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+                >
+                    <option value="">Choose your Preference</option>
+                    {specs.map((spec, index) => (
+                        <option key={index} value={spec}>
+                            {spec}
                         </option>
                     ))}
                 </select>

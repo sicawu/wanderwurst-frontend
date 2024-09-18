@@ -7,6 +7,9 @@ import { Link } from "react-router-dom"
 import { TbCoffeeOff } from "react-icons/tb"
 import { GoFilter } from "react-icons/go"
 
+// Helmet library for individual SEO title + description
+import { Helmet } from "react-helmet-async"
+
 function CafeList() {
   const API_URL = import.meta.env.VITE_API_URL
   const [allCafes, setAllCafes] = useState([])
@@ -14,16 +17,17 @@ function CafeList() {
   const [filteredCafes, setFilteredCafes] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCity, setSelectedCity] = useState("")
-  const [selectedDrinks, setSelectedDrinks] = useState("")
+  const [selectedDrink, setSelectedDrink] = useState("")
   const [selectedFood, setSelectedFood] = useState("")
-  const [selectedSpecs, setSelectedSpecs] = useState("")
+  const [selectedSpec, setSelectedSpec] = useState("")
   const [showPopup, setShowPopup] = useState(false)
 
   // State to hold the selected filters' descriptions
   const [filters, setFilters] = useState({
     city: "",
-    drinks: "",
+    drink: "",
     food: "",
+    spec:""
   })
 
   // Fetch all cafes
@@ -57,14 +61,14 @@ function CafeList() {
       const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
       const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
       const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
-      const drinksMatch = selectedDrinks ? cafe.drinks.includes(selectedDrinks) : true;
+      const drinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
       const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
-      const specsMatch = cafe.specs.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()));
-
-      return (titleMatch || descriptionMatch || specsMatch) && cityMatch && drinksMatch && foodMatch;
+      const specsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
+            
+      return (titleMatch || descriptionMatch ) && cityMatch && drinksMatch && foodMatch && specsMatch;
     })
     setFilteredCafes(filtered)
-  }, [searchTerm, selectedCity, selectedDrinks, selectedFood, selectedSpecs, allCafes])
+  }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, allCafes])
 
   // Handle search input change
   const handleSearch = (event) => {
@@ -78,9 +82,9 @@ function CafeList() {
   }
 
   // Handle drinks filter
-  const handleDrinksFilter = (drinks) => {
-    setSelectedDrinks(drinks)
-    setFilters((prev) => ({ ...prev, drinks }))
+  const handleDrinkFilter = (drink) => {
+    setSelectedDrink(drink)
+    setFilters((prev) => ({ ...prev, drink }))
   }
 
   // Handle food filter
@@ -89,18 +93,29 @@ function CafeList() {
     setFilters((prev) => ({ ...prev, food }))
   }
 
+    // Handle specs filter
+    const handleSpecFilter = (spec) => {
+      setSelectedSpec(spec);
+      setFilters((prev) => ({ ...prev, spec: spec }));
+    };
+
   // Clear all filters
   const clearFilters = () => {
     setSelectedCity("")
-    setSelectedDrinks("")
+    setSelectedDrink("")
     setSelectedFood("")
-    setFilters({ city: "", drinks: "", food: "" })
+    setSelectedSpec("")
+    setFilters({ city: "", drink: "", food: "", spec: "" })
   }
 
   return (
     <>
+      <Helmet>
+        <title>{`${filteredCafes.length} Top Cafes in the World | Sweet Spots`}</title>
+        <meta name="description" content={`Discover my favorite cafes worldwide. Carefully curated, your little safe space in the world.`} />
+      </Helmet>
       <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
-        Top {filteredCafes.length} Cafes in the world
+        Best Cafes in the World
       </h1>
       <div className="flex justify-center items-center mt-8">
         {/* Search Bar & Filter Toggle Button */}
@@ -118,8 +133,9 @@ function CafeList() {
         {showPopup && (
           <FilterPopup
             onCityFilter={handleCityFilter}
-            onDrinkFilter={handleDrinksFilter}
+            onDrinkFilter={handleDrinkFilter}
             onFoodFilter={handleFoodFilter}
+            onSpecFilter={handleSpecFilter}
             setShowPopup={setShowPopup}
           />
         )}
@@ -136,8 +152,9 @@ function CafeList() {
                   // Clear individual filter
                   setFilters((prev) => ({ ...prev, [key]: "" }));
                   if (key === "city") setSelectedCity("");
-                  if (key === "drinks") setSelectedDrinks("");
+                  if (key === "drink") setSelectedDrink("");
                   if (key === "food") setSelectedFood("");
+                  if (key === "spec") setSelectedSpec("");
                 }}
                 className="ml-2"
               >
@@ -146,7 +163,7 @@ function CafeList() {
             </span>
           ) : null
         )}
-        {(selectedCity || selectedDrinks || selectedFood) && (
+        {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
           <button
             onClick={clearFilters}
             className="bg-grey border border-grey px-2 py-0.5 mt-1 text-sm shadow-md hover:bg-mint hover:shadow-lg transition duration-300"
@@ -188,7 +205,7 @@ function CafeList() {
           </p>
         )}
       </div>
-      <div className="bg-beige">
+      <div className="bg-beige pt-5">
         <TopPickSection topPick={topPick} />
       </div>
     </>
