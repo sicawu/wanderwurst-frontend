@@ -10,6 +10,7 @@ function CafeCityList() {
     const API_URL = import.meta.env.VITE_API_URL
     const { city } = useParams()
     const [cafeCity, setcafeCity] = useState([])
+    const [selectedSpecs, setSelectedSpecs] = useState("")
     const [filteredCafes, setFilteredCafes] = useState([])
 
     const getCityCafes = () => {
@@ -24,7 +25,7 @@ function CafeCityList() {
     }
     useEffect(() => {
         getCityCafes()
-    }, [city])
+    }, [])
 
 
     // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
@@ -33,9 +34,16 @@ function CafeCityList() {
     }
 
     // Update the list based on the filter
-    const handleFilter = (filteredCafes) => {
-        setFilteredCafes(filteredCafes)
-    }
+    const handleFilter = (selectedSpecs) => {
+        if (selectedSpecs.length === 0) {
+            setFilteredCafes(cafeCity); // Reset filteredCafes to all cafes when no specs are selected
+        } else {
+            const filteredCafes = cafeCity.filter((cafe) => {
+                return selectedSpecs.every((spec) => cafe.specs.includes(spec));
+            });
+            setFilteredCafes(filteredCafes); // Update filteredCafes state with filtered cafes
+        }
+    };
 
     return (
         <>
@@ -52,10 +60,10 @@ function CafeCityList() {
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
                     Carefully curated, discover my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}s beauty.
                 </p>
-                <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
-                    {cafeCity.length === 0
-                        ? <p>No cafes found</p>
-                        : cafeCity.map((cafe) => (
+                <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mt-10">
+                    {filteredCafes.length === 0
+                        ? <p>Meow, no cafes that match your criteria in {formatCity(city)}. Pls change your filter.</p>
+                        : filteredCafes.map((cafe) => (
                             <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
                                 <Link to={`/cafes/${cafe.urlSlug}`} >
                                     <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
@@ -77,10 +85,9 @@ function CafeCityList() {
                         ))
                     }
                 </div>
-                <div className="mb-10">
+                <div>
                     <CafeFilterSpecs
                         onFilter={handleFilter}
-                        cafes={cafeCity} // Pass the cafes data to the filter component
                     />
                 </div>
             </div>

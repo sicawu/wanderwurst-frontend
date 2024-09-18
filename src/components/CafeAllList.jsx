@@ -28,14 +28,12 @@ function CafeList() {
 
   // Fetch all cafes
   const getAllCafes = () => {
-    axios
-      .get(`${API_URL}/cafes`)
+    axios.get(`${API_URL}/cafes`)
       .then((response) => {
         setAllCafes(response.data)
         setFilteredCafes(response.data)
       })
       .catch((error) => {
-        console.log("Error getting Cafes from the API...")
         console.log(error)
       })
   }
@@ -62,7 +60,7 @@ function CafeList() {
       const drinksMatch = selectedDrinks ? cafe.drinks.includes(selectedDrinks) : true;
       const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
       const specsMatch = cafe.specs.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()));
-            
+
       return (titleMatch || descriptionMatch || specsMatch) && cityMatch && drinksMatch && foodMatch;
     })
     setFilteredCafes(filtered)
@@ -191,7 +189,7 @@ function CafeList() {
         )}
       </div>
       <div className="bg-beige">
-      <TopPickSection topPick={topPick} />
+        <TopPickSection topPick={topPick} />
       </div>
     </>
   )

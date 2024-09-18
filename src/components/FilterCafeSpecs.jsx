@@ -15,19 +15,19 @@ function CafeFilterSpecs({ onFilter }) {
     }, [])
 
     const handleSpecSelection = (event) => {
-        const value = event.target.value
+        const value = event.target.value;
         const newSelectedSpecs = event.target.checked
-            ? [...selectedSpecs, value]
-            : selectedSpecs.filter(spec => spec !== value)
-
-        setSelectedSpecs(newSelectedSpecs)
-        onFilter(newSelectedSpecs)
-    }
+          ? [...selectedSpecs, value]
+          : selectedSpecs.filter((spec) => spec !== value);
+      
+        setSelectedSpecs(newSelectedSpecs);
+        onFilter(newSelectedSpecs); // Pass the new selected specs to the handleFilter function
+      };
 
     return (
-        <div className="w-90 flex flex-col shadow-md max-w-md mx-auto mt-8 h-auto">
-            <h2 className="text-s pt-5 pb-3 flex justify-center text-center font-extrabold">
-                Set Priorities
+        <div className="w-full flex flex-col bg-beige px-20 py-10 h-auto">
+          <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
+          Set Priorities
             </h2>
             <div className="flex flex-wrap">
                 {specs.map((spec, index) => (
