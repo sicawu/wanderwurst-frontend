@@ -5,7 +5,7 @@ import CafeFilter from "./FilterCafe"
 
 // Helmet library for individual SEO title + description
 //import { Helmet } from "react-helmet"
-import { Helmet, HelmetProvider } from "react-helmet-async"
+import { Helmet } from "react-helmet-async"
 
 function CafeFoodList() {
     const API_URL = import.meta.env.VITE_API_URL

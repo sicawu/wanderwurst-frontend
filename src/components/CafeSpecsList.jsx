@@ -5,7 +5,7 @@ import CafeFilter from "./FilterCafe"
 
 // Helmet library for individual SEO title + description
 //import { Helmet } from "react-helmet"
-import { Helmet, HelmetProvider } from "react-helmet-async"
+import { Helmet } from "react-helmet-async"
 
 
 function CafeSpecList() {
@@ -36,14 +36,14 @@ function CafeSpecList() {
         return specs.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     }
 
-     // Update the list based on the filter
+    // Update the list based on the filter
     const handleFilter = (filteredCafes) => {
         setFilteredCafes(filteredCafes)
     }
 
     return (
         <>
-         <Helmet>
+            <Helmet>
                 <title>{`${filteredCafes.length} Best Cafes for ${formatSpecs(specs)} | Sweet Spots`}</title>
                 <meta name="description" content={`Sometimes it's hard to find a cafe with ${formatSpecs(specs)}. No worries, I've got you. Discover my ${filteredCafes.length} top cafes wordwide. `} />
             </Helmet>

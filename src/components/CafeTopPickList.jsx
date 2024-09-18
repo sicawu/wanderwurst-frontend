@@ -54,7 +54,7 @@ function CafeSpecList() {
           </h1>
         )}
         <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-          We exactly know what you are looking for. Explore all coffee shops for {formatTopPicks(toppick)}.
+          We exactly know what you are looking for. Explore my {filteredCafes.length} top coffee shops for {formatTopPicks(toppick)}.
         </p>
         {/*
         <div className="mb-10">

@@ -78,9 +78,10 @@ function CafeDetailsPage() {
                                 <div className="flex flex-row justify-center mb-10 gap-5">
                                     {cafe.topPick && cafe.topPick.map((topPick, index) => {
                                         const iconUrl = iconMap[topPick];
+                                        const urlText = topPick.replace(/([A-Z])/g, '-$1').toLowerCase()
                                         return (
                                             <Link
-                                                to={`/best-cafes/for/${topPick.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific topPick; to lowercase + replacing empty spaces in specs
+                                                to={`/best-cafes/for/${urlText}`}
                                                 key={index}
                                                 className="relative group"
                                             >
@@ -89,11 +90,11 @@ function CafeDetailsPage() {
                                                     <img
                                                         src={iconUrl}
                                                         alt={topPick}
-                                                        className="w-full h-full border-2 rounded-full object-cover object-center hover:bg-grey"
+                                                        className="w-full h-full border-2 rounded-full object-cover object-center hover:bg-white hover:shadow-xl"
                                                     />
                                                 </div>
                                                 <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
-                                                    Top pick for {topPick.toLowerCase().replace(/\s+/g, '-')}
+                                                    Top Pick for {topPick.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                                                 </span>
                                             </Link>
                                         )
@@ -119,7 +120,7 @@ function CafeDetailsPage() {
                                         cafe.specs.map((spec, index) => (
                                             <Link
                                                 to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific spec; to lowercase + replacing empty spaces in specs
-                                                className="font-bold bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green"
+                                                className="font-bold bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green hover:shadow-xl"
                                                 key={index}>
                                                 {spec}
                                             </Link>
@@ -160,7 +161,7 @@ function CafeDetailsPage() {
                                                 {cafe.drinks.map((drinks, index) => (
                                                     <Link
                                                         to={`/best-cafes/drinks/${drinks.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific drinks; to lowercase + replacing empty spaces in food
-                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black"
+                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
                                                         key={index}
                                                     >
                                                         {drinks}
@@ -181,7 +182,7 @@ function CafeDetailsPage() {
                                                 {cafe.food.map((food, index) => (
                                                     <Link
                                                         to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific food; to lowercase + replacing empty spaces in food
-                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black"
+                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
                                                         key={index}
                                                     >
                                                         {food}

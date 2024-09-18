@@ -5,7 +5,7 @@ import CafeFilter from "./FilterCafe"
 
 // Helmet library for individual SEO title + description
 //import { Helmet } from "react-helmet"
-import { Helmet, HelmetProvider } from "react-helmet-async"
+import { Helmet } from "react-helmet-async"
 
 function CafeFoodList() {
     const API_URL = import.meta.env.VITE_API_URL
@@ -14,9 +14,10 @@ function CafeFoodList() {
     const [city, setCity] = useState("")
     const { drinks } = useParams()
     const drinksToFilter = drinks
+    const encodedDrinks = encodeURIComponent(drinks)
 
     const getCafes = () => {
-        axios.get(`${API_URL}/cafes/drinks/${drinks}`)
+        axios.get(`${API_URL}/cafes/drinks/${encodedDrinks}`)
             .then((response) => {
                 setCafeDrinks(response.data)
                 setFilteredCafes(response.data)
@@ -62,7 +63,7 @@ function CafeFoodList() {
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                    Craving {formatDrinks(drinks)}? Explore my {filteredCafes.length} favorite cafes for that.
+                    Craving {formatDrinks(drinks).toLowerCase()}? Explore my {filteredCafes.length} favorite cafes for that.
                 </p>
                 {/*
                 <div className="mb-10">
