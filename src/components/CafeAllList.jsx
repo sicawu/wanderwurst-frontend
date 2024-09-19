@@ -118,6 +118,7 @@ function CafeList() {
         Best Cafes in the World
       </h1>
       <div className="flex justify-center items-center mt-8">
+        
         {/* Search Bar & Filter Toggle Button */}
         <div className="flex flex-row items-center space-x-2">
           <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
