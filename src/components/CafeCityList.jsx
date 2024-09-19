@@ -1,37 +1,49 @@
-import React, { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
-import axios from "axios"
-import CafeFilterSpecs from "./FilterCafeSpecs"
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import CafeFilterSpecs from "./FilterCafeSpecs";
 
 // Helmet library for individual SEO title + description
-import { Helmet } from "react-helmet-async"
+import { Helmet } from "react-helmet-async";
 
 function CafeCityList() {
-    const API_URL = import.meta.env.VITE_API_URL
-    const { city } = useParams()
-    const [cafeCity, setcafeCity] = useState([])
-    const [selectedSpecs, setSelectedSpecs] = useState("")
-    const [filteredCafes, setFilteredCafes] = useState([])
+    const API_URL = import.meta.env.VITE_API_URL;
+    const { city } = useParams();
+    const [cafeCity, setcafeCity] = useState([]);
+    const [filteredCafes, setFilteredCafes] = useState([]);
+    const [availableSpecs, setAvailableSpecs] = useState([]); // State to store available specs
 
     const getCityCafes = () => {
         axios.get(`${API_URL}/cafes/city/${city}`)
             .then((response) => {
-                setcafeCity(response.data)
-                setFilteredCafes(response.data)
+                setcafeCity(response.data);
+                setFilteredCafes(response.data);
+                extractSpecs(response.data); // Extract specs when fetching cafes
             })
             .catch((error) => {
-                console.log(error)
-            })
-    }
-    useEffect(() => {
-        getCityCafes()
-    }, [])
+                console.log(error);
+            });
+    };
 
+    useEffect(() => {
+        getCityCafes();
+    }, []);
+
+    // Extract unique specs from the cafes in the city
+    const extractSpecs = (cafes) => {
+        const specsSet = new Set();
+        cafes.forEach((cafe) => {
+            cafe.specs.forEach((spec) => {
+                specsSet.add(spec); // Add each spec to the Set (avoids duplicates)
+            });
+        });
+        setAvailableSpecs([...specsSet]); // Convert Set to array and update state
+    };
 
     // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
     const formatCity = (city) => {
         return city.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    }
+    };
 
     // Update the list based on the filter
     const handleFilter = (selectedSpecs) => {
@@ -58,7 +70,7 @@ function CafeCityList() {
                     </h1>
                 )}
                 <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                    Carefully curated, discover my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}s beauty.
+                    Carefully curated, discover my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
                 </p>
                 <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mt-10">
                     {filteredCafes.length === 0
@@ -88,11 +100,12 @@ function CafeCityList() {
                 <div>
                     <CafeFilterSpecs
                         onFilter={handleFilter}
+                        availableSpecs={availableSpecs} // Pass available specs to the filter component
                     />
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default CafeCityList
+export default CafeCityList;

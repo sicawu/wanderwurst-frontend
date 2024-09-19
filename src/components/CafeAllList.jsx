@@ -214,7 +214,7 @@ function CafeList() {
               className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
             >
               <Link to={`/cafes/${cafe.urlSlug}`}>
-                <div className="h-80 w-full max-w-full overflow-hidden border-solid rounded-2xl">
+                <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
                   <img
                     src={cafe.image}
                     alt={cafe.title}
@@ -225,11 +225,9 @@ function CafeList() {
                   {cafe.location.city}
                 </p>
                 <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
-                  {cafe.title}
+                  {cafe.location.country}
                 </p>
-                <p className="text-base leading-6 text-darkgray mt-1 mx-1 max-h-14 overflow-hidden">
-                  {cafe.description}
-                </p>
+                <p className="font-bold">{cafe.title}</p>
               </Link>
             </div>
           ))

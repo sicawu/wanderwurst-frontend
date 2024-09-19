@@ -26,23 +26,22 @@ function CafeFilterSpecs({ onFilter }) {
 
     return (
         <div className="w-full flex flex-col bg-beige px-20 py-10 h-auto">
-          <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
-          Set Priorities
-            </h2>
-            <div className="flex flex-wrap">
-                {specs.map((spec, index) => (
-                    <label key={index} className="flex flex-wrap items-center pr-5">
-                        <input
-                            type="checkbox"
-                            value={spec}
-                            onChange={handleSpecSelection}
-                            className="mr-2"
-                        />
-                        {spec}
-                    </label>
-                ))}
-            </div>
-
+          <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 mb-5 font-extrabold italic">
+            Set Priorities
+          </h2>
+          <div className="flex flex-wrap justify-center">
+              {specs.map((spec, index) => (
+                  <label key={index} className="flex items-center pr-5 mb-2">
+                      <input
+                          type="checkbox"
+                          value={spec}
+                          onChange={handleSpecSelection}
+                          className=""
+                      />
+                      <span className="inline-block bg-white px-1.5 text-base leading-6">{spec}</span>
+                  </label>
+              ))}
+          </div>
         </div>
     )
 }
