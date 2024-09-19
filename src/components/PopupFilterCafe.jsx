@@ -1,8 +1,18 @@
 import React from "react";
-import CafeFilter from "./FilterCafe";
 import { RxCrossCircled } from "react-icons/rx";
+import CafeFilter from "./FilterCafe";
 
-function FilterPopup({ onCityFilter, onDrinkFilter, onFoodFilter, onSpecFilter, setShowPopup }) {
+function FilterPopup({
+  onCityFilter,
+  onDrinkFilter,
+  onFoodFilter,
+  onSpecFilter,
+  cities,
+  drinks,
+  foods,
+  specs,
+  setShowPopup
+}) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
       <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
@@ -14,7 +24,7 @@ function FilterPopup({ onCityFilter, onDrinkFilter, onFoodFilter, onSpecFilter, 
           <RxCrossCircled className="text-4xl" />
         </button>
         {/* Filters */}
-        <div className="flex flex-col items-center space-y-4 my-8"> {/* Apply flex-col to stack filters */}
+        <div className="flex flex-col items-center space-y-4 my-8">
           <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
             Make some Magic
           </h2>
@@ -23,6 +33,10 @@ function FilterPopup({ onCityFilter, onDrinkFilter, onFoodFilter, onSpecFilter, 
             onDrinkFilter={onDrinkFilter}
             onFoodFilter={onFoodFilter}
             onSpecFilter={onSpecFilter}
+            cities={cities}
+            drinks={drinks}
+            foods={foods}
+            specs={specs}
           />
           <button
             className="w-60 mb-5 bg-gold py-2 px-4 rounded-full shadow-md"

@@ -1,143 +1,143 @@
-// Filter by city + food
-
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-function CafeFilter({ onCityFilter, onDrinkFilter, onFoodFilter, onSpecFilter }) {
-    const [cities, setCities] = useState([]);
-    const [foods, setFoods] = useState([]);
-    const [drinks, setDrinks] = useState([]);
-    const [specs, setSpecs] = useState([]);
-    const [selectedCity, setSelectedCity] = useState("");
-    const [selectedFood, setSelectedFood] = useState("");
-    const [selectedDrink, setSelectedDrink] = useState("");
-    const [selectedSpec, setSelectedSpec] = useState("");
+function CafeFilter({
+  onCityFilter,
+  onDrinkFilter,
+  onFoodFilter,
+  onSpecFilter,
+  cities,
+  drinks,
+  foods,
+  specs
+}) {
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedDrink, setSelectedDrink] = useState("");
+  const [selectedFood, setSelectedFood] = useState("");
+  const [selectedSpec, setSelectedSpec] = useState("");
+  const [filteredCities, setFilteredCities] = useState(cities);
+  const [filteredDrinks, setFilteredDrinks] = useState(drinks);
+  const [filteredFoods, setFilteredFoods] = useState(foods);
+  const [filteredSpecs, setFilteredSpecs] = useState(specs);
 
-    const API_URL = import.meta.env.VITE_API_URL;
+  useEffect(() => {
+    onCityFilter(selectedCity);
+  }, [selectedCity]);
 
-    // Get city names and food options from the database
-    useEffect(() => {
-        // Fetch cities
-        axios.get(`${API_URL}/cities`)
-            .then((response) => setCities(response.data))
-            .catch((error) => console.error("Error fetching cities:", error));
+  // Handle drink selection
+  useEffect(() => {
+    onDrinkFilter(selectedDrink);
+  }, [selectedDrink]);
 
-        // Fetch drinks options
-        axios.get(`${API_URL}/drinks`)
-            .then((response) => setDrinks(response.data))
-            .catch((error) => console.error("Error fetching drinks:", error));
+  // Handle food selection
+  useEffect(() => {
+    onFoodFilter(selectedFood);
+  }, [selectedFood]);
 
-        // Fetch food options
-        axios.get(`${API_URL}/food`)
-            .then((response) => setFoods(response.data))
-            .catch((error) => console.error("Error fetching foods:", error));
+  // Handle spec selection
+  useEffect(() => {
+    onSpecFilter(selectedSpec);
+  }, [selectedSpec]);
 
-                    // Fetch specs options
-        axios.get(`${API_URL}/specs`)
-        .then((response) => setSpecs(response.data))
-        .catch((error) => console.error("Error fetching specs:", error));
-    }, [API_URL]);
+  const handleCityChange = (event) => {
+    const city = event.target.value;
+    setSelectedCity(city);
+    onCityFilter(city);
+    setFilteredCities(cities.filter((c) => c === city));
+  }
 
+  const handleDrinkChange = (event) => {
+    const drink = event.target.value;
+    setSelectedDrink(drink);
+    onDrinkFilter(drink);
+    setFilteredDrinks(drinks.filter((d) => d === drink));
+  }
 
-    // Handle city selection
-    const handleCityChange = (event) => {
-        const city = event.target.value;
-        setSelectedCity(city);
-        onCityFilter(city); // Call the city filter callback
-    }
+  const handleFoodChange = (event) => {
+    const food = event.target.value;
+    setSelectedFood(food);
+    onFoodFilter(food);
+    setFilteredFoods(foods.filter((f) => f === food));
+  }
 
-    // Handle drinks selection
-    const handleDrinkChange = (event) => {
-        const drink = event.target.value;
-        setSelectedDrink(drink);
-        onDrinkFilter(drink); // Call the food filter callback
-    }
+  const handleSpecChange = (event) => {
+    const spec = event.target.value;
+    setSelectedSpec(spec);
+    onSpecFilter(spec);
+    setFilteredSpecs(specs.filter((s) => s === spec));
+  }
 
-    // Handle food selection
-    const handleFoodChange = (event) => {
-        const food = event.target.value;
-        setSelectedFood(food);
-        onFoodFilter(food); // Call the food filter callback
-    }
+  return (
+    <div className="w-full flex flex-col justify-center items-center space-y-5 mx-auto mt-5">
+      {/* City Filter Dropdown */}
+      <div className="w-60 rounded-full shadow-md">
+        <select
+          id="city"
+          value={selectedCity}
+          onChange={handleCityChange}
+          className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+        >
+          <option value="">Select a City</option>
+          {filteredCities.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
+      </div>
 
-       // Handle specs selection
-       const handleSpecChange = (event) => {
-        const spec = event.target.value;
-        setSelectedSpec(spec);
-        onSpecFilter(spec); // Call the spec filter callback
-      }
+      {/* Drinks Filter Dropdown */}
+      <div className="w-60 rounded-full shadow-md">
+        <select
+          id="drink"
+          value={selectedDrink}
+          onChange={handleDrinkChange}
+          className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+        >
+          <option value="">Select a Drink</option>
+          {filteredDrinks.map((drink) => (
+            <option key={drink} value={drink}>
+              {drink}
+            </option>
+          ))}
+        </select>
+      </div>
 
-    return (
-        <div className="w-full flex flex-col justify-center items-center space-y-5 mx-auto mt-5">
-            {/* City Filter Dropdown */}
-            <div className="w-60 rounded-full shadow-md">
-                <select
-                    id="city"
-                    value={selectedCity}
-                    onChange={handleCityChange}
-                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
-                >
-                    <option value="">Select a City</option>
-                    {cities.map((city, index) => (
-                        <option key={index} value={city}>
-                            {city}
-                        </option>
-                    ))}
-                </select>
-            </div>
+      {/* Food Filter Dropdown */}
+      <div className="w-60 rounded-full shadow-md">
+        <select
+          id="food"
+          value={selectedFood}
+          onChange={handleFoodChange}
+          className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+        >
+          <option value="">Select Food</option>
+          {filteredFoods.map((food) => (
+            <option key={food} value={food}>
+              {food}
+            </option>
+          ))}
+        </select>
+      </div>
 
-            {/* Drinks Filter Dropdown */}
-            <div className="w-60 rounded-full shadow-md">
-                <select
-                    id="drink"
-                    value={selectedDrink}
-                    onChange={handleDrinkChange}
-                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
-                >
-                    <option value="">Select a Drink</option>
-                    {drinks.map((drink, index) => (
-                        <option key={index} value={drink}>
-                            {drink}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-            {/* Food Filter Dropdown */}
-            <div className="w-60 rounded-full shadow-md">
-                <select
-                    id="food"
-                    value={selectedFood}
-                    onChange={handleFoodChange}
-                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
-                >
-                    <option value="">Select Food</option>
-                    {foods.map((food, index) => (
-                        <option key={index} value={food}>
-                            {food}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-               {/* Specs Filter Dropdown */}
-               <div className="w-60 rounded-full shadow-md">
-                <select
-                    id="spec"
-                    value={selectedSpec}
-                    onChange={handleSpecChange}
-                    className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
-                >
-                    <option value="">Choose your Preference</option>
-                    {specs.map((spec, index) => (
-                        <option key={index} value={spec}>
-                            {spec}
-                        </option>
-                    ))}
-                </select>
-            </div>
-        </div>
-    );
+      {/* Specs Filter Dropdown */}
+      <div className="w-60 rounded-full shadow-md">
+        <select
+          id="spec"
+          value={selectedSpec}
+          onChange={handleSpecChange}
+          className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"
+        >
+          <option value="">Choose your Preference</option>
+          {filteredSpecs.map((spec) => (
+            <option key={spec} value={spec}>
+              {spec}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
 }
 
 export default CafeFilter;

@@ -30,6 +30,14 @@ function CafeSpecList() {
     spec: ""
   })
 
+  // State to hold the unique filter values
+  const [filterValues, setFilterValues] = useState({
+    cities: [],
+    drinks: [],
+    foods: [],
+    specs: []
+  });
+
   // Fetch all cafes for selected TopPick, e.g. Girlies Brunch
   const getCafes = () => {
     const topPick = topPickToFilter.replace(/-([a-z])/g, (match, group) => group.toUpperCase());
@@ -37,6 +45,18 @@ function CafeSpecList() {
       .then((response) => {
         setcafeTopPick(response.data);
         setFilteredCafes(response.data);
+        const cities = [...new Set(response.data.map(cafe => cafe.location.city))];
+        const drinks = [...new Set(response.data.flatMap(cafe => cafe.drinks))];
+        const foods = [...new Set(response.data.flatMap(cafe => cafe.food))];
+        const specs = [...new Set(response.data.flatMap(cafe => cafe.specs))];
+  
+        // Update the filter values
+        setFilterValues({
+          cities,
+          drinks,
+          foods,
+          specs
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -45,7 +65,8 @@ function CafeSpecList() {
 
   useEffect(() => {
     getCafes();
-  }, []);
+  }, [])
+
 
   // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
   const formatTopPicks = (toppick) => {
@@ -65,7 +86,8 @@ function CafeSpecList() {
       const selectedFoodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
       const selectedSpecsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
               
-      return (titleMatch || descriptionMatch || foodMatch || drinksMatch || specsMatch) && cityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
+      return (titleMatch || descriptionMatch || foodMatch || drinksMatch || specsMatch
+              ) && cityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
     })
     setFilteredCafes(filtered)
   }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, cafeTopPick])
@@ -142,6 +164,10 @@ function CafeSpecList() {
               onDrinkFilter={handleDrinkFilter}
               onFoodFilter={handleFoodFilter}
               onSpecFilter={handleSpecFilter}
+              cities={filterValues.cities} 
+              drinks={filterValues.drinks}
+              foods={filterValues.foods}
+              specs={filterValues.specs}             
               setShowPopup={setShowPopup}
             />
           )}
