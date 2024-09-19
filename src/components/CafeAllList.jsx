@@ -60,12 +60,15 @@ function CafeList() {
     const filtered = allCafes.filter((cafe) => {
       const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
       const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const foodMatch = cafe.food.some((food) => food.toLowerCase().includes(searchTerm.toLowerCase()));
+      const drinksMatch = cafe.drinks.some((drink) => drink.toLowerCase().includes(searchTerm.toLowerCase()));
+      const specsMatch = cafe.specs.some((spec) => spec.toLowerCase().includes(searchTerm.toLowerCase()));
       const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
-      const drinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
-      const foodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
-      const specsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
-            
-      return (titleMatch || descriptionMatch ) && cityMatch && drinksMatch && foodMatch && specsMatch;
+      const selectedDrinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
+      const selectedFoodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
+      const selectedSpecsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
+              
+      return (titleMatch || descriptionMatch || foodMatch || drinksMatch || specsMatch) && cityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
     })
     setFilteredCafes(filtered)
   }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, allCafes])
