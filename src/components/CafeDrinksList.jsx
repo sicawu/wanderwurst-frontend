@@ -98,8 +98,7 @@ function CafeDrinkList() {
                 </div>
             </div>
             <div className="bg-beige">
-                <TopPickSection topPick={topPick} />
-            </div>
+            <TopPickSection topPick={topPick} icons={{ working, bestCoffee, socializing, girliesBrunch, localPlace, sustainable }} />            </div>
         </>
     )
 }
