@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import CafeFilterSpecs from "./FilterCafeSpecs";
-
+// import CafeFilterSpecs from "./FilterCafeSpecs";
 // Filter + Search
 import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
@@ -155,7 +154,6 @@ function CafeCityList() {
     };
 */
 
-
     return (
         <>
             <Helmet>
@@ -170,7 +168,7 @@ function CafeCityList() {
             </p>
 
             {/* Search Bar & Filter Toggle Button */}
-            <div className="flex justify-center items-center mt-8">
+            <div className="flex justify-center items-center my-8">
                 <div className="flex flex-row items-center space-x-2">
                     <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
                     <button
@@ -184,6 +182,7 @@ function CafeCityList() {
                 {/* Popup for Filters */}
                 {showPopup && (
                     <FilterPopup
+                        showCityFilter={false}
                         onCityFilter={handleCityFilter}
                         onDrinkFilter={handleDrinkFilter}
                         onFoodFilter={handleFoodFilter}
@@ -203,7 +202,7 @@ function CafeCityList() {
                     value ? (
                         <span
                             key={key}
-                            className="inline-block border border-grey py-0.5 px-2 mr-2 mb-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300"
+                            className="inline-block border border-grey py-0.5 px-2 mr-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300"
                         >
                             {value}
                             <button

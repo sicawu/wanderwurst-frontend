@@ -11,7 +11,12 @@ function FilterPopup({
   drinks,
   foods,
   specs,
-  setShowPopup
+  setShowPopup,
+  // Set on false if want to disable on individual pages
+  showCityFilter = true, 
+  showDrinkFilter = true,
+  showFoodFilter = true,
+  showSpecFilter = true
 }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
@@ -37,6 +42,10 @@ function FilterPopup({
             drinks={drinks}
             foods={foods}
             specs={specs}
+            showCityFilter={showCityFilter} 
+            showDrinkFilter={showDrinkFilter}
+            showFoodFilter={showFoodFilter}
+            showSpecFilter={showSpecFilter}
           />
           <button
             className="w-60 mb-5 bg-gold py-2 px-4 rounded-full shadow-md"
