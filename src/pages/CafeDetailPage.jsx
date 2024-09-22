@@ -152,7 +152,7 @@ function CafeDetailsPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-center items-center bg-grey mt-20">
+                    <div className="flex justify-center items-center bg-grey mt-10 pt-10 pb-16">
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
                             <div>
                                 {/* !!!!! Drinks !!!!!! */}
@@ -223,8 +223,8 @@ function CafeDetailsPage() {
                                 </h2>
                                 <CafeOpeningHours placeId={cafe.placeId} />
                             </div>
-                            <div>
-                                <LeafletMap cafe={cafe} />
+                            <div className="flex justify-center items-center">
+                                <LeafletMap cafe={cafe} className="w-full h-full pt-10" />
                             </div>
                         </div>
                     </div>
