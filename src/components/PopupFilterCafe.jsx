@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { RxCrossCircled } from "react-icons/rx";
 import CafeFilter from "./FilterCafe";
 
@@ -12,15 +12,32 @@ function FilterPopup({
   foods,
   specs,
   setShowPopup,
-  // Set on false if want to disable on individual pages
   showCityFilter = true, 
   showDrinkFilter = true,
   showFoodFilter = true,
   showSpecFilter = true
 }) {
+  const popupRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setShowPopup(false);
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener for clicks outside the popup
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup event listener on unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
-      <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+      <div ref={popupRef} className="relative bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         {/* Close Button */}
         <button
           className="absolute top-4 right-4 text-2xl font-bold w-10 h-10 flex items-center justify-center"

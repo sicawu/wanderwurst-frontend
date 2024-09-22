@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-// import CafeFilterSpecs from "./FilterCafeSpecs";
+// mport CafeFilterSpecs from "./FilterCafeSpecs";
+
 // Filter + Search
 import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
