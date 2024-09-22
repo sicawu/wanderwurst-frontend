@@ -4,6 +4,8 @@ import axios from "axios"
 import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
+import { TbCoffeeOff } from "react-icons/tb"
+
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async"
@@ -13,9 +15,10 @@ function CafeDrinkList() {
     const [filteredCafes, setFilteredCafes] = useState([])
     const [cafeDrinks, setCafeDrinks] = useState([]);
 
-    const { drinks } = useParams()
-    const drinksToFilter = drinks
-    const encodedDrinks = encodeURIComponent(drinks)
+    const { drinks } = useParams();
+    const encodedDrinks = encodeURIComponent(drinks.replace(/ /g, '-')); // Replace spaces with hyphens
+    const drinksToFilter = drinks.replace(/ /g, '-'); // Convert spaces to hyphens
+
 
     //For Filter & Search
     const [cafeTopPick, setcafeTopPick] = useState([]);
@@ -43,7 +46,7 @@ function CafeDrinkList() {
     })
 
     const getCafes = () => {
-        axios.get(`${API_URL}/cafes/drinks/${encodedDrinks}`)
+        axios.get(`${API_URL}/cafes/drinks/${drinks}`)
             .then((response) => {
                 setCafeDrinks(response.data)
                 setFilteredCafes(response.data)
