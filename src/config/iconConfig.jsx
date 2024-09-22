@@ -1,11 +1,11 @@
   // Connect value in the database with icon
 export const iconMap = {
-    working: "../icons/Working.png",
-    bestCoffee: "../icons/Best-Coffee.png",
-    socializing: "../icons/Socializing.png",
-    girliesBrunch: "../icons/Girlies-Brunch.png",
-    localPlace: "../icons/Local-Place.png",
-    sustainable: "../icons/Sustainable.png",
+    working: "/icons/Working.png",
+    bestCoffee: "/icons/Best-Coffee.png",
+    socializing: "/icons/Socializing.png",
+    girliesBrunch: "/icons/Girlies-Brunch.png",
+    localPlace: "/icons/Local-Place.png",
+    sustainable: "/icons/Sustainable.png",
   }
   
   export const iconDescriptions = {

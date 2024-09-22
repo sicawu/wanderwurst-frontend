@@ -113,8 +113,9 @@ function CafeDetailsPage() {
                                 {/* !!!!! RECOMMENDATION !!!!!! */}
                                 {cafe.recommendation && (
                                     <p className="text-1xl px-10 pb-5 flex justify-center text-center">
-                                        <TbBulb className="mr-1 text-xl" />
-                                        <span className="font-bold">MUST TRY:&nbsp;</span>{cafe.recommendation}
+                                        <TbBulb size={30} className="mr-1" />
+                                        <span className="font-bold nowrap">MUST TRY:&nbsp;</span>
+                                        {cafe.recommendation}
                                     </p>
                                 )}
 
@@ -175,7 +176,7 @@ function CafeDetailsPage() {
                                         </>
                                     )}
 
-                                     {/* !!!!! Food !!!!!! */}
+                                {/* !!!!! Food !!!!!! */}
                                 {Array.isArray(cafe.food) &&
                                     cafe.food.length > 0 && (
                                         <>
@@ -223,7 +224,7 @@ function CafeDetailsPage() {
                                 <CafeOpeningHours placeId={cafe.placeId} />
                             </div>
                             <div>
-                                <LeafletMap cafe={cafe}/>
+                                <LeafletMap cafe={cafe} />
                             </div>
                         </div>
                     </div>

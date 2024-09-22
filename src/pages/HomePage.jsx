@@ -25,24 +25,31 @@ function Homepage() {
       axios.get(`${API_URL}/drinks`),
       axios.get(`${API_URL}/topPick`)
     ])
-    .then(([citiesRes, specsRes, foodRes, drinksRes, topPickRes]) => {
-      setCities(citiesRes.data);
-      setSpecs(specsRes.data);
-      setFood(foodRes.data);
-      setDrinks(drinksRes.data);
-      setTopPick(topPickRes.data);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-      setError("Error fetching data. Please try again later.");
-    });
+      .then(([citiesRes, specsRes, foodRes, drinksRes, topPickRes]) => {
+        setCities(citiesRes.data);
+        setSpecs(specsRes.data);
+        setFood(foodRes.data);
+        setDrinks(drinksRes.data);
+        setTopPick(topPickRes.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError("Error fetching data. Please try again later.");
+      });
   }, [API_URL]);
 
   return (
     <>
       <div
+
         className="min-h-screen flex flex-col justify-center items-center"
-        style={{ backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726389353/Sweet%20Spots/Namto_House_Da_Nang_mxsdbz.jpg)' }}
+
+        style={{
+          backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726883469/Namto-House-Da-Nang-Best-Coffee_s8en5j.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: '50% 1%'
+        }}
+
       >
         <h1 className="text-6xl text-white p-10 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
           Find your sweet spot

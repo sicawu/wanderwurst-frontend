@@ -9,7 +9,6 @@ import { TbCoffeeOff } from "react-icons/tb"
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async"
 
-
 function CafeFoodList() {
     const API_URL = import.meta.env.VITE_API_URL
     const [filteredCafes, setFilteredCafes] = useState([])
@@ -144,25 +143,26 @@ function CafeFoodList() {
                 <title>{`${filteredCafes.length} Best Cafes for ${formatFood(food)} | Sweet Spots`}</title>
                 <meta name="description" content={`Choose your favorite Cafe, ${formatFood(food)}. We exactly have the right cafe for you.`} />
             </Helmet>
-            <div>
-                {food && (
-                    <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                        {formatFood(food)} <br /> is your food preference.
-                    </h1>
-                )}
-                <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                    If there's one thing in the world I don't make jokes about, then it is food. For me, it decides if the the day's gonna be great - or not. Choose your favorite cafe with {formatFood(food)}.
-                </p>
-                {/* Search Bar & Filter Toggle Button */}
+            <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
+                {formatFood(food)} <br /> is your food preference.
+            </h1>
+            <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
+                If there's one thing in the world I don't make jokes about, then it is food. For me, it decides if the the day's gonna be great - or not. Choose your favorite cafe with {formatFood(food)}.
+            </p>
+
+            {/* Search Bar & Filter Toggle Button */}
+            <div className="flex justify-center items-center mt-8">
                 <div className="flex flex-row items-center space-x-2">
                     <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
+
                     <button
                         className="bg-blue-500 py-2 px-4 rounded-full"
                         onClick={() => setShowPopup(true)}
                     >
-                        <GoFilter size={40} className=" rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
+                        <GoFilter size={40} className="rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
                     </button>
                 </div>
+
 
                 {/* Popup for Filters */}
                 {showPopup && (
@@ -209,12 +209,9 @@ function CafeFoodList() {
             </div>
 
             <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
-                {filteredCafes.length === 0 ? (
-                    <p>Cafes loading...</p>
-                ) : (
+                {filteredCafes.length > 0 ? (
                     filteredCafes.map((cafe) => (
-                        <div
-                            key={cafe._id}
+                        <div key={cafe._id}
                             className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
                         >
                             <Link to={`/cafes/${cafe.urlSlug}`}>
@@ -235,11 +232,16 @@ function CafeFoodList() {
                             </Link>
                         </div>
                     ))
+                ) : (
+                    <div className="flex flex-col text-center items-center">
+                        <TbCoffeeOff size={60} />
+                        <p className="mt-2">Meow, no cafes that match your criteria. Pls change your filter.</p>
+                    </div>
                 )}
             </div>
-
         </>
     )
 }
+
 
 export default CafeFoodList

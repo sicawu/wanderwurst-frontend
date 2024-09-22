@@ -4,7 +4,6 @@ import axios from "axios"
 import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
-import TopPickSection from "../components/SectionTopPick"
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async"
@@ -13,7 +12,6 @@ function CafeDrinkList() {
     const API_URL = import.meta.env.VITE_API_URL
     const [filteredCafes, setFilteredCafes] = useState([])
     const [cafeDrinks, setCafeDrinks] = useState([]);
-    const [topPick, setTopPick] = useState([])
 
     const { drinks } = useParams()
     const drinksToFilter = drinks
@@ -42,7 +40,7 @@ function CafeDrinkList() {
         drinks: [],
         foods: [],
         specs: []
-    });
+    })
 
     const getCafes = () => {
         axios.get(`${API_URL}/cafes/drinks/${encodedDrinks}`)
@@ -144,17 +142,16 @@ function CafeDrinkList() {
                 <title>{`${filteredCafes.length} Best Cafes for ${formatDrinks(drinks)} | Sweet Spots`}</title>
                 <meta name="description" content={`Choose your favorite cafe for ${formatDrinks(drinks)}.`} />
             </Helmet>
-            <div>
-                {drinks && (
-                    <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                        {formatDrinks(drinks)} <br /> - your elixir of the day.
-                    </h1>
-                )}
-                <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                    Craving {formatDrinks(drinks).toLowerCase()}? Explore my {filteredCafes.length} favorite cafes for that.
-                </p>
+            <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
+                {formatDrinks(drinks)} <br /> - your elixir of the day.
+            </h1>
+            <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
+                Craving {formatDrinks(drinks).toLowerCase()}? Explore my {filteredCafes.length} favorite cafes for that.
+            </p>
 
-                {/* Search Bar & Filter Toggle Button */}
+            {/* Search Bar & Filter Toggle Button */}
+            <div className="flex justify-center items-center mt-8">
+
                 <div className="flex flex-row items-center space-x-2">
                     <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
                     <button
@@ -210,9 +207,7 @@ function CafeDrinkList() {
             </div>
 
             <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
-                {filteredCafes.length === 0 ? (
-                    <p>Cafes loading...</p>
-                ) : (
+                {filteredCafes.length > 0 ? (
                     filteredCafes.map((cafe) => (
                         <div
                             key={cafe._id}
@@ -236,11 +231,12 @@ function CafeDrinkList() {
                             </Link>
                         </div>
                     ))
+                ) : (
+                    <div className="flex flex-col text-center items-center">
+                        <TbCoffeeOff size={60} />
+                        <p className="mt-2">Meow, no cafes that match your criteria. Pls change your filter.</p>
+                    </div>
                 )}
-            </div>
-
-            <div className="bg-beige">
-                <TopPickSection topPick={topPick} />
             </div>
         </>
     )
