@@ -4,6 +4,7 @@ import { useNavigate, Link, useParams } from "react-router-dom"
 import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
 import { TbBulb } from "react-icons/tb"
+import { FaExternalLinkAlt } from 'react-icons/fa'
 
 // Helmet library for individual SEO title + description
 // import { Helmet } from "react-helmet"
@@ -214,6 +215,17 @@ function CafeDetailsPage() {
                                                 <FaLocationDot className="mr-1 text-xl" />
                                                 {cafe.location.address}
                                             </p>
+                                        )}
+                                        {cafe.linkGoogleMaps && (
+                                            <a
+                                                href={cafe.linkGoogleMaps}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="mt-3 underline flex items-center text-blue-500 hover:text-blue-700"
+                                            >
+                                                <span className="mr-2">Open in Google Maps</span>
+                                                <FaExternalLinkAlt className="text-lg" />
+                                            </a>
                                         )}
                                     </div>
                                 )}
