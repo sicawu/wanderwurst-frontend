@@ -18,6 +18,10 @@ import BestRestaurantsPage from "./pages/BestRestaurantsPage.jsx"
 import AboutPage from "./pages/AboutPage.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
 import RandomCafePage from "./pages/RandomCafePage.jsx"
+import LegalNotice from "./pages/LegalNotice.jsx"
+import DataPrivacy from "./pages/DataPrivacy.jsx"
+
+
 
 
 // Import of all components
@@ -41,6 +45,8 @@ function App() {
           <Route path="/best-restaurants" element={<BestRestaurantsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/random" element={<RandomCafePage />} />
+          <Route path="/legal-notice" element={<LegalNotice />} />
+          <Route path="/data-privacy" element={<DataPrivacy />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
