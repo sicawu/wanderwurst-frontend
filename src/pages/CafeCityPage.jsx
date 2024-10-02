@@ -17,7 +17,9 @@ function CafeCityPage() {
     return (
         <>
             <CafeCityList />
-            <TopPickSection topPick={topPick} />
+            <div className="bg-beige">
+                <TopPickSection topPick={topPick} />
+            </div>
         </>
     )
 }

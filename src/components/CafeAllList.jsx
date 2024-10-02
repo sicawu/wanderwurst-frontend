@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
-import TopPickSection from "../components/SectionTopPick";
 import { Link } from "react-router-dom";
 import { TbCoffeeOff } from "react-icons/tb";
 import { GoFilter } from "react-icons/go";
@@ -13,7 +12,6 @@ import { Helmet } from "react-helmet-async";
 function CafeList() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [allCafes, setAllCafes] = useState([]);
-  const [topPick, setTopPick] = useState([]);
   const [filteredCafes, setFilteredCafes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -238,9 +236,6 @@ function CafeList() {
           </div>
         )}
       </div>
-
-      {/* Display TopPick Section */}
-      <TopPickSection topPick={topPick} />
     </>
   );
 }

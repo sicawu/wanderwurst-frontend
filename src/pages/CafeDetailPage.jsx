@@ -154,7 +154,7 @@ function CafeDetailsPage() {
                         </div>
                     </div>
                     <div className="flex justify-center items-center bg-grey mt-10 pt-10 pb-16">
-                        <div className="grid md:grid-cols-2 sm:grid-cols-1">
+                        <div className="grid md:grid-cols-2 sm:grid-cols-1 ">
                             <div>
                                 {/* !!!!! Drinks !!!!!! */}
                                 {Array.isArray(cafe.drinks) &&
@@ -198,8 +198,16 @@ function CafeDetailsPage() {
                                         </>
                                     )}
 
-                                {/* !!!!! LOCATION !!!!!! */}
+
+                                {/* !!!!! Opening hours !!!!!! */}
                                 <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                    Opening Hours
+                                </h2>
+                                <CafeOpeningHours placeId={cafe.placeId} />
+                            </div>
+                            <div className="flex flex-col items-center align-start pt-10">
+                                {/* !!!!! LOCATION !!!!!! */}
+                                <h2 className="text-s pb-3 flex justify-center text-center font-extrabold">
                                     How To Get There
                                 </h2>
                                 {cafe.location && (
@@ -229,14 +237,8 @@ function CafeDetailsPage() {
                                         )}
                                     </div>
                                 )}
-                                {/* !!!!! Opening hours !!!!!! */}
-                                <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                    Opening Hours
-                                </h2>
-                                <CafeOpeningHours placeId={cafe.placeId} />
-                            </div>
-                            <div className="flex justify-center items-center">
                                 <LeafletMap cafe={cafe} className="w-full h-full pt-10" />
+
                             </div>
                         </div>
                     </div>

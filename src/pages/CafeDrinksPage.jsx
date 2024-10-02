@@ -17,7 +17,9 @@ function FilterByDrinksPage() {
     return (
         <>
             <CafedrinksList />
-            <TopPickSection topPick={topPick} />
+            <div className="bg-beige">
+                <TopPickSection topPick={topPick} />
+            </div>
         </>
     )
 }
