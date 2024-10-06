@@ -190,7 +190,7 @@ function CafeDetailsPage() {
                                     cafe.food.length > 0 && (
                                         <>
                                             <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                            Food Options
+                                                Food Options
                                             </h2>
                                             <div className="flex flex-wrap px-10 justify-center">
                                                 {cafe.food.map((food, index) => (
@@ -209,7 +209,7 @@ function CafeDetailsPage() {
 
                                 {/* !!!!! Opening hours !!!!!! */}
                                 <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                Opening Hours
+                                    Opening Hours
                                 </h2>
                                 <CafeOpeningHours placeId={cafe.placeId} />
                             </div>
@@ -251,8 +251,8 @@ function CafeDetailsPage() {
                     </div>
                 </>
             )}
-                        {/* Suggestions Section */}
-                        {cafeSuggestions && <YouMayAlsoLike cafeSuggestions={cafeSuggestions} />}
+            {/* Suggestions Section */}
+            {cafeSuggestions && <YouMayAlsoLike cafeSuggestions={cafeSuggestions} />}
         </div>
     )
 }

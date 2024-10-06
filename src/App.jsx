@@ -20,8 +20,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx"
 import RandomCafePage from "./pages/RandomCafePage.jsx"
 import LegalNotice from "./pages/LegalNotice.jsx"
 import DataPrivacy from "./pages/DataPrivacy.jsx"
-
-
+import ScrollToTop from "./components/ScrollToTop.jsx"
 
 
 // Import of all components
@@ -32,6 +31,7 @@ function App() {
   return (
     <>
       <HelmetProvider>
+      <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
