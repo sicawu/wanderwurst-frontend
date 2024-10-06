@@ -168,7 +168,7 @@ function CafeDetailsPage() {
                                 {Array.isArray(cafe.drinks) &&
                                     cafe.drinks.length > 0 && (
                                         <>
-                                            <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                            <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
                                                 Drinks Options
                                             </h2>
                                             <div className="flex flex-wrap px-10 justify-center">
@@ -189,8 +189,8 @@ function CafeDetailsPage() {
                                 {Array.isArray(cafe.food) &&
                                     cafe.food.length > 0 && (
                                         <>
-                                            <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                                Food Options
+                                            <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                            Food Options
                                             </h2>
                                             <div className="flex flex-wrap px-10 justify-center">
                                                 {cafe.food.map((food, index) => (
@@ -208,14 +208,14 @@ function CafeDetailsPage() {
 
 
                                 {/* !!!!! Opening hours !!!!!! */}
-                                <h2 className="text-s pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                    Opening Hours
+                                <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                Opening Hours
                                 </h2>
                                 <CafeOpeningHours placeId={cafe.placeId} />
                             </div>
                             <div className="flex flex-col items-center align-start pt-10">
                                 {/* !!!!! LOCATION !!!!!! */}
-                                <h2 className="text-s pb-3 flex justify-center text-center font-extrabold">
+                                <h2 className="text-2xl font-extrabold uppercase text-center pb-3 flex justify-center text-center font-extrabold">
                                     How To Get There
                                 </h2>
                                 {cafe.location && (
