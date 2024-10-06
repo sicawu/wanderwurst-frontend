@@ -104,13 +104,13 @@ function NavBar() {
       <div
         ref={menuRef} // Set the ref on the menu
         className={`${isOpen ? "block" : "hidden"
-          } absolute top-16 left-0 w-full bg-black bg-opacity-95 text-white z-50 md:hidden`}
+          } py-10 absolute top-14 left-0 w-full bg-white bg-opacity-95 text-black z-50 md:hidden`}
       >
         <ul className="flex flex-col items-center">
           {/* Discover All Cafes */}
           <li className="py-3">
             <Link to="/best-cafes" onClick={toggleMenu} className="flex items-center">
-              Discover All Cafes
+              Discover all Cafes
             </Link>
           </li>
 
@@ -159,7 +159,7 @@ function NavBar() {
                         to={`/best-cafes/for/${purpose.replace(/([A-Z])/g, '-$1').toLowerCase()}`}
                         onClick={toggleMenu}
                       >
-                        Cafes for {purpose.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ').replace(/([A-Z])/g, ' $1')}
+                        {purpose.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ').replace(/([A-Z])/g, ' $1')}
                       </Link>
                     </li>
                   ))}

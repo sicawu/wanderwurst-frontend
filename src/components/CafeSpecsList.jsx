@@ -66,12 +66,14 @@ function CafeSpecList() {
             const foodMatch = cafe.food.some((food) => food.toLowerCase().includes(searchTerm.toLowerCase()));
             const drinksMatch = cafe.drinks.some((drink) => drink.toLowerCase().includes(searchTerm.toLowerCase()));
             const specsMatch = cafe.specs.some((spec) => spec.toLowerCase().includes(searchTerm.toLowerCase()));
-            const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
+            const cityMatch = cafe.location.city.toLowerCase().includes(searchTerm.toLowerCase());
+            const countryMatch = cafe.location.country.toLowerCase().includes(searchTerm.toLowerCase());
+            const selectedCityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
             const selectedDrinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
             const selectedFoodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
             const selectedSpecsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
 
-            return (titleMatch || descriptionMatch || foodMatch || drinksMatch || specsMatch) && cityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
+            return (titleMatch || descriptionMatch || cityMatch || countryMatch || foodMatch || drinksMatch || specsMatch) && selectedCityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
         });
         setFilteredCafes(filtered);
     }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, cafeSpec]);
