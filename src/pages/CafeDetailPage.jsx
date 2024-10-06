@@ -5,14 +5,14 @@ import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
 import { TbBulb } from "react-icons/tb"
 import { FaExternalLinkAlt } from 'react-icons/fa'
+import YouMayAlsoLike from '../components/CafesYouMayAlsoLike'
 
 // Helmet library for individual SEO title + description
-// import { Helmet } from "react-helmet"
 import { Helmet } from "react-helmet-async"
 
 
 // GOOGLE Services: Maps & Opening hours
-import CafeMaps from "../components/CafeGoogleMaps.jsx"
+// import CafeMaps from "../components/CafeGoogleMaps.jsx"
 import CafeOpeningHours from "../components/CafeGoogleOpeningHours.jsx"
 
 //Leaflet Map
@@ -22,6 +22,7 @@ import 'leaflet/dist/leaflet.css'
 function CafeDetailsPage() {
     const [cafe, setCafe] = useState("")
     const [errorMessage, setErrorMessage] = useState('')
+    const [cafeSuggestions, setcafeSuggestions] = useState([])
 
     const API_URL = import.meta.env.VITE_API_URL
     const navigate = useNavigate()
@@ -31,20 +32,27 @@ function CafeDetailsPage() {
     const getCafe = () => {
         axios
             .get(`${API_URL}/cafes/${urlSlug}`)
+
             .then((response) => {
                 const cafeData = response.data
+                console.log(cafeData)
                 const topPicks = cafeData.topPick
                 const iconUrls = topPicks.map((topPick) => topPick.iconUrl)
-                setCafe({ ...response.data, location: response.data.location || {} })
+                setCafe({ ...cafeData, location: response.data.location || {} })
+                setcafeSuggestions(cafeData.cafeSuggestions)
             })
             .catch((err) => {
-                setErrorMessage(err.response.data.message)
+                if (err.response) {
+                    setErrorMessage(err.response.data.message)
+                } else {
+                    setErrorMessage('An error occurred while fetching cafe data')
+                }
             })
     }
 
     useEffect(() => {
         getCafe()
-    }, [id])
+    }, [urlSlug])
 
     const iconMap = {
         working: "../icons/Working.png",
@@ -238,12 +246,13 @@ function CafeDetailsPage() {
                                     </div>
                                 )}
                                 <LeafletMap cafe={cafe} className="w-full h-full pt-10" />
-
                             </div>
                         </div>
                     </div>
                 </>
             )}
+                        {/* Suggestions Section */}
+                        {cafeSuggestions && <YouMayAlsoLike cafeSuggestions={cafeSuggestions} />}
         </div>
     )
 }

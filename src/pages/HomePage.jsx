@@ -6,6 +6,8 @@ import TopPickSection from "../components/SectionTopPick";
 import FoodSection from "../components/SectionFood";
 import DrinksSection from "../components/SectionDrinks";
 import SpecsSection from "../components/SectionSpecs";
+import TheStoryBehind from "../components/TheStoryBehind";
+
 
 function Homepage() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -65,7 +67,7 @@ function Homepage() {
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-gold text-black border-1 border-black hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-full shadow-md text-center"
+                className="mb-5 bg-gold py-2 px-4 rounded-full shadow-md hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-full shadow-md text-center"
               >
                 {city}
               </Link>
@@ -77,8 +79,11 @@ function Homepage() {
       {error && <p className="text-red-500 text-center">{error}</p>}
 
       <TopPickSection topPick={topPick} />
+      <div className="flex flex-row">
       <FoodSection food={food} />
       <DrinksSection drinks={drinks} />
+      </div>
+      <TheStoryBehind />
       <SpecsSection specs={specs} />
     </>
   );

@@ -64,14 +64,6 @@ function CafeList() {
     getAllCafes();
   }, []);
 
-  // Fetch the list of topPick from the API
-  useEffect(() => {
-    axios
-      .get(`${API_URL}/topPick`)
-      .then((response) => setTopPick(response.data))
-      .catch((error) => console.error("Error fetching topPick:", error));
-  }, [API_URL]);
-
   // Search through cafes based on search term, city, drinks, food, and specs
   useEffect(() => {
     const filtered = allCafes.filter((cafe) => {
