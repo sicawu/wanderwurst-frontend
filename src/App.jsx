@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <HelmetProvider>
-      <ScrollToTop />
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -134,7 +134,7 @@ function CafeDetailsPage() {
                                         cafe.specs.map((spec, index) => (
                                             <Link
                                                 to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific spec; to lowercase + replacing empty spaces in specs
-                                                className="font-bold bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green hover:shadow-xl"
+                                                className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green hover:shadow-xl"
                                                 key={index}>
                                                 {spec}
                                             </Link>
@@ -175,7 +175,7 @@ function CafeDetailsPage() {
                                                 {cafe.drinks.map((drinks, index) => (
                                                     <Link
                                                         to={`/best-cafes/drinks/${drinks.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific drinks; to lowercase + replacing empty spaces in food
-                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
+                                                        className="font-bold bg-green text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
                                                         key={index}
                                                     >
                                                         {drinks}
@@ -196,7 +196,7 @@ function CafeDetailsPage() {
                                                 {cafe.food.map((food, index) => (
                                                     <Link
                                                         to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific food; to lowercase + replacing empty spaces in food
-                                                        className="font-bold bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
+                                                        className="font-bold bg-green text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
                                                         key={index}
                                                     >
                                                         {food}

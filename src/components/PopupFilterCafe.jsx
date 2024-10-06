@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { RxCrossCircled } from "react-icons/rx";
+import { IoClose } from "react-icons/io5";
+
 import CafeFilter from "./FilterCafe";
 
 function FilterPopup({
@@ -43,7 +45,7 @@ function FilterPopup({
           className="absolute top-4 right-4 text-2xl font-bold w-10 h-10 flex items-center justify-center"
           onClick={() => setShowPopup(false)}
         >
-          <RxCrossCircled className="text-4xl" />
+          <IoClose size={30} />
         </button>
         {/* Filters */}
         <div className="flex flex-col items-center space-y-4 my-8">

@@ -36,7 +36,7 @@ function CafeOpeningHours({ placeId }) {
           <button onClick={fetchOpeningHours} className="underline">
             Check Current Opening Hours *
           </button>
-          <p className="text-xs italic pt-3">
+          <p className="text-xs italic p-3">
             * Please use only if you are really interested, because I am Swabian and want to avoid unnecessary payments to Google haha.
           </p>
         </>

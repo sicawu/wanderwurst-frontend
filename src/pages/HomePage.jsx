@@ -79,10 +79,8 @@ function Homepage() {
       {error && <p className="text-red-500 text-center">{error}</p>}
 
       <TopPickSection topPick={topPick} />
-      <div className="flex flex-row">
       <FoodSection food={food} />
       <DrinksSection drinks={drinks} />
-      </div>
       <TheStoryBehind />
       <SpecsSection specs={specs} />
     </>

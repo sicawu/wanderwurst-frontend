@@ -17,11 +17,11 @@ function TheStoryBehind() {
             <div className="md:w-1/2 md:pl-10">
                 <h2 className="pb-10 text-4xl mb-4 font-extrabold uppercase text-center">A travel blog. Slightly different.</h2>
                 <p className="mb-6 text-gray-700">
-                    A Sweet Spot is that magical place where everything feels just right – and that’s exactly what I seek while exploring the world’s beauty. Hi, I’m Simona, the slow traveler behind Sweet Spots. <br />
+                    Sweet spot is that magical place where everything feels just right – and that’s exactly what I seek while exploring the world’s beauty. Hi, I’m Simona, the slow traveler behind Sweet Spots. <br />
                     <br />
-                    On Sweet Spots, I’m excited to share with you the places that hold many beautiful memories of mine. These are cafes that became my living room when I had none, hidden corners of the world that inspired, grounded, and filled my days with joy. <br />
+                    On Sweet Spots, I’m excited to share places that hold many beautiful memories of mine. These are cafes that became my living room when I had none, hidden corners of the world that inspired, grounded, and filled my days with joy. Or simply offered space to hide.<br />
                     <br />
-                    This is more than just a list of destinations; it’s personal. I’ve poured my heart into this. So, follow my journey and explore my favorite Sweet Spots worldwide.
+                    This is more than just a list of destinations; it’s personal. I’ve poured my heart, full stack skills and creative twist into this. So, follow my journey and explore my favorite sweet spots worldwide.
                 </p>
                 <Link to="/about" className="w-60 mb-5 bg-gold py-2 px-4 rounded-full shadow-md">
                     More about the (Hi)story
