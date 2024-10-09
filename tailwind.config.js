@@ -11,7 +11,9 @@ export default {
       darkgreen: "#3e513f",
       green:"#67726e",
       mint:"#537970",
-      orange:"#6B8E23"
+      olive:"#6B8E23",
+      coral: "#FF6F61",
+      darkcoral:"#E45B53"
     },
     extend: {},
   },

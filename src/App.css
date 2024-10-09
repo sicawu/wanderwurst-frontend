@@ -3,8 +3,18 @@
   text-align: center;
 }
 
-body, html {  
-  height: 100%; 
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.8); /* Slight opacity */
+  backdrop-filter: blur(5px); /* Optional blur effect */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 .homepage-container {

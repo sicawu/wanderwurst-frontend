@@ -49,7 +49,7 @@ function CafeSpecList() {
         const drinks = [...new Set(response.data.flatMap(cafe => cafe.drinks))];
         const foods = [...new Set(response.data.flatMap(cafe => cafe.food))];
         const specs = [...new Set(response.data.flatMap(cafe => cafe.specs))];
-  
+
         // Update the filter values
         setFilterValues({
           cities,
@@ -81,17 +81,18 @@ function CafeSpecList() {
       const foodMatch = cafe.food.some((food) => food.toLowerCase().includes(searchTerm.toLowerCase()));
       const drinksMatch = cafe.drinks.some((drink) => drink.toLowerCase().includes(searchTerm.toLowerCase()));
       const specsMatch = cafe.specs.some((spec) => spec.toLowerCase().includes(searchTerm.toLowerCase()));
-      const cityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
+      const cityMatch = cafe.location.city.toLowerCase().includes(searchTerm.toLowerCase());
+      const countryMatch = cafe.location.country.toLowerCase().includes(searchTerm.toLowerCase());
+      const selectedCityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
       const selectedDrinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
       const selectedFoodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
       const selectedSpecsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
-              
-      return (titleMatch || descriptionMatch || foodMatch || drinksMatch || specsMatch
-              ) && cityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
+
+      return (titleMatch || descriptionMatch || cityMatch || countryMatch || foodMatch || drinksMatch || specsMatch) && selectedCityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
     })
     setFilteredCafes(filtered)
   }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, cafeTopPick])
-  
+
   // Handle search input change
   const handleSearch = (event) => {
     setSearchTerm(event.target.value)
@@ -164,10 +165,10 @@ function CafeSpecList() {
               onDrinkFilter={handleDrinkFilter}
               onFoodFilter={handleFoodFilter}
               onSpecFilter={handleSpecFilter}
-              cities={filterValues.cities} 
+              cities={filterValues.cities}
               drinks={filterValues.drinks}
               foods={filterValues.foods}
-              specs={filterValues.specs}             
+              specs={filterValues.specs}
               setShowPopup={setShowPopup}
             />
           )}

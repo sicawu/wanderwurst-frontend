@@ -7,7 +7,7 @@ import FoodSection from "../components/SectionFood";
 import DrinksSection from "../components/SectionDrinks";
 import SpecsSection from "../components/SectionSpecs";
 import TheStoryBehind from "../components/TheStoryBehind";
-
+import CafeCarousel from "../components/CafeCarousel";
 
 function Homepage() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -47,20 +47,20 @@ function Homepage() {
         className="min-h-screen flex flex-col justify-center items-center"
 
         style={{
-          backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726883469/Namto-House-Da-Nang-Best-Coffee_s8en5j.jpg)',
+          backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726882635/Sweet%20Spots/Phin-Coffee-Restaurant-Hoi-An_o2sd6f.jpg)',
           backgroundSize: 'cover',
-          backgroundPosition: '50% 1%'
+          backgroundPosition: '50% 70%'
         }}
 
       >
-        <h1 className="text-6xl text-white p-10 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
-          Find your sweet spot
+        <h1 className="text-6xl text-white p-9 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
+          Find your Sweet Spot
         </h1>
 
         {/* Choose a City Section */}
         <div className="w-full max-w-lg mb-16 bg-cover bg-center">
           <h2 className="text-xl text-white mb-4" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}
-          >Choose a city
+          >Choose a City
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {cities.map((city) => (
@@ -79,10 +79,13 @@ function Homepage() {
       {error && <p className="text-red-500 text-center">{error}</p>}
 
       <TopPickSection topPick={topPick} />
-      <FoodSection food={food} />
+      <div className="flex flex-col lg:flex-row items-start">
+              <FoodSection food={food} />
       <DrinksSection drinks={drinks} />
-      <TheStoryBehind />
+      </div>
+      <CafeCarousel />
       <SpecsSection specs={specs} />
+      <TheStoryBehind />
     </>
   );
 }

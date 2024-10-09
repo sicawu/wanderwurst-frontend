@@ -9,7 +9,7 @@ function FoodSection({ food }) {
           <Link
             key={item}
             to={`/best-cafes/food/${item.toLowerCase().replace(/\s+/g, '-')}`}
-            className="bg-green text-white border-1 border-black hover:bg-mint font-semibold py-1 px-5 rounded-full shadow-md text-center"
+            className="bg-olive text-white border-1 border-black hover:bg-mint font-semibold py-1 px-5 rounded-full shadow-md text-center"
           >
             {item}
           </Link>
