@@ -11,6 +11,9 @@ function CafeSpecList() {
     const API_URL = import.meta.env.VITE_API_URL;
     const [allCafes, setAllCafes] = useState([]);
     const { specs } = useParams();
+    console.log("Received specs parameter:", specs);
+    const encodedSpecs = encodeURIComponent(specs);
+    console.log("Encoded specs parameter:", encodedSpecs);
     const [cafeSpec, setcafeSpec] = useState([]);
     const [filteredCafes, setFilteredCafes] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -35,7 +38,7 @@ function CafeSpecList() {
     });
 
     const getSpecCafes = () => {
-        axios.get(`${API_URL}/cafes/tag/${specs}`)
+        axios.get(`${API_URL}/cafes/tag/${encodedSpecs}`)
             .then((response) => {
                 setcafeSpec(response.data);
                 setFilteredCafes(response.data);

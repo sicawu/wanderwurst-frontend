@@ -8,7 +8,7 @@ const CafeCarousel = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   // Hardcoded cafe titles to fetch data for
-  const urlSlugs = ["namto-house-da-nang", "zest-ubud", "roots-plant-based-cafe-da-nang"];
+  const urlSlugs = ["tan-coffee-da-nang", "zest-ubud", "roots-plant-based-cafe-da-nang"];
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -22,7 +22,6 @@ const CafeCarousel = () => {
         setSuggestions(suggestionsData.map((response) => response.data));
       } catch (error) {
         console.error("Error fetching suggestions:", error);
-        // You can also set an error state here if needed
       }
     };
 

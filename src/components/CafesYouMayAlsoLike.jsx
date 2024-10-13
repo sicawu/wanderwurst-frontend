@@ -61,7 +61,7 @@ const YouMayAlsoLike = ({ cafeSuggestions }) => {
           ))
         ) : (
           <p className="pb-10">
-            My recommendations will be available soon, stay tuned. :)
+            Either, this is one of a kind. Or, I didn't have time yet and my recommendations will be available soon, stay tuned. :)
           </p>
         )}
       </div>

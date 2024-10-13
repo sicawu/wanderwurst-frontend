@@ -11,7 +11,7 @@ export const iconMap = {
   export const iconDescriptions = {
     working: {
       h3: "Working",
-      p: "Find a cafe with ideal conditions to get some work done.",
+      p: "Find a cafe with ideal conditions to focus and get some work done.",
     },
     bestCoffee: {
       h3: "Best Coffee",
@@ -19,15 +19,15 @@ export const iconMap = {
     },
     socializing: {
       h3: "Socializing",
-      p: "Popular social spots in town. Connect with friends & community!",
+      p: "Popular social spots in town. Connect with old friends & new community!",
     },
     girliesBrunch: {
       h3: "Girlies Brunch",
-      p: "Beautiful interior & amazing food. Treat yourselves special.",
+      p: "Beautiful interior & amazing food. Treat yourselves special. Hopefully every day.",
     },
     localPlace: {
       h3: "Local Place",
-      p: "Local's first choice and hidden gems. Explore local cafes!",
+      p: "Local's first choice and hidden gems. Explore local cafes off the typical roads.",
     },
     sustainable: {
       h3: "Sustainability",
