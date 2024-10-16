@@ -17,7 +17,7 @@ function AboutPage() {
             <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
            The Mission</h2>
             <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
-            Carefully curate favorite spots around the world that match exact the purpose you are looking for.     
+            Carefully curate favorite spots around the world that match exact the purpose you are looking for.    It’s less about try as many as possible but more about places that make me return. Because it fulfills one specific need.  Places that are wholesome.
             </p>
             <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
            The Vision</h2>

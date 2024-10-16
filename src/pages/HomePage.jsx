@@ -67,7 +67,7 @@ function Homepage() {
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                className="mb-5 bg-gold py-2 px-4 rounded-full shadow-md hover:bg-gray-200 text-gray font-semibold py-2 px-6 rounded-full shadow-md text-center"
+                className="inline-flex items-center justify-center px-4 py-3 font-semibold text-white bg-gold hover:bg-black rounded-lg transition-colors ease-out duration-200"
               >
                 {city}
               </Link>
@@ -81,7 +81,7 @@ function Homepage() {
       <TopPickSection topPick={topPick} />
       <div className="flex flex-col lg:flex-row items-start">
               <FoodSection food={food} />
-      <DrinksSection drinks={drinks} />
+       <DrinksSection drinks={drinks}/>
       </div>
       <CafeCarousel />
       <SpecsSection specs={specs} />

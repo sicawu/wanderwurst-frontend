@@ -23,7 +23,7 @@ function TheStoryBehind() {
                     <br />
                     This is more than just a list of destinations; it’s personal. I’ve poured my heart, full stack skills and creative twist into this. So, follow my journey and explore my favorite sweet spots worldwide.
                 </p>
-                <Link to="/about" className="w-60 mb-5 bg-gold py-2 px-4 rounded-full shadow-md">
+                <Link to="/about" className="inline-flex items-center justify-center px-4 py-3 font-semibold text-white bg-gold hover:bg-black rounded-lg transition-colors ease-out duration-200">
                     More about the (Hi)story
                 </Link>
             </div>

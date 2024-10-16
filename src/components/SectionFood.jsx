@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 function FoodSection({ food }) {
   return (
-    <div className="min-h-screen w-full bg-black flex flex-col justify-center items-center py-16 px-4">
+    <div className="min-h-screen w-full bg-black flex flex-col justify-center lg:justify-start items-center py-24 px-4">
       <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Feed the Monster.</h2>
       <div className="flex flex-wrap justify-center items-center gap-4">
         {food.map((item) => (

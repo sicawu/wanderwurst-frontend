@@ -68,7 +68,7 @@ function NavBar() {
   }, []);
 
   return (
-    <div className="sticky bg-darkgreen bg-opacity-70 text-white shadow-md py-3 flex flex-row w-screen items-center justify-between">
+    <div className="sticky bg-black bg-opacity-70 text-white shadow-md py-3 flex flex-row w-screen items-center justify-between">
       {/* Left: Logo */}
       <div className="flex items-center ml-7">
         <Link className="flex items-center px-2 py-0.5" to="/">

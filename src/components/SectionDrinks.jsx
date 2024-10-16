@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 
 function DrinksSection({ drinks }) {
   return (
-    <div className="min-h-screen w-full bg-green flex flex-col justify-center items-center py-16 px-4">
-      <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Find your Fuel.</h2>
+<div className="min-h-screen w-full bg-green flex flex-col justify-center lg:justify-start items-center py-24 px-4">
+<h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Find your Fuel.</h2>
       <div className="flex flex-wrap justify-center items-center gap-4">
         {drinks.map((drink) => (
           <Link
