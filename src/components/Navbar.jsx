@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react"; // Import useRef
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { GiBalloonDog, GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
+import { useAuth } from '../context/auth.context'
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,27 +12,34 @@ function NavBar() {
   const [isPurposeMenuOpen, setIsPurposeMenuOpen] = useState(false);
   const [cities, setCities] = useState([]);
   const [purposes, setPurposes] = useState([]);
+  const [profile, setProfile] = useState(null);
+  const { isLoggedIn, user, logOutUser } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL;
-  
-  const menuRef = useRef(null); // Create a ref for the menu
+  const menuRef = useRef(null);
 
   useEffect(() => {
+    // Fetch cities and purposes
     Promise.all([
       axios.get(`${API_URL}/cities`),
       axios.get(`${API_URL}/topPick`)
     ])
-      .then(([cities, purposes]) => {
-        setCities(cities.data);
-        setPurposes(purposes.data);
+      .then(([citiesResponse, purposesResponse]) => {
+        setCities(citiesResponse.data);
+        setPurposes(purposesResponse.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
+    // Set profile from localStorage
+    const storedProfile = localStorage.getItem("userProfile");
+    if (storedProfile) {
+      setProfile(JSON.parse(storedProfile));
+    }
   }, [API_URL]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    // Close submenus when the main menu is toggled
     if (isOpen) {
       setIsCityMenuOpen(false);
       setIsPurposeMenuOpen(false);
@@ -41,18 +49,17 @@ function NavBar() {
   const toggleCityMenu = () => {
     setIsCityMenuOpen(!isCityMenuOpen);
     if (isPurposeMenuOpen) {
-      setIsPurposeMenuOpen(false); // Close purpose menu if city menu is opened
+      setIsPurposeMenuOpen(false);
     }
   };
 
   const togglePurposeMenu = () => {
     setIsPurposeMenuOpen(!isPurposeMenuOpen);
     if (isCityMenuOpen) {
-      setIsCityMenuOpen(false); // Close city menu if purpose menu is opened
+      setIsCityMenuOpen(false);
     }
   };
 
-  // Close the menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -61,28 +68,43 @@ function NavBar() {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("userProfile");
+    setProfile(null); // Update state to reflect logout
+  };
+
   return (
     <div className="sticky bg-black bg-opacity-70 text-white shadow-md py-3 flex flex-row w-screen items-center justify-between">
-      {/* Left: Logo */}
       <div className="flex items-center ml-7">
         <Link className="flex items-center px-2 py-0.5" to="/">
           <GiBalloonDog size={30} />
         </Link>
       </div>
 
-      {/* Right: Links and Burger Menu */}
       <div className="flex items-center mr-7">
-        {/* Desktop Links */}
         <div className="hidden md:flex items-center">
           <Link to="/best-cafes" className="ml-4">
             All Cafes
           </Link>
+          <p className="ml-4">|</p>
+          {profile ? (
+            <>
+              <Link to="/my-space" className="ml-4">
+              {profile.name}'s Space
+              </Link>
+            </>
+          ) : (
+            <Link to="/login" className="ml-4">
+              Become a Sweet Spotter
+            </Link>
+          )}
           <p className="ml-4">|</p>
           <Link to="/random" className="ml-4 font-bold">
             <GiPerspectiveDiceSixFacesRandom
@@ -92,7 +114,6 @@ function NavBar() {
           </Link>
         </div>
 
-        {/* Burger Icon for Mobile */}
         <div className="md:hidden flex items-center">
           <button onClick={toggleMenu}>
             {isOpen ? <IoClose size={30} /> : <FiMenu size={30} />}
@@ -100,21 +121,17 @@ function NavBar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <div
-        ref={menuRef} // Set the ref on the menu
+        ref={menuRef}
         className={`${isOpen ? "block" : "hidden"
           } py-10 absolute top-14 left-0 w-full bg-white bg-opacity-95 text-black z-50 md:hidden`}
       >
         <ul className="flex flex-col items-center">
-          {/* Discover All Cafes */}
           <li className="py-3">
             <Link to="/best-cafes" onClick={toggleMenu} className="flex items-center">
               Discover all Cafes
             </Link>
           </li>
-
-          {/* Cafes by City */}
           <li className="py-3">
             <div>
               <button
@@ -123,13 +140,12 @@ function NavBar() {
               >
                 Cafes by City {isCityMenuOpen ? "▲" : "▼"}
               </button>
-              {/* Cities submenu */}
               {isCityMenuOpen && (
                 <ul className="ml-4 mt-2">
                   {cities.map((city) => (
                     <li key={city} className="py-2">
                       <Link
-                        to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, "-")}`} // Dynamic link
+                        to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, "-")}`}
                         onClick={toggleMenu}
                       >
                         Cafes in {city}
@@ -140,8 +156,6 @@ function NavBar() {
               )}
             </div>
           </li>
-
-          {/* Cafes by Purpose */}
           <li className="py-3">
             <div>
               <button
@@ -150,7 +164,6 @@ function NavBar() {
               >
                 Cafes by Purpose {isPurposeMenuOpen ? "▲" : "▼"}
               </button>
-              {/* Purpose submenu */}
               {isPurposeMenuOpen && (
                 <ul className="ml-4 mt-2">
                   {purposes.map((purpose) => (
@@ -167,14 +180,25 @@ function NavBar() {
               )}
             </div>
           </li>
-
-          {/* Random Cafe */}
           <li className="py-3">
             <Link to="/random" onClick={toggleMenu} className="flex items-center">
               <GiPerspectiveDiceSixFacesRandom size={30} className="mr-1" />
               Random Cafe
             </Link>
           </li>
+          {profile ? (
+            <li className="py-3">
+              <Link to="/my-space" onClick={toggleMenu} className="flex items-center">
+              {profile.name}'s Space
+              </Link>
+            </li>
+          ) : (
+            <li className="py-3">
+              <Link to="/login" onClick={toggleMenu} className="flex items-center">
+              Become a Sweet Spotter
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>

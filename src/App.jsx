@@ -22,6 +22,9 @@ import LegalNotice from "./pages/LegalNotice.jsx"
 import DataPrivacy from "./pages/DataPrivacy.jsx"
 import ScrollToTop from "./components/ScrollToTop.jsx"
 
+// Login & User profile
+import LogInPage from "./pages/LogInPage.jsx"
+import MySpacePage from "./pages/MySpacePage.jsx"
 
 // Import of all components
 import Navbar from "./components/Navbar"
@@ -48,6 +51,8 @@ function App() {
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/data-privacy" element={<DataPrivacy />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/login" element={<LogInPage />} />
+          <Route path="/my-space" element={<MySpacePage />} />
         </Routes>
         <Footer />
       </HelmetProvider>
