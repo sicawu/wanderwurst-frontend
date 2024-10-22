@@ -189,7 +189,7 @@ function NavBar() {
           {profile ? (
             <li className="py-3">
               <Link to="/my-space" onClick={toggleMenu} className="flex items-center">
-              {profile.name}'s Space
+              {profile.given_name}'s Space
               </Link>
             </li>
           ) : (

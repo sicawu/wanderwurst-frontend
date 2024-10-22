@@ -38,7 +38,7 @@ function MySpace() {
                             className="w-20 h-20 rounded-full object-cover my-10" 
                             src={profile.picture} alt="{profile.name}"
                         />
-                        <p>I'm happy to have you here, {profile.name}.</p>
+                        <p>I'm happy to have you here, {profile.given_name}.</p>
                         <p>Your Email: {profile.email}</p>
                         {/* Logout Button */}
                         <button

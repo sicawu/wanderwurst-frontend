@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 
 function GoogleLogIn() {
+  const API_URL = import.meta.env.VITE_API_URL
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
@@ -17,15 +18,6 @@ function GoogleLogIn() {
   });
 
   useEffect(() => {
-    // Check if user data is in localStorage
-    const storedProfile = localStorage.getItem('userProfile');
-    const storedAccessToken = localStorage.getItem('accessToken');
-
-    if (storedProfile && storedAccessToken) {
-      setProfile(JSON.parse(storedProfile)); // Restore profile from localStorage
-      navigate('/my-space', { state: { profile: JSON.parse(storedProfile) } }); // Redirect to /my-space
-    }
-
     if (user) {
       axios
         .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
@@ -35,12 +27,28 @@ function GoogleLogIn() {
           },
         })
         .then((res) => {
-          setProfile(res.data);
-          // Store profile and token in localStorage
-          localStorage.setItem('userProfile', JSON.stringify(res.data));
+          const userProfile = res.data;
+          setProfile(userProfile);
+          localStorage.setItem('userProfile', JSON.stringify(userProfile));
           localStorage.setItem('accessToken', user.access_token);
-          // Redirect to /my-space page
-          navigate('/my-space', { state: { profile: res.data } });
+          console.log(`Userprofile`, userProfile)
+          const userData = {
+            email: userProfile.email,
+            name: userProfile.given_name,
+            googleId: userProfile.id,
+          };
+
+          console.log(userData)
+
+          // POST request to save user data
+          axios.post(`${API_URL}/user/register`, userData)
+            .then((response) => {
+              console.log('User  registered:', response.data);
+              navigate('/my-space', { state: { profile: userProfile } });
+            })
+            .catch((error) => {
+              console.error('Error registering user:', error);
+            });
         })
         .catch((err) => console.log(err));
     }
