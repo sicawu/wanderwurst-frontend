@@ -31,23 +31,38 @@ function GoogleLogIn() {
           setProfile(userProfile);
           localStorage.setItem('userProfile', JSON.stringify(userProfile));
           localStorage.setItem('accessToken', user.access_token);
-          console.log(`Userprofile`, userProfile)
+          console.log(`User profile`, userProfile);
+  
           const userData = {
             email: userProfile.email,
             name: userProfile.given_name,
             googleId: userProfile.id,
+            picture: userProfile.picture,
           };
-
-          console.log(userData)
-
-          // POST request to save user data
-          axios.post(`${API_URL}/user/register`, userData)
+  
+          console.log(userData);
+  
+          // First, check if the user already exists in the database
+          axios.get(`${API_URL}/user/check`, { params: { googleId: userData.googleId } })
             .then((response) => {
-              console.log('User  registered:', response.data);
-              navigate('/my-space', { state: { profile: userProfile } });
+              if (response.data.exists) {
+                // User exists, retrieve their data
+                console.log('User  already exists:', response.data.user);
+                navigate('/my-space', { state: { profile: response.data.user } });
+              } else {
+                // User does not exist, proceed to register
+                axios.post(`${API_URL}/user/register`, userData)
+                  .then((response) => {
+                    console.log('User  registered:', response.data);
+                    navigate('/my-space', { state: { profile: userProfile } });
+                  })
+                  .catch((error) => {
+                    console.error('Error registering user:', error);
+                  });
+              }
             })
             .catch((error) => {
-              console.error('Error registering user:', error);
+              console.error('Error checking user existence:', error);
             });
         })
         .catch((err) => console.log(err));

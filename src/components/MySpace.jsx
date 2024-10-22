@@ -36,9 +36,9 @@ function MySpace() {
                     <div className="flex flex-col items-center justify-center">
                         <img
                             className="w-20 h-20 rounded-full object-cover my-10" 
-                            src={profile.picture} alt="{profile.name}"
+                            src={profile.picture} alt={profile.name}
                         />
-                        <p>I'm happy to have you here, {profile.given_name}.</p>
+                        <p>I'm happy to have you here, {profile.given_name || profile.name}.</p>
                         <p>Your Email: {profile.email}</p>
                         {/* Logout Button */}
                         <button
