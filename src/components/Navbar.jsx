@@ -6,13 +6,12 @@ import { IoClose } from "react-icons/io5";
 import axios from "axios";
 import { useAuth } from '../context/auth.context'
 
-function NavBar() {
+function NavBar({ profile, setProfile }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isCityMenuOpen, setIsCityMenuOpen] = useState(false);
   const [isPurposeMenuOpen, setIsPurposeMenuOpen] = useState(false);
   const [cities, setCities] = useState([]);
   const [purposes, setPurposes] = useState([]);
-  const [profile, setProfile] = useState(null);
   const { isLoggedIn, user, logOutUser } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL;
   const menuRef = useRef(null);
@@ -76,10 +75,10 @@ function NavBar() {
   
 
   // Function to handle logout
-  const handleLogout = () => {
-    localStorage.removeItem("userProfile");
-    setProfile(null); // Update state to reflect logout
-  };
+    //const handleLogout = () => {
+    //  localStorage.removeItem("userProfile")
+   //   setProfile(null)
+   // };
 
   return (
     <div className="sticky bg-black bg-opacity-70 text-white shadow-md py-3 flex flex-row w-screen items-center justify-between">

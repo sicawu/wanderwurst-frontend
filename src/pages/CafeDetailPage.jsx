@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { useNavigate, Link, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
 import { TbBulb } from "react-icons/tb"
 import { FaExternalLinkAlt } from 'react-icons/fa'
-import { FaHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa"
 import YouMayAlsoLike from '../components/CafesYouMayAlsoLike'
-import WishlistButton from '../components/WishListAddButton'
-
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async"
-
 
 // GOOGLE Services: Maps & Opening hours
 // import CafeMaps from "../components/CafeGoogleMaps.jsx"
@@ -29,24 +26,20 @@ function CafeDetailsPage() {
     const [isWished, setIsWished] = useState(false) // Cafe on Wishlist or not
 
     const API_URL = import.meta.env.VITE_API_URL
-    const navigate = useNavigate()
-    const { id, urlSlug } = useParams()
+    const { urlSlug } = useParams()
 
     // Add Cafe to Wishlist; userId (GoogleId) is from local storage
-
     const handleWishlistClick = async () => {
-            const userProfileString = localStorage.getItem('userProfile')
-    const userProfile = userProfileString ? JSON.parse(userProfileString) : null
-    const userId = userProfile ? userProfile.id : null
+        const userProfileString = localStorage.getItem('userProfile')
+        const userProfile = userProfileString ? JSON.parse(userProfileString) : null
+        const userId = userProfile ? userProfile.id : null
         if (userId) {
             try {
                 const response = await axios.put(`${API_URL}/user/${userId}/wishlist`, {
                     urlSlug: urlSlug,
                 });
-                console.log(response.data.message)
+                console.log(response.data)
                 setIsWished(!isWished)
-                localStorage.setItem('isWished', JSON.stringify(!isWished));
-                // Optionally update the UI or state here to reflect the change
                 useEffect(() => {
                     const storedIsWished = JSON.parse(localStorage.getItem('isWished'));
                     if (storedIsWished !== null) {
@@ -57,7 +50,8 @@ function CafeDetailsPage() {
                 if (err.response) {
                     setErrorMessage(err.response.data.message)
                 } else {
-                    setErrorMessage('An error occurred while adding cafe to wishlist')                }
+                    setErrorMessage('An error occurred while adding cafe to wishlist')
+                }
             }
         } else {
             setErrorMessage('User ID is not available')
@@ -124,11 +118,10 @@ function CafeDetailsPage() {
                                     {cafe.title}
                                 </h1>
 
-                                {/* Wishlist Button */}
-                                <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
-            <FaHeart size={40} color={isWished ? 'red' : 'gray'} />
-        </div>
-
+                                 {/* Wishlist Button */}
+                    <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
+                        <FaHeart size={40} color={isWished ? 'red' : 'gray'} />
+                    </div>
 
                                 {/* !!!!! ICONS FOR TOP PICKS !!!!!! */}
                                 <div className="flex flex-row justify-center mb-10 gap-5">
@@ -183,24 +176,6 @@ function CafeDetailsPage() {
                                             </Link>
                                         ))}
                                 </div>
-
-                                {/* !!!!! DELETE & EDIT BUTTONS !!!!!! 
-                                {isLoggedIn === true ? (
-                                    <div className="px-10 py-10 flex justify-center">
-                                        <div className="flex flex-col sm:flex-row">
-                                            <button
-                                                className="flex justify-center align-center bg-grey hover:bg-red text-white font-semibold py-2 px-10 border border-grey-200 shadow"
-                                                onClick={handleDelete}
-                                            > Delete Café
-                                            </button>
-                                            <button
-                                                className="flex justify-center align-center bg-black hover:bg-grey text-white font-semibold py-2 px-12 border border-black-200 shadow"
-                                                onClick={() => navigate(`/cafes/edit/${id}`)}
-                                            > Edit Café
-                                            </button>
-                                        </div>
-                                    </div>
-                                ) : null} */}
                             </div>
                         </div>
                     </div>
@@ -248,7 +223,6 @@ function CafeDetailsPage() {
                                             </div>
                                         </>
                                     )}
-
 
                                 {/* !!!!! Opening hours !!!!!! */}
                                 <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">

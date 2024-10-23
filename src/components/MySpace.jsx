@@ -5,9 +5,8 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function MySpace() {
+function MySpace({ profile, setProfile }) {
     const location = useLocation();
-    const [profile, setProfile] = useState("");
     const [filteredCafes, setFilteredCafes] = useState([]); // State to hold cafes from wishlist
     const navigate = useNavigate();
 
@@ -45,9 +44,10 @@ function MySpace() {
 
     // Logout
     const handleLogout = () => {
-        localStorage.removeItem('userProfile');
-        setProfile(null);
-        navigate('/');
+        localStorage.removeItem('userProfile')
+        localStorage.removeItem('isWished')
+        setProfile(null)
+        navigate('/')
     };
 
     return (
@@ -66,10 +66,10 @@ function MySpace() {
                         <p>Your Email: {profile.email}</p>
                         {/* Logout Button */}
                         <button
-                            className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
-                            onClick={handleLogout} >
-                            Logout
-                        </button>
+                        className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
+                        onClick={handleLogout}>
+                        Logout
+                    </button>
                     </div>
                     {/* Display Wishlist Cafes */}
                     <h2 className="pt-20 text-4xl mb-3 font-extrabold uppercase text-center">
@@ -113,15 +113,13 @@ function MySpace() {
                         )}
                     </div>
                 </div>
-            ) : (
-                <div>
-
-                    {/* Link to Login */}
-                    <Link to="/login" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded inline-block">
-                        Login
-                    </Link>
-                </div>
-            )}
+          ) : (
+            <div>
+                <Link to="/login" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded inline-block">
+                    Login
+                </Link>
+            </div>
+        )}
         </div>
     );
 }

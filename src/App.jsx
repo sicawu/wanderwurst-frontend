@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom"
+import React, { useState } from "react"
+
 import "./App.css"
 import "./index.css"
 
@@ -14,7 +16,6 @@ import CafeCityPage from "./pages/CafeCityPage.jsx"
 import TopPickPage from "./pages/TopPickPage.jsx"
 import CafeDrinksPage from "./pages/CafeDrinksPage.jsx"
 import CafeFoodPage from "./pages/CafeFoodPage.jsx"
-import BestRestaurantsPage from "./pages/BestRestaurantsPage.jsx"
 import AboutPage from "./pages/AboutPage.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
 import RandomCafePage from "./pages/RandomCafePage.jsx"
@@ -29,13 +30,15 @@ import MySpacePage from "./pages/MySpacePage.jsx"
 // Import of all components
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
+import MySpace from "./components/MySpace"
 
 function App() {
+  const [profile, setProfile] = useState(null);
   return (
     <>
       <HelmetProvider>
         <ScrollToTop />
-        <Navbar />
+        <Navbar profile={profile} setProfile={setProfile}/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/cafes/:urlSlug" element={<CafeDetailsPage />} />
@@ -45,14 +48,13 @@ function App() {
           <Route path="/best-cafes/for/:toppick" element={<TopPickPage />} />  {/* All cafes for one specific purpose, e.g. Working, Brunch with the Girlies*/}
           <Route path="/best-cafes/drinks/:drinks" element={<CafeDrinksPage />} />  {/* All cafes for one specific drinks option, e.g. juices, smoothies*/}
           <Route path="/best-cafes/food/:food" element={<CafeFoodPage />} />  {/* All cafes for one specific food option, e.g. vegan, vegetarian*/}
-          <Route path="/best-restaurants" element={<BestRestaurantsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/random" element={<RandomCafePage />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/data-privacy" element={<DataPrivacy />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<LogInPage />} />
-          <Route path="/my-space" element={<MySpacePage />} />
+          <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile} />} />
         </Routes>
         <Footer />
       </HelmetProvider>
