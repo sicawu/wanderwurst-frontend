@@ -73,6 +73,7 @@ function NavBar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  
 
   // Function to handle logout
   const handleLogout = () => {
@@ -94,10 +95,17 @@ function NavBar() {
             All Cafes
           </Link>
           <p className="ml-4">|</p>
+          <Link to="/random" className="ml-4 font-bold">
+            <GiPerspectiveDiceSixFacesRandom
+              size={30}
+              className="border shadow-md rounded-full"
+            />
+          </Link>
+          <p className="ml-4">|</p>
           {profile ? (
             <>
               <Link to="/my-space" className="ml-4">
-              {profile.name}'s Space
+              {profile.given_name}'s Space
               </Link>
             </>
           ) : (
@@ -105,13 +113,7 @@ function NavBar() {
               Become a Sweet Spotter
             </Link>
           )}
-          <p className="ml-4">|</p>
-          <Link to="/random" className="ml-4 font-bold">
-            <GiPerspectiveDiceSixFacesRandom
-              size={30}
-              className="border shadow-md rounded-full"
-            />
-          </Link>
+          
         </div>
 
         <div className="md:hidden flex items-center">

@@ -5,7 +5,10 @@ import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
 import { TbBulb } from "react-icons/tb"
 import { FaExternalLinkAlt } from 'react-icons/fa'
+import { FaHeart } from "react-icons/fa";
 import YouMayAlsoLike from '../components/CafesYouMayAlsoLike'
+import WishlistButton from '../components/WishListAddButton'
+
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async"
@@ -23,10 +26,43 @@ function CafeDetailsPage() {
     const [cafe, setCafe] = useState("")
     const [errorMessage, setErrorMessage] = useState('')
     const [cafeSuggestions, setcafeSuggestions] = useState([])
+    const [isWished, setIsWished] = useState(false) // Cafe on Wishlist or not
 
     const API_URL = import.meta.env.VITE_API_URL
     const navigate = useNavigate()
     const { id, urlSlug } = useParams()
+
+    // Add Cafe to Wishlist; userId (GoogleId) is from local storage
+
+    const handleWishlistClick = async () => {
+            const userProfileString = localStorage.getItem('userProfile')
+    const userProfile = userProfileString ? JSON.parse(userProfileString) : null
+    const userId = userProfile ? userProfile.id : null
+        if (userId) {
+            try {
+                const response = await axios.put(`${API_URL}/user/${userId}/wishlist`, {
+                    urlSlug: urlSlug,
+                });
+                console.log(response.data.message)
+                setIsWished(!isWished)
+                localStorage.setItem('isWished', JSON.stringify(!isWished));
+                // Optionally update the UI or state here to reflect the change
+                useEffect(() => {
+                    const storedIsWished = JSON.parse(localStorage.getItem('isWished'));
+                    if (storedIsWished !== null) {
+                        setIsWished(storedIsWished);
+                    }
+                }, []);
+            } catch (err) {
+                if (err.response) {
+                    setErrorMessage(err.response.data.message)
+                } else {
+                    setErrorMessage('An error occurred while adding cafe to wishlist')                }
+            }
+        } else {
+            setErrorMessage('User ID is not available')
+        }
+    }
 
     // Get data from specific cafe
     const getCafe = () => {
@@ -87,6 +123,13 @@ function CafeDetailsPage() {
                                 <h1 className="text-5xl p-10 flex justify-center uppercase text-center font-extrabold italic">
                                     {cafe.title}
                                 </h1>
+
+                                {/* Wishlist Button */}
+                                <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
+            <FaHeart size={40} color={isWished ? 'red' : 'gray'} />
+        </div>
+
+
                                 {/* !!!!! ICONS FOR TOP PICKS !!!!!! */}
                                 <div className="flex flex-row justify-center mb-10 gap-5">
                                     {cafe.topPick && cafe.topPick.map((topPick, index) => {

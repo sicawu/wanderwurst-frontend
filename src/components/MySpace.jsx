@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import axios from 'axios'; // Ensure axios is imported
-import { TbCoffeeOff } from 'react-icons/tb'; // Import icon for empty state
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'; 
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 function MySpace() {
     const location = useLocation();
-    const [profile, setProfile] = useState(null);
+    const [profile, setProfile] = useState("");
     const [filteredCafes, setFilteredCafes] = useState([]); // State to hold cafes from wishlist
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Check if profile is passed via state
@@ -19,6 +19,7 @@ function MySpace() {
             // If no profile in state, try to get it from localStorage
             const storedProfile = localStorage.getItem('userProfile');
             if (storedProfile) {
+                console.log(storedProfile)
                 setProfile(JSON.parse(storedProfile));
             }
         }
@@ -26,11 +27,10 @@ function MySpace() {
 
     useEffect(() => {
         const fetchWishlist = async () => {
-            console.log('Fetching wishlist for profile:', profile); // Log profile before fetching
-            console.log('Is this the google ID?:', profile); // Log profile before fetching
             if (profile && profile.googleId || profile.id) { // I have no idea why this is working so my wishlist gets populated but it does. DONT TOUCH
                 try {
                     const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
+                    console.log(`Wishlist`, response.data.wishlist)
                     setFilteredCafes(response.data.wishlist); // Set the wishlist (which is populated with cafe details)
                 } catch (error) {
                     console.error('Error fetching wishlist:', error);
@@ -43,12 +43,11 @@ function MySpace() {
         fetchWishlist();
     }, [profile, API_URL]);
 
+    // Logout
     const handleLogout = () => {
-        // Clear the user profile from local storage and reset state
         localStorage.removeItem('userProfile');
         setProfile(null);
-        // Redirect to the login page or any other page
-        window.location.href = '/'; // or use `useNavigate` from `react-router-dom`
+        navigate('/');
     };
 
     return (
