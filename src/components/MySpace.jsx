@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import axios from 'axios'; // Ensure axios is imported
+import { TbCoffeeOff } from 'react-icons/tb'; // Import icon for empty state
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function MySpace() {
     const location = useLocation();
     const [profile, setProfile] = useState(null);
+    const [filteredCafes, setFilteredCafes] = useState([]); // State to hold cafes from wishlist
 
     useEffect(() => {
         // Check if profile is passed via state
@@ -17,6 +23,25 @@ function MySpace() {
             }
         }
     }, [location.state]);
+
+    useEffect(() => {
+        const fetchWishlist = async () => {
+            console.log('Fetching wishlist for profile:', profile); // Log profile before fetching
+            console.log('Is this the google ID?:', profile); // Log profile before fetching
+            if (profile && profile.googleId || profile.id) { // I have no idea why this is working so my wishlist gets populated but it does. DONT TOUCH
+                try {
+                    const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
+                    setFilteredCafes(response.data.wishlist); // Set the wishlist (which is populated with cafe details)
+                } catch (error) {
+                    console.error('Error fetching wishlist:', error);
+                }
+            } else {
+                console.error('Profile or internal user ID is undefined');
+            }
+        };
+    
+        fetchWishlist();
+    }, [profile, API_URL]);
 
     const handleLogout = () => {
         // Clear the user profile from local storage and reset state
@@ -35,7 +60,7 @@ function MySpace() {
                     </h1>
                     <div className="flex flex-col items-center justify-center">
                         <img
-                            className="w-20 h-20 rounded-full object-cover my-10" 
+                            className="w-20 h-20 rounded-full object-cover my-10"
                             src={profile.picture} alt={profile.name}
                         />
                         <p>I'm happy to have you here, {profile.given_name || profile.name}.</p>
@@ -47,9 +72,51 @@ function MySpace() {
                             Logout
                         </button>
                     </div>
+                    {/* Display Wishlist Cafes */}
+                    <h2 className="pt-20 text-4xl mb-3 font-extrabold uppercase text-center">
+                        Your Wishlist
+                    </h2>
+                    <div className="flex justify-center mb-12">
+                        <Link to="/best-cafes" className="flex items-center underline">
+                            <MdKeyboardDoubleArrowRight className="mr-1" />
+                            Discover More Cafes
+                        </Link>
+                    </div>
+                    <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
+                        {filteredCafes.length > 0 ? (
+                            filteredCafes.map((cafe) => (
+                                <div
+                                    key={cafe._id}
+                                    className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
+                                >
+                                    <Link to={`/cafes/${cafe.urlSlug}`}>
+                                        <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
+                                            <img
+                                                src={cafe.image}
+                                                alt={cafe.title}
+                                                className="h-full w-full object-cover"
+                                            />
+                                        </div>
+                                        <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                            {cafe.location.city}
+                                        </p>
+                                        <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                            {cafe.location.country}
+                                        </p>
+                                        <p className="font-bold">{cafe.title}</p>
+                                    </Link>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center italic">
+                                <p className="mt-2">You haven't add anything to your wishlist yet. Keep exploring, little Sweet Spotter.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             ) : (
                 <div>
+
                     {/* Link to Login */}
                     <Link to="/login" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded inline-block">
                         Login
