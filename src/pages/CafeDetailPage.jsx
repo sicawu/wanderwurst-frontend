@@ -23,10 +23,19 @@ function CafeDetailsPage() {
     const [cafe, setCafe] = useState("")
     const [errorMessage, setErrorMessage] = useState('')
     const [cafeSuggestions, setcafeSuggestions] = useState([])
+    const [filteredCafes, setFilteredCafes] = useState([])
     const [isWished, setIsWished] = useState(false) // Cafe on Wishlist or not
 
     const API_URL = import.meta.env.VITE_API_URL
     const { urlSlug } = useParams()
+
+    useEffect(() => {
+        // Check local storage for wishlist
+        const storedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        setIsWished(storedWishlist.includes(urlSlug));
+    
+        getCafe();
+    }, [urlSlug]);
 
     // Add Cafe to Wishlist; userId (GoogleId) is from local storage
     const handleWishlistClick = async () => {
@@ -38,14 +47,20 @@ function CafeDetailsPage() {
                 const response = await axios.put(`${API_URL}/user/${userId}/wishlist`, {
                     urlSlug: urlSlug,
                 });
-                console.log(response.data)
-                setIsWished(!isWished)
-                useEffect(() => {
-                    const storedIsWished = JSON.parse(localStorage.getItem('isWished'));
-                    if (storedIsWished !== null) {
-                        setIsWished(storedIsWished);
-                    }
-                }, []);
+    
+                // Update local storage
+                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                if (isWished) {
+                    // Remove from wishlist
+                    wishlist = wishlist.filter(item => item !== urlSlug);
+                } else {
+                    // Add to wishlist
+                    wishlist.push(urlSlug);
+                }
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    
+                // Update state
+                setIsWished(!isWished);
             } catch (err) {
                 if (err.response) {
                     setErrorMessage(err.response.data.message)
@@ -118,10 +133,10 @@ function CafeDetailsPage() {
                                     {cafe.title}
                                 </h1>
 
-                                 {/* Wishlist Button */}
-                    <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
-                        <FaHeart size={40} color={isWished ? 'red' : 'gray'} />
-                    </div>
+                                {/* Wishlist Button */}
+                                <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
+                                    <FaHeart size={40} color={isWished ? 'red' : 'gray'} />
+                                </div>
 
                                 {/* !!!!! ICONS FOR TOP PICKS !!!!!! */}
                                 <div className="flex flex-row justify-center mb-10 gap-5">

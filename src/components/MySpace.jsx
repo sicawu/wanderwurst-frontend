@@ -31,6 +31,9 @@ function MySpace({ profile, setProfile }) {
                     const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
                     console.log(`Wishlist`, response.data.wishlist)
                     setFilteredCafes(response.data.wishlist); // Set the wishlist (which is populated with cafe details)
+                      // Update local storage with the fetched wishlist
+                      const urlSlugs = response.data.wishlist.map(cafe => cafe.urlSlug);
+                      localStorage.setItem('wishlist', JSON.stringify(urlSlugs));
                 } catch (error) {
                     console.error('Error fetching wishlist:', error);
                 }
@@ -46,6 +49,7 @@ function MySpace({ profile, setProfile }) {
     const handleLogout = () => {
         localStorage.removeItem('userProfile')
         localStorage.removeItem('isWished')
+        localStorage.removeItem('wishlist')
         setProfile(null)
         navigate('/')
     };
