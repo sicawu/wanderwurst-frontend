@@ -33,20 +33,31 @@ function CafeDetailsPage() {
         // Check local storage for wishlist
         const storedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         setIsWished(storedWishlist.includes(urlSlug));
-    
+
         getCafe();
     }, [urlSlug]);
 
     // Add Cafe to Wishlist; userId (GoogleId) is from local storage
     const handleWishlistClick = async () => {
-        const userProfileString = localStorage.getItem('userProfile')
-        const userProfile = userProfileString ? JSON.parse(userProfileString) : null
-        const userId = userProfile ? userProfile.id : null
+        const userProfileString = localStorage.getItem('userProfile');
+        const userProfile = userProfileString ? JSON.parse(userProfileString) : null;
+        const userId = userProfile ? userProfile.id : null;
+    
         if (userId) {
             try {
-                const response = await axios.put(`${API_URL}/user/${userId}/wishlist`, {
-                    urlSlug: urlSlug,
-                });
+                let response;
+    
+                if (isWished) {
+                    // Remove from wishlist
+                    response = await axios.delete(`${API_URL}/user/${userId}/wishlist`, {
+                        data: { urlSlug: urlSlug },
+                    });
+                } else {
+                    // Add to wishlist
+                    response = await axios.put(`${API_URL}/user/${userId}/wishlist`, {
+                        urlSlug: urlSlug,
+                    });
+                }
     
                 // Update local storage
                 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
@@ -63,15 +74,15 @@ function CafeDetailsPage() {
                 setIsWished(!isWished);
             } catch (err) {
                 if (err.response) {
-                    setErrorMessage(err.response.data.message)
+                    setErrorMessage(err.response.data.message);
                 } else {
-                    setErrorMessage('An error occurred while adding cafe to wishlist')
+                    setErrorMessage('An error occurred while updating the wishlist');
                 }
             }
         } else {
-            setErrorMessage('User ID is not available')
+            setErrorMessage('User  ID is not available');
         }
-    }
+    };
 
     // Get data from specific cafe
     const getCafe = () => {
@@ -120,23 +131,29 @@ function CafeDetailsPage() {
                     </Helmet>
                     <div className="flex justify-center items-center">
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
-                            <div className="flex justify-center p-10">
-                                <img
-                                    className="h-[100vh] w-full object-cover rounded-2xl"
-                                    src={cafe.image}
-                                    alt={`${cafe.title}${cafe.location && cafe.location.city ? `, ${cafe.location.city}, ${cafe.location.country}` : ''}`}
-                                />
+                            <div className="flex justify-center p-10 relative">
+                                <div className="relative">
+                                    <img
+                                        className="h-[100vh] w-full object-cover rounded-2xl"
+                                        src={cafe.image}
+                                        alt={`${cafe.title}${cafe.location && cafe.location.city ? `, ${cafe.location.city}, ${cafe.location.country}` : ''}`}
+                                    />
+                                </div>
+                                {/* Wishlist Button */}
+                                <div onClick={handleWishlistClick}
+                                    style={{ cursor: 'pointer' }}
+                                    className="absolute top-[10%] left-[17%] md:top-[8%] md:left-[20%] lg:top-[12%] lg:left-[24%] z-10"                                >
+                                    <FaHeart
+                                        size={50}
+                                        color={isWished ? 'red' : 'white'}
+                                    />
+                                </div>
                             </div>
 
                             <div>
                                 <h1 className="text-5xl p-10 flex justify-center uppercase text-center font-extrabold italic">
                                     {cafe.title}
                                 </h1>
-
-                                {/* Wishlist Button */}
-                                <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
-                                    <FaHeart size={40} color={isWished ? 'red' : 'gray'} />
-                                </div>
 
                                 {/* !!!!! ICONS FOR TOP PICKS !!!!!! */}
                                 <div className="flex flex-row justify-center mb-10 gap-5">
