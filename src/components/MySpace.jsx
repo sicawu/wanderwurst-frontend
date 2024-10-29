@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; 
+import axios from 'axios';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import WishlistButton from '../components/WishlistButton'
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -31,9 +32,9 @@ function MySpace({ profile, setProfile }) {
                     const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
                     console.log(`Wishlist`, response.data.wishlist)
                     setFilteredCafes(response.data.wishlist); // Set the wishlist (which is populated with cafe details)
-                      // Update local storage with the fetched wishlist
-                      const urlSlugs = response.data.wishlist.map(cafe => cafe.urlSlug);
-                      localStorage.setItem('wishlist', JSON.stringify(urlSlugs));
+                    // Update local storage with the fetched wishlist
+                    const urlSlugs = response.data.wishlist.map(cafe => cafe.urlSlug);
+                    localStorage.setItem('wishlist', JSON.stringify(urlSlugs));
                 } catch (error) {
                     console.error('Error fetching wishlist:', error);
                 }
@@ -41,7 +42,7 @@ function MySpace({ profile, setProfile }) {
                 console.error('Profile or internal user ID is undefined');
             }
         };
-    
+
         fetchWishlist();
     }, [profile, API_URL]);
 
@@ -70,10 +71,10 @@ function MySpace({ profile, setProfile }) {
                         <p>Your Email: {profile.email}</p>
                         {/* Logout Button */}
                         <button
-                        className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
-                        onClick={handleLogout}>
-                        Logout
-                    </button>
+                            className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
+                            onClick={handleLogout}>
+                            Logout
+                        </button>
                     </div>
                     {/* Display Wishlist Cafes */}
                     <h2 className="pt-20 text-4xl mb-3 font-extrabold uppercase text-center">
@@ -93,11 +94,22 @@ function MySpace({ profile, setProfile }) {
                                     className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
                                 >
                                     <Link to={`/cafes/${cafe.urlSlug}`}>
-                                        <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
-                                            <img
-                                                src={cafe.image}
-                                                alt={cafe.title}
-                                                className="h-full w-full object-cover"
+                                        <div className="relative h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">                                            <img
+                                            src={cafe.image}
+                                            alt={cafe.title}
+                                            className="h-full w-full object-cover"
+                                        />
+                                            <WishlistButton
+                                                className="absolute top-2 right-2 z-10"
+                                                urlSlug={cafe.urlSlug}
+                                                wishlist={filteredCafes.map(cafe => cafe.urlSlug)}
+                                                updateWishlist={(urlSlug, isWished) => {
+                                                    const newFilteredCafes = isWished
+                                                        ? filteredCafes.filter(cafe => cafe.urlSlug !== urlSlug)
+                                                        : [...filteredCafes, cafe];
+                                                    setFilteredCafes(newFilteredCafes);
+                                                    localStorage.setItem('wishlist', JSON.stringify(newFilteredCafes.map(cafe => cafe.urlSlug)));
+                                                }}
                                             />
                                         </div>
                                         <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
@@ -117,13 +129,13 @@ function MySpace({ profile, setProfile }) {
                         )}
                     </div>
                 </div>
-          ) : (
-            <div>
-                <Link to="/login" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded inline-block">
-                    Login
-                </Link>
-            </div>
-        )}
+            ) : (
+                <div>
+                    <Link to="/login" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded inline-block">
+                        Login
+                    </Link>
+                </div>
+            )}
         </div>
     );
 }

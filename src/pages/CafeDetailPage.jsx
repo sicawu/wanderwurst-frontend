@@ -7,6 +7,7 @@ import { TbBulb } from "react-icons/tb"
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { FaHeart } from "react-icons/fa"
 import YouMayAlsoLike from '../components/CafesYouMayAlsoLike'
+import WishlistButton from '../components/WishlistButton'
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async"
@@ -37,6 +38,7 @@ function CafeDetailsPage() {
         getCafe();
     }, [urlSlug]);
 
+    /*
     // Add Cafe to Wishlist; userId (GoogleId) is from local storage
     const handleWishlistClick = async () => {
         const userProfileString = localStorage.getItem('userProfile');
@@ -83,6 +85,7 @@ function CafeDetailsPage() {
             setErrorMessage('User  ID is not available');
         }
     };
+    */
 
     // Get data from specific cafe
     const getCafe = () => {
@@ -140,12 +143,19 @@ function CafeDetailsPage() {
                                     />
                                 </div>
                                 {/* Wishlist Button */}
+                                {/*
                                 <div onClick={handleWishlistClick}
                                     style={{ cursor: 'pointer' }}
                                     className="absolute top-[10%] left-[17%] md:top-[8%] md:left-[20%] lg:top-[12%] lg:left-[24%] z-10"                                >
                                     <FaHeart
                                         size={50}
                                         color={isWished ? 'red' : 'white'}
+                                    />
+                                </div>
+                                */}
+                                <div className="absolute top-[10%] left-[17%] md:top-[8%] md:left-[20%] lg:top-[12%] lg:left-[24%] z-10">
+                                    <WishlistButton 
+                                    urlSlug={urlSlug} 
                                     />
                                 </div>
                             </div>

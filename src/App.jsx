@@ -32,8 +32,23 @@ import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import MySpace from "./components/MySpace"
 
+
 function App() {
   const [profile, setProfile] = useState(null);
+  const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem('wishlist')) || [])
+
+  const updateWishlist = (urlSlug, isWished) => {
+    let newWishlist = [...wishlist];
+    if (isWished) {
+        // Remove from wishlist
+        newWishlist = newWishlist.filter(item => item !== urlSlug);
+    } else {
+        // Add to wishlist
+        newWishlist.push(urlSlug);
+    }
+    setWishlist(newWishlist);
+    localStorage.setItem('wishlist', JSON.stringify(newWishlist));
+};
   return (
     <>
       <HelmetProvider>
@@ -41,7 +56,7 @@ function App() {
         <Navbar profile={profile} setProfile={setProfile}/>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/cafes/:urlSlug" element={<CafeDetailsPage />} />
+          <Route path="/cafes/:urlSlug" element={<CafeDetailsPage wishlist={wishlist} updateWishlist={updateWishlist}/>} />
           <Route path="/best-cafes" element={<BestCafesPage />} />
           <Route path="/best-cafes/:specs" element={<CafeSpecsPage />} />  {/* All cafes for one specific spec, e.g. cosy*/}
           <Route path="/best-cafes/city/:city" element={<CafeCityPage />} />  {/* All cafes for one specific city, e.g. Bangkok*/}
@@ -54,7 +69,7 @@ function App() {
           <Route path="/data-privacy" element={<DataPrivacy />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<LogInPage />} />
-          <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile} />} />
+          <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile}  wishlist={wishlist} updateWishlist={updateWishlist}/>} />
         </Routes>
         <Footer />
       </HelmetProvider>
