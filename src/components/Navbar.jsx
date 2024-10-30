@@ -4,7 +4,6 @@ import { GiBalloonDog, GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
-import { useAuth } from '../context/auth.context'
 
 function NavBar({ profile, setProfile }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +11,6 @@ function NavBar({ profile, setProfile }) {
   const [isPurposeMenuOpen, setIsPurposeMenuOpen] = useState(false);
   const [cities, setCities] = useState([]);
   const [purposes, setPurposes] = useState([]);
-  const { isLoggedIn, user, logOutUser } = useAuth();
   const API_URL = import.meta.env.VITE_API_URL;
   const menuRef = useRef(null);
 
@@ -72,13 +70,6 @@ function NavBar({ profile, setProfile }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
-
-  // Function to handle logout
-    //const handleLogout = () => {
-    //  localStorage.removeItem("userProfile")
-   //   setProfile(null)
-   // };
 
   return (
     <div className="sticky bg-black bg-opacity-70 text-white shadow-md py-3 flex flex-row w-screen items-center justify-between">
@@ -104,7 +95,7 @@ function NavBar({ profile, setProfile }) {
           {profile ? (
             <>
               <Link to="/my-space" className="ml-4">
-              {profile.given_name}'s Space
+              {profile.name}'s Space
               </Link>
             </>
           ) : (
@@ -190,7 +181,7 @@ function NavBar({ profile, setProfile }) {
           {profile ? (
             <li className="py-3">
               <Link to="/my-space" onClick={toggleMenu} className="flex items-center">
-              {profile.given_name}'s Space
+              {profile.name}'s Space
               </Link>
             </li>
           ) : (

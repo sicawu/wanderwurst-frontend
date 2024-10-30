@@ -2,57 +2,75 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import WishlistButton from '../components/WishlistButton'
+import { FiEdit } from "react-icons/fi";
+import WishlistButton from '../components/WishlistButton';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 function MySpace({ profile, setProfile }) {
     const location = useLocation();
-    const [filteredCafes, setFilteredCafes] = useState([]); // State to hold cafes from wishlist
+    const [filteredCafes, setFilteredCafes] = useState([]);
+    const [editMode, setEditMode] = useState(false);
+    const [updatedProfile, setUpdatedProfile] = useState({ name: '', email: '' });
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check if profile is passed via state
-        if (location.state && location.state.profile) {
-            setProfile(location.state.profile);
-        } else {
-            // If no profile in state, try to get it from localStorage
-            const storedProfile = localStorage.getItem('userProfile');
-            if (storedProfile) {
-                console.log(storedProfile)
-                setProfile(JSON.parse(storedProfile));
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
+                setProfile(response.data);
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
             }
+        };
+
+        if (profile && (profile.googleId || profile.id)) {
+            fetchProfile();
+        } else if (location.state && location.state.profile) {
+            setProfile(location.state.profile);
         }
-    }, [location.state]);
+    }, [profile?.googleId, profile?.id, location.state]);
 
     useEffect(() => {
         const fetchWishlist = async () => {
-            if (profile && profile.googleId || profile.id) { // I have no idea why this is working so my wishlist gets populated but it does. DONT TOUCH
+            if (profile && (profile.googleId || profile.id)) {
                 try {
                     const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
-                    console.log(`Wishlist`, response.data.wishlist)
-                    setFilteredCafes(response.data.wishlist); // Set the wishlist (which is populated with cafe details)
-                    // Update local storage with the fetched wishlist
+                    setFilteredCafes(response.data.wishlist || []);
                     const urlSlugs = response.data.wishlist.map(cafe => cafe.urlSlug);
                     localStorage.setItem('wishlist', JSON.stringify(urlSlugs));
                 } catch (error) {
                     console.error('Error fetching wishlist:', error);
                 }
-            } else {
-                console.error('Profile or internal user ID is undefined');
             }
         };
 
         fetchWishlist();
-    }, [profile, API_URL]);
+    }, [profile]);
 
-    // Logout
+    const handleEditClick = () => {
+        setEditMode(true);
+        setUpdatedProfile({ name: profile.name, email: profile.email });
+    };
+
+    const handleSaveClick = async () => {
+        const updatedUser = {
+            name: updatedProfile.name,
+            email: updatedProfile.email
+        };
+
+        try {
+            const response = await axios.put(`${API_URL}/user/${profile.googleId || profile.id}`, updatedUser);
+            setProfile(response.data); // Update profile with backend confirmation
+            setEditMode(false);
+        } catch (error) {
+            console.error("Error updating profile:", error);
+        }
+    };
+
     const handleLogout = () => {
-        localStorage.removeItem('userProfile')
-        localStorage.removeItem('isWished')
-        localStorage.removeItem('wishlist')
-        setProfile(null)
-        navigate('/')
+        setProfile(null);
+        navigate('/');
     };
 
     return (
@@ -67,8 +85,34 @@ function MySpace({ profile, setProfile }) {
                             className="w-20 h-20 rounded-full object-cover my-10"
                             src={profile.picture} alt={profile.name}
                         />
-                        <p>I'm happy to have you here, {profile.given_name || profile.name}.</p>
-                        <p>Your Email: {profile.email}</p>
+                        {!editMode ? (
+                            <div>
+                                <p>I'm happy to have you here, {profile.name}.</p>
+                                <p>Your Email: {profile.email}</p>
+                                <button onClick={handleEditClick} className="text-gray-500 ml-2">
+                                    <FiEdit />
+                                </button>
+                            </div>
+                        ) : (
+                            <div>
+                                <input
+                                    type="text"
+                                    value={updatedProfile.name}
+                                    onChange={(e) => setUpdatedProfile({ ...updatedProfile, name: e.target.value })}
+                                    className="border border-gray-300 rounded px-2 py-1 mb-2"
+                                />
+                                <input
+                                    type="email"
+                                    value={updatedProfile.email}
+                                    onChange={(e) => setUpdatedProfile({ ...updatedProfile, email: e.target.value })}
+                                    className="border border-gray-300 rounded px-2 py-1 mb-2"
+                                />
+                                <button onClick={handleSaveClick} className="text-white bg-coral hover:bg-black rounded px-4 py-1">
+                                    Save
+                                </button>
+                            </div>
+                        )}
+
                         {/* Logout Button */}
                         <button
                             className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
@@ -76,7 +120,8 @@ function MySpace({ profile, setProfile }) {
                             Logout
                         </button>
                     </div>
-                    {/* Display Wishlist Cafes */}
+
+                    {/* Wishlist Section */}
                     <h2 className="pt-20 text-4xl mb-3 font-extrabold uppercase text-center">
                         Your Wishlist
                     </h2>
@@ -89,16 +134,10 @@ function MySpace({ profile, setProfile }) {
                     <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
                         {filteredCafes.length > 0 ? (
                             filteredCafes.map((cafe) => (
-                                <div
-                                    key={cafe._id}
-                                    className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
-                                >
+                                <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
                                     <Link to={`/cafes/${cafe.urlSlug}`}>
-                                        <div className="relative h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">                                            <img
-                                            src={cafe.image}
-                                            alt={cafe.title}
-                                            className="h-full w-full object-cover"
-                                        />
+                                        <div className="relative h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
+                                            <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover" />
                                             <WishlistButton
                                                 className="absolute top-2 right-2 z-10"
                                                 urlSlug={cafe.urlSlug}
@@ -124,7 +163,7 @@ function MySpace({ profile, setProfile }) {
                             ))
                         ) : (
                             <div className="text-center italic">
-                                <p className="mt-2">You haven't add anything to your wishlist yet. Keep exploring, little Sweet Spotter.</p>
+                                <p className="mt-2">You haven't added anything to your wishlist yet. Keep exploring, little Sweet Spotter.</p>
                             </div>
                         )}
                     </div>
