@@ -7,10 +7,10 @@ import axios from "axios";
 
 function NavBar({ profile, setProfile }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCityMenuOpen, setIsCityMenuOpen] = useState(false);
-  const [isPurposeMenuOpen, setIsPurposeMenuOpen] = useState(false);
   const [cities, setCities] = useState([]);
   const [purposes, setPurposes] = useState([]);
+  const [showCitiesDropdown, setShowCitiesDropdown] = useState(false);
+  const [showPurposesDropdown, setShowPurposesDropdown] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL;
   const menuRef = useRef(null);
 
@@ -33,34 +33,26 @@ function NavBar({ profile, setProfile }) {
     if (storedProfile) {
       setProfile(JSON.parse(storedProfile));
     }
-  }, [API_URL]);
+  }, [API_URL, setProfile]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    if (isOpen) {
-      setIsCityMenuOpen(false);
-      setIsPurposeMenuOpen(false);
-    }
   };
 
-  const toggleCityMenu = () => {
-    setIsCityMenuOpen(!isCityMenuOpen);
-    if (isPurposeMenuOpen) {
-      setIsPurposeMenuOpen(false);
-    }
+  const toggleCitiesDropdown = () => {
+    setShowCitiesDropdown(!showCitiesDropdown);
   };
 
-  const togglePurposeMenu = () => {
-    setIsPurposeMenuOpen(!isPurposeMenuOpen);
-    if (isCityMenuOpen) {
-      setIsCityMenuOpen(false);
-    }
+  const togglePurposesDropdown = () => {
+    setShowPurposesDropdown(!showPurposesDropdown);
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false);
+        setShowCitiesDropdown(false);
+        setShowPurposesDropdown(false);
       }
     };
 
@@ -72,127 +64,101 @@ function NavBar({ profile, setProfile }) {
   }, []);
 
   return (
-    <div className="sticky bg-black bg-opacity-70 text-white shadow-md py-3 flex flex-row w-screen items-center justify-between">
-      <div className="flex items-center ml-7">
-        <Link className="flex items-center px-2 py-0.5" to="/">
-          <GiBalloonDog size={30} />
-        </Link>
+    <div className="sticky top-0 bg-black bg-opacity-70 text-white shadow-md p-3 flex justify-between items-center z-50">
+      <div className="flex items-center ml-2">
+        <button onClick={toggleMenu}>
+          {isOpen ? <IoClose size={30} /> : <FiMenu size={30} />}
+        </button>
       </div>
 
-      <div className="flex items-center mr-7">
-        <div className="hidden md:flex items-center">
-          <Link to="/best-cafes" className="ml-4">
-            All Cafes
-          </Link>
-          <p className="ml-4">|</p>
-          <Link to="/random" className="ml-4 font-bold">
-            <GiPerspectiveDiceSixFacesRandom
-              size={30}
-              className="border shadow-md rounded-full"
+      <Link className="flex items-center" to="/">
+        <GiBalloonDog size={30} />
+      </Link>
+
+      <div className="flex items-center mr-2">
+        {profile ? (
+          <Link to="/my-space" className="flex items-center">
+            <img
+              className="w-10 h-10 rounded-full object-cover border-2"
+              src={profile.picture}
+              alt={profile.name}
             />
           </Link>
-          <p className="ml-4">|</p>
-          {profile ? (
-            <>
-              <Link to="/my-space" className="ml-4">
-              {profile.name}'s Space
-              </Link>
-            </>
-          ) : (
-            <Link to="/login" className="ml-4">
-              Become a Sweet Spotter
-            </Link>
-          )}
-          
-        </div>
-
-        <div className="md:hidden flex items-center">
-          <button onClick={toggleMenu}>
-            {isOpen ? <IoClose size={30} /> : <FiMenu size={30} />}
-          </button>
-        </div>
+        ) : (
+          <Link to="/login" className="text-sm">
+            Become a Sweet Spotter
+          </Link>
+        )}
       </div>
 
       <div
-        ref={menuRef}
-        className={`${isOpen ? "block" : "hidden"
-          } py-10 absolute top-14 left-0 w-full bg-white bg-opacity-95 text-black z-50 md:hidden`}
-      >
-        <ul className="flex flex-col items-center">
-          <li className="py-3">
-            <Link to="/best-cafes" onClick={toggleMenu} className="flex items-center">
-              Discover all Cafes
-            </Link>
-          </li>
-          <li className="py-3">
-            <div>
-              <button
-                onClick={toggleCityMenu}
-                className="font-bold focus:outline-none"
-              >
-                Cafes by City {isCityMenuOpen ? "▲" : "▼"}
-              </button>
-              {isCityMenuOpen && (
-                <ul className="ml-4 mt-2">
-                  {cities.map((city) => (
-                    <li key={city} className="py-2">
-                      <Link
-                        to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, "-")}`}
-                        onClick={toggleMenu}
-                      >
-                        Cafes in {city}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </li>
-          <li className="py-3">
-            <div>
-              <button
-                onClick={togglePurposeMenu}
-                className="font-bold focus:outline-none"
-              >
-                Cafes by Purpose {isPurposeMenuOpen ? "▲" : "▼"}
-              </button>
-              {isPurposeMenuOpen && (
-                <ul className="ml-4 mt-2">
-                  {purposes.map((purpose) => (
-                    <li key={purpose} className="py-2">
-                      <Link
-                        to={`/best-cafes/for/${purpose.replace(/([A-Z])/g, '-$1').toLowerCase()}`}
-                        onClick={toggleMenu}
-                      >
-                        {purpose.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ').replace(/([A-Z])/g, ' $1')}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </li>
-          <li className="py-3">
-            <Link to="/random" onClick={toggleMenu} className="flex items-center">
-              <GiPerspectiveDiceSixFacesRandom size={30} className="mr-1" />
-              Random Cafe
-            </Link>
-          </li>
-          {profile ? (
-            <li className="py-3">
-              <Link to="/my-space" onClick={toggleMenu} className="flex items-center">
-              {profile.name}'s Space
-              </Link>
-            </li>
-          ) : (
-            <li className="py-3">
-              <Link to="/login" onClick={toggleMenu} className="flex items-center">
-              Become a Sweet Spotter
-              </Link>
-            </li>
-          )}
-        </ul>
+  ref={menuRef}
+  className={`${isOpen ? "block" : "hidden"} py-10 absolute top-14 left-0 w-full bg-white bg-opacity-95 text-black z-50`}
+>
+  <ul className="flex flex-col items-center">
+    <li className="py-3">
+      <Link to="/best-cafes" onClick={() => setIsOpen(false)} className="flex items-center">
+        Discover all Cafes
+      </Link>
+    </li>
+    {/* City Menu with Dropdown */}
+    <li className="py-3">
+      <div>
+        <button className="font-bold focus:outline-none" onClick={toggleCitiesDropdown}>
+          Cafes by City ▼
+        </button>
+        {showCitiesDropdown && (
+          <ul className="ml-4 mt-2">
+            {cities.map((city) => (
+              <li key={city} className="py-2">
+                <Link
+                  to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, "-")}`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Cafes in {city}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
+    </li>
+    {/* Purpose Menu with Dropdown */}
+    <li className="py-3">
+      <div>
+        <button className="font-bold focus:outline-none" onClick={togglePurposesDropdown}>
+          Cafes by Purpose ▼
+        </button>
+        {showPurposesDropdown && (
+          <ul className="ml-4 mt-2">
+            {purposes.map((purpose) => (
+              <li key={purpose} className="py-2">
+                <Link
+                  to={`/best-cafes/for/${purpose.replace(/([A-Z])/g, '-$1').toLowerCase()}`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {purpose.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ').replace(/([A-Z])/g, ' $1')}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </li>
+    <li className="py-3">
+      <Link to="/random" onClick={() => setIsOpen(false)} className="flex items-center">
+        <GiPerspectiveDiceSixFacesRandom size={30} className="mr-1" />
+        Random Cafe
+      </Link>
+    </li>
+    <li className="py-3">
+      <Link to="/about" onClick={() => setIsOpen(false)}>
+        (Hi)Story
+      </Link>
+    </li>
+  </ul>
+</div>
+
     </div>
   );
 }
