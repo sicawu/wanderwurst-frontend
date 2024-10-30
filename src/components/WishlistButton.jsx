@@ -1,7 +1,5 @@
-// WishlistButton.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaHeart } from 'react-icons/fa';
 import { IoHeartCircleOutline } from "react-icons/io5";
 
 const WishlistButton = ({ urlSlug }) => {
@@ -14,7 +12,9 @@ const WishlistButton = ({ urlSlug }) => {
         setIsWished(storedWishlist.includes(urlSlug));
     }, [urlSlug]);
 
-    const handleWishlistClick = async () => {
+    const handleWishlistClick = async (event) => {
+        event.stopPropagation(); // Prevent click from propagating to parent elements
+
         const userProfileString = localStorage.getItem('userProfile');
         const userProfile = userProfileString ? JSON.parse(userProfileString) : null;
         const userId = userProfile ? userProfile.id : null;
@@ -38,10 +38,8 @@ const WishlistButton = ({ urlSlug }) => {
                 // Update local storage
                 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
                 if (isWished) {
-                    // Remove from wishlist
                     wishlist = wishlist.filter(item => item !== urlSlug);
                 } else {
-                    // Add to wishlist
                     wishlist.push(urlSlug);
                 }
                 localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -52,17 +50,15 @@ const WishlistButton = ({ urlSlug }) => {
                 console.error(err);
             }
         } else {
-            console.error('User  ID is not available');
+            console.error('User ID is not available');
         }
     };
 
     return (
-        <div onClick={handleWishlistClick}
-            style={{ cursor: 'pointer' }}
-        >
+        <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
             <IoHeartCircleOutline  
                 size={60}
-                className= "transition-transform duration-200 hover:scale-110"
+                className="transition-transform duration-200 hover:scale-110"
                 color={isWished ? 'red' : 'white'}
             />
         </div>

@@ -78,7 +78,7 @@ function MySpace({ profile, setProfile }) {
             {profile ? (
                 <div>
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                        {profile.name}'s <br/> Sweet Spots
+                        {profile.name}'s <br /> Sweet Spots
                     </h1>
                     <div className="flex flex-col items-center justify-center">
                         <img
@@ -89,7 +89,7 @@ function MySpace({ profile, setProfile }) {
                             Welcome (back), you little legend. I'm happy to have you here, {profile.name}.
                         </p>
                         <p className="italic text-xs mt-3">
-                            Lots of love, Simona</p>
+                            Lots of love, Simona xx</p>
                     </div>
 
                     {/* Wishlist Section */}
@@ -106,11 +106,10 @@ function MySpace({ profile, setProfile }) {
                         {filteredCafes.length > 0 ? (
                             filteredCafes.map((cafe) => (
                                 <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-                                    <Link to={`/cafes/${cafe.urlSlug}`}>
-                                        <div className="relative h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
-                                            <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover" />
+                                    <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
+                                        <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
+                                        <div className="absolute top-2 left-2 z-20"> 
                                             <WishlistButton
-                                                className="absolute top-2 right-2 z-10"
                                                 urlSlug={cafe.urlSlug}
                                                 wishlist={filteredCafes.map(cafe => cafe.urlSlug)}
                                                 updateWishlist={(urlSlug, isWished) => {
@@ -122,14 +121,14 @@ function MySpace({ profile, setProfile }) {
                                                 }}
                                             />
                                         </div>
-                                        <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
-                                            {cafe.location.city}
-                                        </p>
-                                        <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
-                                            {cafe.location.country}
-                                        </p>
-                                        <p className="font-bold">{cafe.title}</p>
-                                    </Link>
+                                    </div>
+                                    <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                        {cafe.location.city}
+                                    </p>
+                                    <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                        {cafe.location.country}
+                                    </p>
+                                    <p className="font-bold">{cafe.title}</p>
                                 </div>
                             ))
                         ) : (
@@ -164,8 +163,8 @@ function MySpace({ profile, setProfile }) {
                                     onChange={(e) => setUpdatedProfile({ ...updatedProfile, email: e.target.value })}
                                     className="border border-gray-300 rounded px-2 py-1 mb-2 w-full"
                                 />
-                                <button onClick={handleSaveClick} 
-                                className="text-white bg-black hover:bg-gren rounded px-4 py-1 my-3">
+                                <button onClick={handleSaveClick}
+                                    className="text-white bg-black hover:bg-gren rounded px-4 py-1 my-3">
                                     Save
                                 </button>
                             </div>
