@@ -74,51 +74,22 @@ function MySpace({ profile, setProfile }) {
     };
 
     return (
-        <div className="min-h-screen pb-20">
+        <div className="min-h-screen pb-10">
             {profile ? (
                 <div>
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                        Welcome to Your Space
+                        {profile.name}'s <br/> Sweet Spots
                     </h1>
                     <div className="flex flex-col items-center justify-center">
                         <img
-                            className="w-20 h-20 rounded-full object-cover my-10"
+                            className="w-20 h-20 rounded-full object-cover my-7"
                             src={profile.picture} alt={profile.name}
                         />
-                        {!editMode ? (
-                            <div>
-                                <p>I'm happy to have you here, {profile.name}.</p>
-                                <p>Your Email: {profile.email}</p>
-                                <button onClick={handleEditClick} className="text-gray-500 ml-2">
-                                    <FiEdit />
-                                </button>
-                            </div>
-                        ) : (
-                            <div>
-                                <input
-                                    type="text"
-                                    value={updatedProfile.name}
-                                    onChange={(e) => setUpdatedProfile({ ...updatedProfile, name: e.target.value })}
-                                    className="border border-gray-300 rounded px-2 py-1 mb-2"
-                                />
-                                <input
-                                    type="email"
-                                    value={updatedProfile.email}
-                                    onChange={(e) => setUpdatedProfile({ ...updatedProfile, email: e.target.value })}
-                                    className="border border-gray-300 rounded px-2 py-1 mb-2"
-                                />
-                                <button onClick={handleSaveClick} className="text-white bg-coral hover:bg-black rounded px-4 py-1">
-                                    Save
-                                </button>
-                            </div>
-                        )}
-
-                        {/* Logout Button */}
-                        <button
-                            className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
-                            onClick={handleLogout}>
-                            Logout
-                        </button>
+                        <p className="mx-10">
+                            Welcome (back), you little legend. I'm happy to have you here, {profile.name}.
+                        </p>
+                        <p className="italic text-xs mt-3">
+                            Lots of love, Simona</p>
                     </div>
 
                     {/* Wishlist Section */}
@@ -166,6 +137,45 @@ function MySpace({ profile, setProfile }) {
                                 <p className="mt-2">You haven't added anything to your wishlist yet. Keep exploring, little Sweet Spotter.</p>
                             </div>
                         )}
+                    </div>
+                    <div className="bg-beige rounded-2xl mx-5 flex flex-col items-center">
+                        <h2 className="pt-20 text-xl mb-3 font-extrabold uppercase text-center">
+                            Your Personal Space
+                        </h2>
+                        {!editMode ? (
+                            <div className="text-center">
+                                <p>Name: {profile.name}.</p>
+                                <p>Email: {profile.email}</p>
+                                <button onClick={handleEditClick} className="text-gray-500 ml-2">
+                                    <FiEdit />
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center w-full max-w-xs">
+                                <input
+                                    type="text"
+                                    value={updatedProfile.name}
+                                    onChange={(e) => setUpdatedProfile({ ...updatedProfile, name: e.target.value })}
+                                    className="border border-gray-300 rounded px-2 py-1 mb-2 w-full"
+                                />
+                                <input
+                                    type="email"
+                                    value={updatedProfile.email}
+                                    onChange={(e) => setUpdatedProfile({ ...updatedProfile, email: e.target.value })}
+                                    className="border border-gray-300 rounded px-2 py-1 mb-2 w-full"
+                                />
+                                <button onClick={handleSaveClick} 
+                                className="text-white bg-black hover:bg-gren rounded px-4 py-1 my-3">
+                                    Save
+                                </button>
+                            </div>
+                        )}
+                        {/* Logout Button */}
+                        <button
+                            className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
+                            onClick={handleLogout}>
+                            Logout
+                        </button>
                     </div>
                 </div>
             ) : (

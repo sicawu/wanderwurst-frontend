@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+{/* import React, { useState } from 'react';
 import axios from 'axios';
 
 const EditUser = ({ googleId, id, currentName, currentEmail }) => {
@@ -51,3 +51,5 @@ const EditUser = ({ googleId, id, currentName, currentEmail }) => {
 };
 
 export default EditUser;
+
+*/}
