@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-// mport CafeFilterSpecs from "./FilterCafeSpecs";
+import WishlistButton from '../components/WishlistButton';
 
 // Filter + Search
 import Searchbar from "./Searchbar";
@@ -14,7 +14,6 @@ import { Helmet } from "react-helmet-async";
 
 function CafeCityList() {
     const API_URL = import.meta.env.VITE_API_URL;
-    const [allCafes, setAllCafes] = useState([]);
     const { city } = useParams();
     const [cafeCity, setcafeCity] = useState([]);
     const [filteredCafes, setFilteredCafes] = useState([]);
@@ -238,14 +237,15 @@ function CafeCityList() {
                 {filteredCafes.length > 0 ? (
                     filteredCafes.map((cafe) => (
                         <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-                            <Link to={`/cafes/${cafe.urlSlug}`} >
-                                <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
-                                    <img
-                                        src={cafe.image}
-                                        alt={cafe.title}
-                                        className="h-full w-full object-cover"
-                                    />
+                            <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
+                                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
+                                    <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
+                                </Link>
+                                <div className="absolute top-4 right-4 z-20">
+                                    <WishlistButton urlSlug={cafe.urlSlug} />
                                 </div>
+                            </div>
+                            <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
                                 <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
                                     {cafe.location.city}
                                 </p>

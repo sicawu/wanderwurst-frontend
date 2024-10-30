@@ -5,7 +5,6 @@ import { FaLocationDot } from "react-icons/fa6"
 import { MdLocationCity } from "react-icons/md"
 import { TbBulb } from "react-icons/tb"
 import { FaExternalLinkAlt } from 'react-icons/fa'
-import { FaHeart } from "react-icons/fa"
 import YouMayAlsoLike from '../components/CafesYouMayAlsoLike'
 import WishlistButton from '../components/WishlistButton'
 
@@ -37,55 +36,6 @@ function CafeDetailsPage() {
 
         getCafe();
     }, [urlSlug]);
-
-    /*
-    // Add Cafe to Wishlist; userId (GoogleId) is from local storage
-    const handleWishlistClick = async () => {
-        const userProfileString = localStorage.getItem('userProfile');
-        const userProfile = userProfileString ? JSON.parse(userProfileString) : null;
-        const userId = userProfile ? userProfile.id : null;
-    
-        if (userId) {
-            try {
-                let response;
-    
-                if (isWished) {
-                    // Remove from wishlist
-                    response = await axios.delete(`${API_URL}/user/${userId}/wishlist`, {
-                        data: { urlSlug: urlSlug },
-                    });
-                } else {
-                    // Add to wishlist
-                    response = await axios.put(`${API_URL}/user/${userId}/wishlist`, {
-                        urlSlug: urlSlug,
-                    });
-                }
-    
-                // Update local storage
-                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-                if (isWished) {
-                    // Remove from wishlist
-                    wishlist = wishlist.filter(item => item !== urlSlug);
-                } else {
-                    // Add to wishlist
-                    wishlist.push(urlSlug);
-                }
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    
-                // Update state
-                setIsWished(!isWished);
-            } catch (err) {
-                if (err.response) {
-                    setErrorMessage(err.response.data.message);
-                } else {
-                    setErrorMessage('An error occurred while updating the wishlist');
-                }
-            }
-        } else {
-            setErrorMessage('User  ID is not available');
-        }
-    };
-    */
 
     // Get data from specific cafe
     const getCafe = () => {
@@ -134,32 +84,23 @@ function CafeDetailsPage() {
                     </Helmet>
                     <div className="flex justify-center items-center">
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
-                            <div className="flex justify-center p-10 relative">
+                            <div className="flex justify-center p-5 relative">
                                 <div className="relative">
                                     <img
                                         className="h-[100vh] w-full object-cover rounded-2xl"
                                         src={cafe.image}
                                         alt={`${cafe.title}${cafe.location && cafe.location.city ? `, ${cafe.location.city}, ${cafe.location.country}` : ''}`}
                                     />
-                                </div>
-                                {/* Wishlist Button */}
-                                {/*
-                                <div onClick={handleWishlistClick}
-                                    style={{ cursor: 'pointer' }}
-                                    className="absolute top-[10%] left-[17%] md:top-[8%] md:left-[20%] lg:top-[12%] lg:left-[24%] z-10"                                >
-                                    <FaHeart
-                                        size={50}
-                                        color={isWished ? 'red' : 'white'}
-                                    />
-                                </div>
-                                */}
-                                <div className="absolute top-[10%] left-[17%] md:top-[8%] md:left-[20%] lg:top-[12%] lg:left-[24%] z-10">
-                                    <WishlistButton 
-                                    urlSlug={urlSlug} 
-                                    />
+                                    {/* Add WishlistButton here */}
+                                    <div className="absolute top-5 right-5 z-10"> 
+                                        <WishlistButton
+                                            urlSlug={urlSlug}
+                                            isWished={isWished} // Pass the isWished state if needed
+                                            setIsWished={setIsWished} // Pass the setter if you need to update it
+                                        />
+                                    </div>
                                 </div>
                             </div>
-
                             <div>
                                 <h1 className="text-5xl p-10 flex justify-center uppercase text-center font-extrabold italic">
                                     {cafe.title}

@@ -5,6 +5,7 @@ import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
 import { TbCoffeeOff } from "react-icons/tb"
+import WishlistButton from '../components/WishlistButton';
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async";
@@ -205,18 +206,16 @@ function CafeSpecList() {
         <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
           {filteredCafes.length > 0 ? (
             filteredCafes.map((cafe) => (
-              <div
-                key={cafe._id}
-                className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5"
-              >
-                <Link to={`/cafes/${cafe.urlSlug}`}>
-                  <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
-                    <img
-                      src={cafe.image}
-                      alt={cafe.title}
-                      className="h-full w-full object-cover"
-                    />
+              <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
+                <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
+                  <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
+                    <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
+                  </Link>
+                  <div className="absolute top-4 right-4 z-20">
+                    <WishlistButton urlSlug={cafe.urlSlug} />
                   </div>
+                </div>
+                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
                   <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
                     {cafe.location.city}
                   </p>

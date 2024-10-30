@@ -103,25 +103,17 @@ function MySpace({ profile, setProfile }) {
                         </Link>
                     </div>
                     <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
-                        {filteredCafes.length > 0 ? (
-                            filteredCafes.map((cafe) => (
-                                <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-                                    <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
+                        {filteredCafes.map((cafe) => (
+                            <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
+                                <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
+                                    <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
                                         <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
-                                        <div className="absolute top-2 left-2 z-20"> 
-                                            <WishlistButton
-                                                urlSlug={cafe.urlSlug}
-                                                wishlist={filteredCafes.map(cafe => cafe.urlSlug)}
-                                                updateWishlist={(urlSlug, isWished) => {
-                                                    const newFilteredCafes = isWished
-                                                        ? filteredCafes.filter(cafe => cafe.urlSlug !== urlSlug)
-                                                        : [...filteredCafes, cafe];
-                                                    setFilteredCafes(newFilteredCafes);
-                                                    localStorage.setItem('wishlist', JSON.stringify(newFilteredCafes.map(cafe => cafe.urlSlug)));
-                                                }}
-                                            />
-                                        </div>
+                                    </Link>
+                                    <div className="absolute top-4 right-4 z-20">
+                                        <WishlistButton urlSlug={cafe.urlSlug}/>
                                     </div>
+                                </div>
+                                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
                                     <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
                                         {cafe.location.city}
                                     </p>
@@ -129,13 +121,10 @@ function MySpace({ profile, setProfile }) {
                                         {cafe.location.country}
                                     </p>
                                     <p className="font-bold">{cafe.title}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <div className="text-center italic">
-                                <p className="mt-2">You haven't added anything to your wishlist yet. Keep exploring, little Sweet Spotter.</p>
+                                </Link>
                             </div>
-                        )}
+                        ))}
+
                     </div>
                     <div className="bg-beige rounded-2xl mx-5 flex flex-col items-center">
                         <h2 className="pt-20 text-xl mb-3 font-extrabold uppercase text-center">

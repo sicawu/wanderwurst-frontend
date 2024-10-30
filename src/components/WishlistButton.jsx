@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { IoHeartCircleOutline } from "react-icons/io5";
+import { PiHeartStraightFill } from "react-icons/pi";
 
 const WishlistButton = ({ urlSlug }) => {
     const [isWished, setIsWished] = useState(false);
@@ -22,29 +22,23 @@ const WishlistButton = ({ urlSlug }) => {
         if (userId) {
             try {
                 let response;
-
                 if (isWished) {
-                    // Remove from wishlist
-                    response = await axios.delete(`${API_URL}/user/${userId}/wishlist`, {
-                        data: { urlSlug: urlSlug },
-                    });
+                    response = await
+                        axios.delete(`${API_URL}/user/${userId}/wishlist`, {
+                            data: { urlSlug: urlSlug },
+                        });
                 } else {
-                    // Add to wishlist
-                    response = await axios.put(`${API_URL}/user/${userId}/wishlist`, {
-                        urlSlug: urlSlug,
-                    });
+                    response = await
+                        axios.put(`${API_URL}/user/${userId}/wishlist`, {
+                            urlSlug: urlSlug,
+                        });
                 }
 
-                // Update local storage
-                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-                if (isWished) {
-                    wishlist = wishlist.filter(item => item !== urlSlug);
-                } else {
-                    wishlist.push(urlSlug);
-                }
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-
-                // Update state
+                const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                const updatedWishlist = isWished
+                    ? wishlist.filter(item => item !== urlSlug)
+                    : [...wishlist, urlSlug];
+                localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
                 setIsWished(!isWished);
             } catch (err) {
                 console.error(err);
@@ -56,10 +50,10 @@ const WishlistButton = ({ urlSlug }) => {
 
     return (
         <div onClick={handleWishlistClick} style={{ cursor: 'pointer' }}>
-            <IoHeartCircleOutline  
-                size={60}
+            <PiHeartStraightFill
+                size={50}
                 className="transition-transform duration-200 hover:scale-110"
-                color={isWished ? 'red' : 'white'}
+                color={isWished ? 'red' : 'beige'}
             />
         </div>
     );
