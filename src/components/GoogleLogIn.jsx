@@ -32,16 +32,16 @@ function GoogleLogIn() {
           localStorage.setItem('userProfile', JSON.stringify(userProfile));
           localStorage.setItem('accessToken', user.access_token);
           console.log(`User profile`, userProfile);
-  
+
           const userData = {
             email: userProfile.email,
             name: userProfile.given_name,
             googleId: userProfile.id,
             picture: userProfile.picture,
           };
-  
+
           console.log(userData);
-  
+
           // First, check if the user already exists in the database
           axios.get(`${API_URL}/user/check`, { params: { googleId: userData.googleId } })
             .then((response) => {
@@ -70,24 +70,24 @@ function GoogleLogIn() {
   }, [user, navigate]);
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 pb-20">
       <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-        Become a Sweet Spotter</h1>
+        Become a<br />
+        <span className="text-teal">Sweet Spotter </span>
+      </h1>
       <div className="flex flex-col items-center">
+        <p className="text-lg text-white pt-8 px-4 max-w-md">
+          I'm proud and happy you're here. Join our community for free and save your favorite sweet spots!
+        </p>
 
-        <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-          I'm proud and happy, you're here. Join our little community for free and save your favorite sweet spots!</p>
-        {profile ? (
-          <>
-          </>
-        ) : (
+        {profile ? null : (
           <button
-            className="flex flex-row justify-center items-center gap-2 text-black font-bold py-2 my-10 px-4 rounded shadow-md hover:bg-blue-600 transition duration-200"
+            className="flex items-center gap-3 text-black bg-white font-bold py-3 px-5 mt-12 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-200 transition duration-300 ease-in-out"
             onClick={handleLogin}
             aria-label="Sign in with Google"
           >
-            <FcGoogle />
-            Sign in with Google
+            <FcGoogle size={24} />
+            <span>Sign in with Google</span>
           </button>
         )}
       </div>

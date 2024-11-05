@@ -6,12 +6,9 @@ import { Link } from "react-router-dom";
 import { TbCoffeeOff } from "react-icons/tb";
 import { GoFilter } from "react-icons/go";
 import WishlistButton from '../components/WishlistButton';
-
-
-// Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async";
 
-function CafeList() {
+const CafeList = () => {
   const API_URL = import.meta.env.VITE_API_URL;
   const [allCafes, setAllCafes] = useState([]);
   const [filteredCafes, setFilteredCafes] = useState([]);
@@ -22,7 +19,6 @@ function CafeList() {
   const [selectedSpec, setSelectedSpec] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
-  // State to hold the selected filters' descriptions
   const [filters, setFilters] = useState({
     city: "",
     drink: "",
@@ -30,7 +26,6 @@ function CafeList() {
     spec: "",
   });
 
-  // State to hold the unique filter values
   const [filterValues, setFilterValues] = useState({
     cities: [],
     drinks: [],
@@ -38,84 +33,68 @@ function CafeList() {
     specs: [],
   });
 
-  // Fetch all cafes
   const getAllCafes = () => {
     axios
       .get(`${API_URL}/cafes`)
       .then((response) => {
-        setAllCafes(response.data);
-        setFilteredCafes(response.data);
-        // Extract unique filter options
-        const cities = [...new Set(response.data.map((cafe) => cafe.location.city))];
-        const drinks = [...new Set(response.data.flatMap((cafe) => cafe.drinks))];
-        const foods = [...new Set(response.data.flatMap((cafe) => cafe.food))];
-        const specs = [...new Set(response.data.flatMap((cafe) => cafe.specs))];
+        const cafesData = response.data;
+        setAllCafes(cafesData);
+        setFilteredCafes(cafesData);
         setFilterValues({
-          cities,
-          drinks,
-          foods,
-          specs,
+          cities: [...new Set(cafesData.map(cafe => cafe.location.city))],
+          drinks: [...new Set(cafesData.flatMap(cafe => cafe.drinks))],
+          foods: [...new Set(cafesData.flatMap(cafe => cafe.food))],
+          specs: [...new Set(cafesData.flatMap(cafe => cafe.specs))],
         });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(console.error);
   };
 
   useEffect(() => {
     getAllCafes();
   }, []);
 
-  // Search through cafes based on search term, city, drinks, food, and specs
   useEffect(() => {
-    const filtered = allCafes.filter((cafe) => {
-      const titleMatch = cafe.title.toLowerCase().includes(searchTerm.toLowerCase());
-      const descriptionMatch = cafe.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const foodMatch = cafe.food.some((food) => food.toLowerCase().includes(searchTerm.toLowerCase()));
-      const drinksMatch = cafe.drinks.some((drink) => drink.toLowerCase().includes(searchTerm.toLowerCase()));
-      const specsMatch = cafe.specs.some((spec) => spec.toLowerCase().includes(searchTerm.toLowerCase()));
-      const cityMatch = cafe.location.city.toLowerCase().includes(searchTerm.toLowerCase());
-      const countryMatch = cafe.location.country.toLowerCase().includes(searchTerm.toLowerCase());
-      const selectedCityMatch = selectedCity ? cafe.location.city.toLowerCase() === selectedCity.toLowerCase() : true;
-      const selectedDrinksMatch = selectedDrink ? cafe.drinks.includes(selectedDrink) : true;
-      const selectedFoodMatch = selectedFood ? cafe.food.includes(selectedFood) : true;
-      const selectedSpecsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
+    const filtered = allCafes.filter(cafe => {
+      const matchesSearchTerm = [cafe.title, cafe.description, cafe.location.city, cafe.location.country]
+        .some(field => field.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        cafe.food.some(food => food.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        cafe.drinks.some(drink => drink.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        cafe.specs.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()));
 
-      return (titleMatch || descriptionMatch || cityMatch || countryMatch || foodMatch || drinksMatch || specsMatch) && selectedCityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
+      const matchesFilters =
+        (!selectedCity || cafe.location.city.toLowerCase() === selectedCity.toLowerCase()) &&
+        (!selectedDrink || cafe.drinks.includes(selectedDrink)) &&
+        (!selectedFood || cafe.food.includes(selectedFood)) &&
+        (!selectedSpec || cafe.specs.includes(selectedSpec.toLowerCase()));
+
+      return matchesSearchTerm && matchesFilters;
     });
     setFilteredCafes(filtered);
   }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, allCafes]);
 
-  // Handle search input change
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+  const handleSearch = (event) => setSearchTerm(event.target.value);
+
+  const handleFilterChange = (filterType, value) => {
+    switch (filterType) {
+      case 'city':
+        setSelectedCity(value);
+        break;
+      case 'drink':
+        setSelectedDrink(value);
+        break;
+      case 'food':
+        setSelectedFood(value);
+        break;
+      case 'spec':
+        setSelectedSpec(value);
+        break;
+      default:
+        break;
+    }
+    setFilters(prev => ({ ...prev, [filterType]: value }));
   };
 
-  // Handle city filter
-  const handleCityFilter = (city) => {
-    setSelectedCity(city);
-    setFilters((prev) => ({ ...prev, city }));
-  };
-
-  // Handle drinks filter
-  const handleDrinkFilter = (drink) => {
-    setSelectedDrink(drink);
-    setFilters((prev) => ({ ...prev, drink }));
-  };
-
-  // Handle food filter
-  const handleFoodFilter = (food) => {
-    setSelectedFood(food);
-    setFilters((prev) => ({ ...prev, food }));
-  };
-
-  // Handle specs filter
-  const handleSpecFilter = (spec) => {
-    setSelectedSpec(spec);
-    setFilters((prev) => ({ ...prev, spec: spec }));
-  };
-
-  // Clear all filters
   const clearFilters = () => {
     setSelectedCity("");
     setSelectedDrink("");
@@ -130,32 +109,29 @@ function CafeList() {
         <title>{`${filteredCafes.length} Top Cafes in the World | Sweet Spots`}</title>
         <meta
           name="description"
-          content={`Discover my favorite cafes worldwide. Carefully curated, your little safe space in the world.`}
+          content="Discover my favorite cafes worldwide. Carefully curated, your little safe space in the world."
         />
       </Helmet>
       <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
-        Best Cafes in the World
+      <span className="text-teal">{filteredCafes.length} Best Cafes</span>
+      <br />in the World
       </h1>
       <div className="flex justify-center items-center mt-8">
-
-        {/* Search Bar & Filter Toggle Button */}
         <div className="flex flex-row items-center space-x-2">
           <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
           <button
-            className="bg-blue-500 py-2 px-4 rounded-full"
+            className="py-2 px-4 rounded-full"
             onClick={() => setShowPopup(true)}
           >
             <GoFilter size={40} className="rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
           </button>
         </div>
-
-        {/* Popup for Filters */}
         {showPopup && (
           <FilterPopup
-            onCityFilter={handleCityFilter}
-            onDrinkFilter={handleDrinkFilter}
-            onFoodFilter={handleFoodFilter}
-            onSpecFilter={handleSpecFilter}
+            onCityFilter={(city) => handleFilterChange('city', city)}
+            onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
+            onFoodFilter={(food) => handleFilterChange('food', food)}
+            onSpecFilter={(spec) => handleFilterChange('spec', spec)}
             cities={filterValues.cities}
             drinks={filterValues.drinks}
             foods={filterValues.foods}
@@ -165,30 +141,22 @@ function CafeList() {
         )}
       </div>
 
-      {/* Display selected filters */}
       <div className="mt-4 px-7">
         {Object.entries(filters).map(([key, value]) =>
-          value ? (
+          value && (
             <span
               key={key}
               className="inline-block border border-grey py-0.5 px-2 mr-2 mb-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300"
             >
               {value}
               <button
-                onClick={() => {
-                  // Clear individual filter
-                  setFilters((prev) => ({ ...prev, [key]: "" }));
-                  if (key === "city") setSelectedCity("");
-                  if (key === "drink") setSelectedDrink("");
-                  if (key === "food") setSelectedFood("");
-                  if (key === "spec") setSelectedSpec("");
-                }}
+                onClick={() => handleFilterChange(key, "")}
                 className="ml-2"
               >
                 x
               </button>
             </span>
-          ) : null
+          )
         )}
         {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
           <button
@@ -202,24 +170,24 @@ function CafeList() {
 
       <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
         {filteredCafes.length > 0 ? (
-          filteredCafes.map((cafe) => (
+          filteredCafes.map(cafe => (
             <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
               <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
                 <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
                   <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
                 </Link>
                 <div className="absolute top-4 right-4 z-20">
-                  <WishlistButton urlSlug={cafe.urlSlug}/>
+                  <WishlistButton urlSlug={cafe.urlSlug} />
                 </div>
               </div>
-              <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+              <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full mt-2 block">
+                <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
                   {cafe.location.city}
                 </p>
-                <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
                   {cafe.location.country}
                 </p>
-                <p className="font-bold">{cafe.title}</p>
+                <p className="font-bold text-gray-900">{cafe.title}</p>
               </Link>
             </div>
           ))
@@ -232,6 +200,6 @@ function CafeList() {
       </div>
     </>
   );
-}
+};
 
 export default CafeList;

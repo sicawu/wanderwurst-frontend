@@ -147,7 +147,8 @@ function CafeDrinkList() {
                 <meta name="description" content={`Choose your favorite cafe for ${formatDrinks(drinks)}.`} />
             </Helmet>
             <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                {formatDrinks(drinks)} <br /> - your elixir of the day.
+                <span className="text-teal"> {formatDrinks(drinks)} </span>
+                <br /> - your elixir of the day.
             </h1>
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
                 Craving {formatDrinks(drinks).toLowerCase()}? Explore my {filteredCafes.length} favorite cafes for that.
@@ -159,7 +160,7 @@ function CafeDrinkList() {
                 <div className="flex flex-row items-center space-x-2">
                     <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
                     <button
-                        className="bg-blue-500 py-2 px-4 rounded-full"
+                        className="py-2 px-4 rounded-full"
                         onClick={() => setShowPopup(true)}
                     >
                         <GoFilter size={40} className=" rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
@@ -222,14 +223,14 @@ function CafeDrinkList() {
                                     <WishlistButton urlSlug={cafe.urlSlug} />
                                 </div>
                             </div>
-                            <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                                <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                            <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block mt-4">
+                                <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
                                     {cafe.location.city}
                                 </p>
-                                <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
                                     {cafe.location.country}
                                 </p>
-                                <p className="font-bold">{cafe.title}</p>
+                                <p className="font-bold text-gray-900">{cafe.title}</p>
                             </Link>
                         </div>
                     ))

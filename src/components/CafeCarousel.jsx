@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import WishlistButton from '../components/WishlistButton';
+
 
 const CafeCarousel = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -48,21 +50,21 @@ const CafeCarousel = () => {
               key={suggestion._id}
               className="inline-block w-64 h-full"
             >
-              <Link to={`/cafes/${suggestion.urlSlug}`}
-                className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl"
-              >
-                <div className="h-72 w-full max-w-full overflow-hidden border-solid rounded-2xl">
-                <img
-                    src={suggestion.image}
-                    alt={suggestion.title}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
-                  {suggestion.location.city}
+               <div className="relative h-72 w-full max-w-full rounded-lg shadow-md">
+                                    <Link to={`/cafes/${suggestion.urlSlug}`} className="h-full w-full block">
+                                        <img src={suggestion.image} alt={suggestion.title} className="h-full w-full object-cover rounded-lg" />
+                                    </Link>
+                                    <div className="absolute top-4 right-4">
+                                        <WishlistButton urlSlug={suggestion.urlSlug} />
+                                    </div>
+                                </div>
+                <Link to={`/cafes/${suggestion.urlSlug}`} className="block mt-4 text-center">
+
+                <p className="font-bold uppercase bg-mint text-gray rounded-full mb-1 mr-1 px-2 py-1 inline-block">
+                {suggestion.location.city}
                 </p>
-                <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
-                  {suggestion.location.country}
+                <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
+                {suggestion.location.country}
                 </p>
                 <p className="font-bold">{suggestion.title}</p>
               </Link>

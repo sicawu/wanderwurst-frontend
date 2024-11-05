@@ -43,24 +43,21 @@ function Homepage() {
   return (
     <>
       <div
-
         className="min-h-screen flex flex-col justify-center items-center"
-
         style={{
           backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726882635/Sweet%20Spots/Phin-Coffee-Restaurant-Hoi-An_o2sd6f.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: '50% 70%'
         }}
-
       >
-        <h1 className="text-6xl text-white p-9 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
+        <h1 className="text-5xl text-white p-9 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
           Find your Sweet Spot
         </h1>
 
         {/* Choose a City Section */}
         <div className="w-full max-w-lg mb-16 bg-cover bg-center">
-          <h2 className="text-xl text-white mb-4" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}
-          >Choose a City
+          <h2 className="text-xl text-white mb-4" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
+            Choose a City
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {cities.map((city) => (
@@ -79,9 +76,9 @@ function Homepage() {
       {error && <p className="text-red-500 text-center">{error}</p>}
 
       <TopPickSection topPick={topPick} />
-      <div className="flex flex-col lg:flex-row items-start">
-              <FoodSection food={food} />
-       <DrinksSection drinks={drinks}/>
+      <div className="flex flex-col lg:flex-row items-stretch">
+        <FoodSection className="flex-1" food={food} />
+        <DrinksSection className="flex-1" drinks={drinks} />
       </div>
       <CafeCarousel />
       <SpecsSection specs={specs} />

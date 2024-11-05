@@ -30,7 +30,6 @@ function CafeDetailsPage() {
     const { urlSlug } = useParams()
 
     useEffect(() => {
-        // Check local storage for wishlist
         const storedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         setIsWished(storedWishlist.includes(urlSlug));
 
@@ -92,7 +91,7 @@ function CafeDetailsPage() {
                                         alt={`${cafe.title}${cafe.location && cafe.location.city ? `, ${cafe.location.city}, ${cafe.location.country}` : ''}`}
                                     />
                                     {/* Add WishlistButton here */}
-                                    <div className="absolute top-5 right-5 z-10"> 
+                                    <div className="absolute top-5 right-5 z-10">
                                         <WishlistButton
                                             urlSlug={urlSlug}
                                             isWished={isWished} // Pass the isWished state if needed
@@ -134,30 +133,30 @@ function CafeDetailsPage() {
                                 </div>
 
                                 {/* !!!!! DESCRIPTION !!!!!! */}
-                                <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
+                                <p className="text-xl text-center px-5">
                                     {cafe.description}
                                 </p>
 
                                 {/* !!!!! RECOMMENDATION !!!!!! */}
                                 {cafe.recommendation && (
-                                    <p className="text-1xl px-10 pb-5 flex justify-center text-center">
+                                    <p className="text-xl text-center flex justify-center items-center mt-4">
                                         <TbBulb size={30} className="mr-1" />
-                                        <span className="font-bold nowrap">MUST TRY:&nbsp;</span>
+                                        <span className="font-bold">MUST TRY:&nbsp;</span>
                                         {cafe.recommendation}
                                     </p>
                                 )}
 
                                 {/* !!!!! Specs !!!!!! */}
-                                <div className="flex flex-wrap px-10 flex justify-center">
-                                    {Array.isArray(cafe.specs) &&
-                                        cafe.specs.map((spec, index) => (
-                                            <Link
-                                                to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific spec; to lowercase + replacing empty spaces in specs
-                                                className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green hover:shadow-xl"
-                                                key={index}>
-                                                {spec}
-                                            </Link>
-                                        ))}
+                                <div className="flex flex-wrap justify-center mt-5">
+                                    {Array.isArray(cafe.specs) && cafe.specs.map((spec, index) => (
+                                        <Link
+                                            to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
+                                            className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green-500 transition duration-200"
+                                            key={index}
+                                        >
+                                            {spec}
+                                        </Link>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -166,25 +165,22 @@ function CafeDetailsPage() {
                         <div className="grid md:grid-cols-2 sm:grid-cols-1 ">
                             <div>
                                 {/* !!!!! Drinks !!!!!! */}
-                                {Array.isArray(cafe.drinks) &&
-                                    cafe.drinks.length > 0 && (
-                                        <>
-                                            <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                                Drinks Options
-                                            </h2>
-                                            <div className="flex flex-wrap px-10 justify-center">
-                                                {cafe.drinks.map((drinks, index) => (
-                                                    <Link
-                                                        to={`/best-cafes/drinks/${drinks.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific drinks; to lowercase + replacing empty spaces in food
-                                                        className="font-bold bg-green text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
-                                                        key={index}
-                                                    >
-                                                        {drinks}
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        </>
-                                    )}
+                                {Array.isArray(cafe.drinks) && cafe.drinks.length > 0 && (
+                                    <>
+                                        <h2 className="text-2xl font-extrabold uppercase text-center pb-3">Drinks Options</h2>
+                                        <div className="flex flex-wrap justify-center">
+                                            {cafe.drinks.map((drink, index) => (
+                                                <Link
+                                                    to={`/best-cafes/drinks/${drink.toLowerCase().replace(/\s+/g, '-')}`}
+                                                    className="font-bold bg-coral text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black transition duration-200"
+                                                    key={index}
+                                                >
+                                                    {drink}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
 
                                 {/* !!!!! Food !!!!!! */}
                                 {Array.isArray(cafe.food) &&
@@ -197,7 +193,7 @@ function CafeDetailsPage() {
                                                 {cafe.food.map((food, index) => (
                                                     <Link
                                                         to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific food; to lowercase + replacing empty spaces in food
-                                                        className="font-bold bg-green text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
+                                                        className="font-bold bg-olive text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
                                                         key={index}
                                                     >
                                                         {food}

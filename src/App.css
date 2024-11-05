@@ -7,7 +7,6 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.8); /* Slight opacity */
   backdrop-filter: blur(5px); /* Optional blur effect */
 }
 

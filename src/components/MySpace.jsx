@@ -71,75 +71,79 @@ function MySpace({ profile, setProfile }) {
     const handleLogout = () => {
         setProfile(null);
         navigate('/');
+        localStorage.removeItem("wishlist");
+        localStorage.removeItem("userProfile");
     };
 
     return (
-        <div className="min-h-screen pb-10">
+        <div className="min-h-screen pb-10 bg-gray-50">
             {profile ? (
                 <div>
-                    <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                        {profile.name}'s <br /> Sweet Spots
+                    <h1 className="bg-black text-white uppercase text-center text-3xl px-3 py-2 font-extrabold italic">
+                    <span className="text-teal"> {profile.name}'s</span> Sweet Spots
                     </h1>
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="flex flex-col items-center justify-center mt-5">
                         <img
-                            className="w-20 h-20 rounded-full object-cover my-7"
+                            className="w-24 h-24 rounded-full object-cover my-5"
                             src={profile.picture} alt={profile.name}
                         />
-                        <p className="mx-10">
+                        <p className="mx-10 text-gray-700">
                             Welcome (back), you little legend. I'm happy to have you here, {profile.name}.
                         </p>
-                        <p className="italic text-xs mt-3">
-                            Lots of love, Simona xx</p>
+                        <p className="italic text-xs mt-2 text-gray-500">
+                            Lots of love, Simona xx
+                        </p>
                     </div>
 
                     {/* Wishlist Section */}
-                    <h2 className="pt-20 text-4xl mb-3 font-extrabold uppercase text-center">
+                    <h2 className="pt-16 text-4xl font-extrabold uppercase text-center text-gray-800">
                         Your Wishlist
                     </h2>
-                    <div className="flex justify-center mb-12">
-                        <Link to="/best-cafes" className="flex items-center underline">
+                    <div className="flex justify-center mt-5">
+                        <Link to="/best-cafes" className="flex items-center text-teal underline">
                             <MdKeyboardDoubleArrowRight className="mr-1" />
                             Discover More Cafes
                         </Link>
                     </div>
-                    <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
+                    <div className="px-5 flex flex-wrap justify-center mt-10 pb-10">
                         {filteredCafes.map((cafe) => (
-                            <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-                                <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
+                            <div key={cafe._id} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3">
+                                <div className="relative h-72 w-full max-w-full rounded-lg shadow-md">
                                     <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                                        <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
+                                        <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover rounded-lg" />
                                     </Link>
-                                    <div className="absolute top-4 right-4 z-20">
-                                        <WishlistButton urlSlug={cafe.urlSlug}/>
+                                    <div className="absolute top-4 right-4">
+                                        <WishlistButton urlSlug={cafe.urlSlug} />
                                     </div>
                                 </div>
-                                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                                    <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                <Link to={`/cafes/${cafe.urlSlug}`} className="block mt-4 text-center">
+                                    <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
                                         {cafe.location.city}
                                     </p>
-                                    <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                    <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
                                         {cafe.location.country}
                                     </p>
-                                    <p className="font-bold">{cafe.title}</p>
+                                    <p className="font-bold text-gray-900">{cafe.title}</p>
                                 </Link>
                             </div>
                         ))}
-
                     </div>
-                    <div className="bg-beige rounded-2xl mx-5 flex flex-col items-center">
-                        <h2 className="pt-20 text-xl mb-3 font-extrabold uppercase text-center">
-                            Your Personal Space
+
+                    {/* Personal Details Section */}
+                    <div className="bg-gray-100 rounded-2xl mx-5 p-5 mt-10">
+                        <h2 className="text-2xl font-extrabold uppercase text-center text-gray-800">
+                            Personal Details
                         </h2>
                         {!editMode ? (
-                            <div className="text-center">
-                                <p>Name: {profile.name}.</p>
-                                <p>Email: {profile.email}</p>
-                                <button onClick={handleEditClick} className="text-gray-500 ml-2">
+                            <div className="text-center mt-5">
+                                <p><b>Name:</b> {profile.name}</p>
+                                <p><b>Email:</b> {profile.email}</p>
+                                <button onClick={handleEditClick} className="text-teal mt-2">
                                     <FiEdit />
                                 </button>
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center w-full max-w-xs">
+                            <div className="flex flex-col items-center mt-5">
                                 <input
                                     type="text"
                                     value={updatedProfile.name}
@@ -153,22 +157,22 @@ function MySpace({ profile, setProfile }) {
                                     className="border border-gray-300 rounded px-2 py-1 mb-2 w-full"
                                 />
                                 <button onClick={handleSaveClick}
-                                    className="text-white bg-black hover:bg-gren rounded px-4 py-1 my-3">
+                                    className="bg-teal text-white rounded px-4 py-1 mt-3 hover:bg-mint transition">
                                     Save
                                 </button>
                             </div>
                         )}
                         {/* Logout Button */}
                         <button
-                            className="inline-flex items-center justify-center px-4 py-3 my-10 font-semibold text-white bg-coral hover:bg-black rounded-lg transition-colors ease-out duration-200"
+                            className="mt-10 px-6 py-2 font-semibold text-white bg-teal hover:bg-gray-800 rounded-lg transition-colors"
                             onClick={handleLogout}>
                             Logout
                         </button>
                     </div>
                 </div>
             ) : (
-                <div>
-                    <Link to="/login" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded inline-block">
+                <div className="text-center mt-20">
+                    <Link to="/login" className="bg-teal text-white px-6 py-3 rounded-full inline-block">
                         Login
                     </Link>
                 </div>

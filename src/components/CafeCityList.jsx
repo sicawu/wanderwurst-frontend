@@ -6,7 +6,6 @@ import WishlistButton from '../components/WishlistButton';
 // Filter + Search
 import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
-import { TbCoffeeOff } from "react-icons/tb";
 import { GoFilter } from "react-icons/go";
 
 // Helmet library for individual SEO title + description
@@ -17,7 +16,6 @@ function CafeCityList() {
     const { city } = useParams();
     const [cafeCity, setcafeCity] = useState([]);
     const [filteredCafes, setFilteredCafes] = useState([]);
-    // const [availableSpecs, setAvailableSpecs] = useState([]); // State to store available specs
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCity, setSelectedCity] = useState("");
@@ -132,41 +130,17 @@ function CafeCityList() {
         return city.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     };
 
-    // Extract unique specs from the cafes in the city
-    //const extractSpecs = (cafes) => {
-    //  const specsSet = new Set();
-    // cafes.forEach((cafe) => {
-    // cafe.specs.forEach((spec) => {
-    //   specsSet.add(spec); // Add each spec to the Set (avoids duplicates)
-    //   });
-    //  });
-    //   setAvailableSpecs([...specsSet]); // Convert Set to array and update state
-    // };
-
-    /*// Update the list based on the filter
-    const handleFilter = (selectedSpecs) => {
-        if (selectedSpecs.length === 0) {
-            setFilteredCafes(cafeCity); // Reset filteredCafes to all cafes when no specs are selected
-        } else {
-            const filteredCafes = cafeCity.filter((cafe) => {
-                return selectedSpecs.every((spec) => cafe.specs.includes(spec));
-            });
-            setFilteredCafes(filteredCafes); // Update filteredCafes state with filtered cafes
-        }
-    };
-*/
-
     return (
         <>
             <Helmet>
                 <title>{`${filteredCafes.length} Best Cafes in ${formatCity(city)} | Sweet Spots`}</title>
                 <meta name="description" content={`Discover the best cafes in ${formatCity(city)}. Explore our favorite spots in the city.`} />
             </Helmet>
-            <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                {filteredCafes.length} Best cafes in {formatCity(city)}
+            <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
+                Best cafes in <span className="text-teal">{formatCity(city)}</span>
             </h1>
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                Carefully curated, discover my favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
+                Carefully curated, discover my {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
             </p>
 
             {/* Search Bar & Filter Toggle Button */}
@@ -174,7 +148,7 @@ function CafeCityList() {
                 <div className="flex flex-row items-center space-x-2">
                     <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
                     <button
-                        className="bg-blue-500 py-2 px-4 rounded-full"
+                        className="py-2 px-4 rounded-full"
                         onClick={() => setShowPopup(true)}
                     >
                         <GoFilter size={40} className="rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
@@ -245,30 +219,23 @@ function CafeCityList() {
                                     <WishlistButton urlSlug={cafe.urlSlug} />
                                 </div>
                             </div>
-                            <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                                <p className="font-bold uppercase bg-black text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                            <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block mt-4">
+                                <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
                                     {cafe.location.city}
                                 </p>
-                                <p className="font-bold uppercase bg-green text-white rounded-none mb-1 mt-4 mx-1 px-1.5 text-base italic leading-6 inline-block">
+                                <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
                                     {cafe.location.country}
                                 </p>
-                                <p className="font-bold">{cafe.title}</p>
+                                <p className="font-bold text-gray-900">{cafe.title}</p>
                             </Link>
                         </div>
                     ))
                 ) : (
-                    <div className="text-center">
-                        <TbCoffeeOff size={60} />
-                        <p className="mt-2">Meow, no cafes that match your criteria in {formatCity(city)}. Pls change your filter.</p>
+                    <div className="text-center pb-10">
+                        <p>Meow, no cafes that match your criteria in {formatCity(city)}. Pls change your filter.</p>
                     </div>
                 )}
             </div>
-            {/* <div>
-                    <CafeFilterSpecs
-                        onFilter={handleFilter}
-                        availableSpecs={availableSpecs} // Pass available specs to the filter component
-                    />
-                </div> */}
         </>
     );
 }
