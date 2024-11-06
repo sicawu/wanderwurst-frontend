@@ -137,7 +137,8 @@ function CafeCityList() {
                 <meta name="description" content={`Discover the best cafes in ${formatCity(city)}. Explore our favorite spots in the city.`} />
             </Helmet>
             <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
-                Best cafes in <span className="text-teal">{formatCity(city)}</span>
+                Best cafes in
+                <br/><span className="text-teal">{formatCity(city)}</span>
             </h1>
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
                 Carefully curated, discover my {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.

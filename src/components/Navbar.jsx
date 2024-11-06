@@ -57,14 +57,14 @@ function NavBar({ profile, setProfile }) {
           {/* Cities Dropdown */}
           <div className="relative group">
             <button className="hover:text-gray-400">Cafes by City</button>
-            <div className="absolute left-0 top-8 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2">
+            <div className="absolute left-0 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2">
               {cities.map((city) => (
                 <Link
                   key={city}
                   to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="block px-4 py-2 hover:bg-gray-200"
+                  className="block p-2 hover:bg-gray-200"
                 >
-                  Cafes in {city}
+                 {city}
                 </Link>
               ))}
             </div>
@@ -73,7 +73,7 @@ function NavBar({ profile, setProfile }) {
           {/* Purposes Dropdown */}
           <div className="relative group">
             <button className="hover:text-gray-400">Cafes by Purpose</button>
-            <div className="absolute left-0 top-8 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2">
+            <div className="absolute left-0 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2">
               {purposes.map((purpose) => (
                 <Link
                   key={purpose}
@@ -101,7 +101,7 @@ function NavBar({ profile, setProfile }) {
               />
             </Link>
           ) : (
-            <Link to="/login" className="text-teal hover:text-gray-400">
+            <Link to="/login" className="hover:text-gray-400">
               Login
             </Link>
           )}

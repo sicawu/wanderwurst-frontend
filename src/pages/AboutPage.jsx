@@ -1,31 +1,63 @@
+import React from 'react';
+
 function AboutPage() {
     return (
-        <>
-            <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 mb-10 font-extrabold italic">
-                The Story behind
-                </h1>
-                <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
-           Introducing sweet spots - a heart project</h2>
-            <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
-                A travel blog, slightly different. Sweet spots is a carefully curated collection of places that are special to me. Places that inspired me, that make me feel comfortable and happy, that felt like home while being away from home.
-            </p>
-            <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
-           The idea of sweet spots</h2>
-            <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
-                I love to travel. And I would say, it is a huge part of my life. You realise that aswell when people start asking "on which continent are you" instead of "How are you". Which doesn't mean that I am always on the run. I prefer slow traveling. Being away from familiar places and faces that you call home isn't always easy. That's why it is important to have places that make you feel grounded, happy and give you a physically and emotionally safe environment. But at the same time inspire and energize you to live to your potential. A little home, far away. I call them safe places - or in this case, sweet spots. 
-            </p>
-            <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
-           The Mission</h2>
-            <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
-            Carefully curate favorite spots around the world that match exact the purpose you are looking for.    It’s less about try as many as possible but more about places that make me return. Because it fulfills one specific need.  Places that are wholesome.
-            </p>
-            <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
-           The Vision</h2>
-            <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
-            Sweet spots should become an interactive plattform and your first choice to ask if you want to find your sweet spots in a new city you've never been before.  
-            </p>
-        </>
-    )
+        <div>
+            {/* Main Heading */}
+            <h1 className="bg-black text-white uppercase text-center text-3xl py-2 mb-10 font-extrabold italic">
+                The <span className="text-teal">Story</span> Behind
+            </h1>
+
+            {/* Introduction */}
+            <div className="text-center mb-10">
+                <h2 className="text-black uppercase text-xl mb-2 font-extrabold italic">
+                    Introducing Sweet Spots - A Heart Project
+                </h2>
+                <p className="text-lg text-gray-700 px-6 md:px-20 lg:px-40 leading-relaxed">
+                    A travel blog, slightly different. Sweet Spots is a carefully curated collection of places that are special to me—places that inspired me, make me feel comfortable and happy, and felt like home while being away from home.
+                </p>
+            </div>
+
+                {/* Image Section */}
+                <div className="flex justify-center m-10">
+                <img
+                    src="https://res.cloudinary.com/djkv0io5j/image/upload/v1727849638/Sweet%20Spots/simona-wurst-sweet-spots_tb2i1l.jpg"
+                    alt="Simona traveling"
+                    className="rounded-lg shadow-lg w-full md:w-2/3 lg:w-1/2 transform transition-transform duration-500 hover:scale-105"
+                />
+            </div>
+
+            {/* The Idea */}
+            <div className="text-center mb-10">
+                <h2 className="text-black uppercase text-xl mb-2 font-extrabold italic">
+                    The Idea of Sweet Spots
+                </h2>
+                <p className="text-lg text-gray-700 px-6 md:px-20 lg:px-40 leading-relaxed">
+                    I love to travel; it’s a huge part of my life. When people start asking "on which continent are you" instead of "How are you," you know it’s real. I prefer slow traveling—finding places that make you feel grounded, happy, and safe while being far from home. These places, which I call "sweet spots," are my sanctuaries: spaces that inspire and energize me.
+                </p>
+            </div>
+
+            {/* The Mission */}
+            <div className="text-center mb-10">
+                <h2 className="text-black uppercase text-xl mb-2 font-extrabold italic">
+                    The Mission
+                </h2>
+                <p className="text-lg text-gray-700 px-6 md:px-20 lg:px-40 leading-relaxed">
+                    Sweet Spots is about finding places that truly fulfill specific needs and keep me coming back. These are wholesome spots around the world, carefully curated to offer more than just a place to visit—a place to belong.
+                </p>
+            </div>
+
+            {/* The Vision */}
+            <div className="text-center mb-10">
+                <h2 className="text-black uppercase text-xl mb-2 font-extrabold italic">
+                    The Vision
+                </h2>
+                <p className="text-lg text-gray-700 px-6 md:px-20 lg:px-40 leading-relaxed">
+                    The vision for Sweet Spots is to become an interactive platform that serves as your first choice for discovering sweet spots in new cities. A place you can turn to for trusted recommendations.
+                </p>
+            </div>
+        </div>
+    );
 }
 
-export default AboutPage
+export default AboutPage;

@@ -202,4 +202,4 @@ const CafeList = () => {
   );
 };
 
-export default CafeList;
+export default CafeList

@@ -12,6 +12,7 @@ function MySpace({ profile, setProfile }) {
     const [filteredCafes, setFilteredCafes] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [updatedProfile, setUpdatedProfile] = useState({ name: '', email: '' });
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -75,18 +76,24 @@ function MySpace({ profile, setProfile }) {
         localStorage.removeItem("userProfile");
     };
 
+    const handleDeleteUser = async () => {
+        try {
+            await axios.delete(`${API_URL}/user/${profile.googleId || profile.id}`);
+            setProfile(null); // Clear profile from state after deletion
+            navigate('/'); // Redirect to home or login page after deletion
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    };
+
     return (
         <div className="min-h-screen pb-10 bg-gray-50">
             {profile ? (
                 <div>
                     <h1 className="bg-black text-white uppercase text-center text-3xl px-3 py-2 font-extrabold italic">
-                    <span className="text-teal"> {profile.name}'s</span> Sweet Spots
+                        <span className="text-teal"> {profile.name}'s</span> Sweet Spots
                     </h1>
-                    <div className="flex flex-col items-center justify-center mt-5">
-                        <img
-                            className="w-24 h-24 rounded-full object-cover my-5"
-                            src={profile.picture} alt={profile.name}
-                        />
+                    <div className="flex flex-col items-center justify-center mt-12">
                         <p className="mx-10 text-gray-700">
                             Welcome (back), you little legend. I'm happy to have you here, {profile.name}.
                         </p>
@@ -130,12 +137,16 @@ function MySpace({ profile, setProfile }) {
                     </div>
 
                     {/* Personal Details Section */}
-                    <div className="bg-gray-100 rounded-2xl mx-5 p-5 mt-10">
+                    <div className="flex flex-col items-center bg-gray-100 rounded-2xl mx-5 p-5 mt-10">
                         <h2 className="text-2xl font-extrabold uppercase text-center text-gray-800">
                             Personal Details
                         </h2>
                         {!editMode ? (
                             <div className="text-center mt-5">
+                                {/*<img
+                                    className="w-24 h-24 rounded-full object-cover my-5"
+                                    src={profile.picture} alt={profile.name}
+                                /> */}
                                 <p><b>Name:</b> {profile.name}</p>
                                 <p><b>Email:</b> {profile.email}</p>
                                 <button onClick={handleEditClick} className="text-teal mt-2">
@@ -162,12 +173,43 @@ function MySpace({ profile, setProfile }) {
                                 </button>
                             </div>
                         )}
-                        {/* Logout Button */}
-                        <button
-                            className="mt-10 px-6 py-2 font-semibold text-white bg-teal hover:bg-gray-800 rounded-lg transition-colors"
-                            onClick={handleLogout}>
-                            Logout
-                        </button>
+
+                        <div className="flex flex-row">
+                            {/* Delete Button */}
+                            <button
+                                className="mt-10 mr-5 px-6 font-semibold text-white bg-red-600 hover:bg-red-800 rounded-lg transition-colors"
+                                onClick={() => setShowDeleteConfirm(true)}>
+                                Delete Profile
+                            </button>
+
+                            {/* Confirmation Dialog */}
+                            {showDeleteConfirm && (
+                                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                                    <div className="bg-white rounded-lg p-5 shadow-lg">
+                                        <h3 className="text-lg font-bold">Are you sure you want to delete your profile?</h3>
+                                        <p className="italic mb-4">There's no way back if deleted. Be sure, you want to leave. :)</p>
+                                        <div className="flex justify-end">
+                                            <button
+                                                className="mr-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-800"
+                                                onClick={handleDeleteUser}>
+                                                Yes
+                                            </button>
+                                            <button
+                                                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                                                onClick={() => setShowDeleteConfirm(false)}>
+                                                No
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {/* Logout Button */}
+                            <button
+                                className="mt-10 px-6 py-2 font-semibold text-white bg-teal hover:bg-gray-800 rounded-lg transition-colors"
+                                onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
             ) : (
