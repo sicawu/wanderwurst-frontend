@@ -65,7 +65,7 @@ function CafeCityList() {
 
     useEffect(() => {
         getCityCafes();
-    }, []);
+    }, [city]);
 
     // Search through cafes based on search term, city, drinks, food, and specs
     useEffect(() => {

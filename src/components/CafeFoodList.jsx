@@ -70,7 +70,7 @@ function CafeFoodList() {
     useEffect(() => {
         getCafes()
         setcafeTopPick(cafeFood)
-    }, [])
+    }, [food])
 
     useEffect(() => {
         setcafeTopPick(cafeFood)

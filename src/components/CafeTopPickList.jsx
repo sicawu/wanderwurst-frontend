@@ -66,7 +66,7 @@ function CafeSpecList() {
 
   useEffect(() => {
     getCafes();
-  }, [])
+  }, [topPickToFilter])
 
 
   // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
