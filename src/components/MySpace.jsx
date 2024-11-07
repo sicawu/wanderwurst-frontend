@@ -10,10 +10,15 @@ const API_URL = import.meta.env.VITE_API_URL;
 function MySpace({ profile, setProfile }) {
     const location = useLocation();
     const [filteredCafes, setFilteredCafes] = useState([]);
+    const [allCafes, setAllCafes] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [updatedProfile, setUpdatedProfile] = useState({ name: '', email: '' });
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const navigate = useNavigate();
+
+    // State for the city filter
+    const [selectedCity, setSelectedCity] = useState('');
+    const [availableCities, setAvailableCities] = useState([]);
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -33,19 +38,32 @@ function MySpace({ profile, setProfile }) {
     }, [profile?.googleId, profile?.id, location.state]);
 
     useEffect(() => {
+        // Update filtered cafes when selectedCity changes
+        const filtered = selectedCity
+            ? allCafes.filter(cafe => cafe.location.city === selectedCity)
+            : allCafes;
+        setFilteredCafes(filtered);
+    }, [selectedCity, allCafes]);
+
+
+    useEffect(() => {
         const fetchWishlist = async () => {
             if (profile && (profile.googleId || profile.id)) {
                 try {
                     const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
-                    setFilteredCafes(response.data.wishlist || []);
-                    const urlSlugs = response.data.wishlist.map(cafe => cafe.urlSlug);
+                    const cafes = response.data.wishlist || [];
+                    setFilteredCafes(cafes);
+                    setAllCafes(cafes);
+                    const urlSlugs = cafes.map(cafe => cafe.urlSlug);
                     localStorage.setItem('wishlist', JSON.stringify(urlSlugs));
+                    // Update available cities when cafes are fetched
+                    const cities = [...new Set(cafes.map(cafe => cafe.location.city))];
+                    setAvailableCities(cities);
                 } catch (error) {
                     console.error('Error fetching wishlist:', error);
                 }
             }
         };
-
         fetchWishlist();
     }, [profile]);
 
@@ -106,12 +124,29 @@ function MySpace({ profile, setProfile }) {
                     <h2 className="pt-16 text-4xl font-extrabold uppercase text-center text-gray-800">
                         Your Wishlist
                     </h2>
-                    <div className="flex justify-center mt-5">
+                    <div className="flex justify-center mt-2">
                         <Link to="/best-cafes" className="flex items-center text-teal underline">
                             <MdKeyboardDoubleArrowRight className="mr-1" />
                             Discover More Cafes
                         </Link>
                     </div>
+
+                    {/* City Filter Dropdown */}
+                    <div className="flex flex-col items-center">
+                        <div className="mt-8 w-60 rounded-full shadow-md">
+                            <select
+                                value={selectedCity}
+                                onChange={e => setSelectedCity(e.target.value)}
+                                className="text-center py-2 px-4 rounded-full flex-grow focus:outline-none w-full"                            >
+                                <option value="">All Cities</option>
+                                {availableCities.map(city => (
+                                    <option key={city} value={city}>{city}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Cafe Cards Display */}
                     <div className="px-5 flex flex-wrap justify-center mt-10 pb-10">
                         {filteredCafes.map((cafe) => (
                             <div key={cafe._id} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3">

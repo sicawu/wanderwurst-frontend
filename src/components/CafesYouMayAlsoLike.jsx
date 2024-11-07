@@ -27,7 +27,7 @@ const YouMayAlsoLike = ({ cafeSuggestions }) => {
         You May Also Like
       </h2>
       <div className="flex justify-center mb-12">
-        <Link to="/best-cafes" className="flex items-center underline">
+        <Link to="/best-cafes" className="flex items-center text-teal underline">
           <MdKeyboardDoubleArrowRight className="mr-1" />
           Discover All Cafes
         </Link>

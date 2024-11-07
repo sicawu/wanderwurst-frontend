@@ -33,7 +33,7 @@ function TheStoryBehind() {
                         to="/about" 
                         className="inline-flex items-center justify-center px-6 py-3 font-semibold text-white bg-gold hover:bg-black rounded-lg shadow-lg"
                     >
-                        More about the (Hi)story
+                        More about the (Hi)Story
                     </Link>
                 </div>
             </div>

@@ -14,7 +14,7 @@ function Footer() {
       {/* Navigation links */}
       <div className="mb-2 text-sm">
         <Link to="/about" className="hover:underline">
-          (hi)story
+          (Hi)Story
         </Link>
       </div>
 

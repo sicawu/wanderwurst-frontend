@@ -9,7 +9,7 @@ function DrinksSection({ drinks }) {
           <Link
             key={drink}
             to={`/best-cafes/drinks/${drink.toLowerCase().replace(/\s+/g, '-')}`}
-            className="bg-coral text-cream border border-charcoal hover:bg-darkcoral font-semibold py-1 px-5 rounded-full shadow-md text-center transition-colors duration-300"
+            className="bg-coral text-cream hover:bg-darkcoral font-semibold py-1 px-5 rounded-full shadow-md text-center transition-colors duration-300 shadow-md"
           >
             {drink}
           </Link>
