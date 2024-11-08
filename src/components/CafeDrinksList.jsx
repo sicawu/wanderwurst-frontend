@@ -4,7 +4,6 @@ import axios from "axios"
 import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
-import { TbCoffeeOff } from "react-icons/tb"
 import WishlistButton from '../components/WishlistButton';
 
 // Helmet library for individual SEO title + description
@@ -14,11 +13,7 @@ function CafeDrinkList() {
     const API_URL = import.meta.env.VITE_API_URL
     const [filteredCafes, setFilteredCafes] = useState([])
     const [cafeDrinks, setCafeDrinks] = useState([]);
-
     const { drinks } = useParams();
-    const encodedDrinks = encodeURIComponent(drinks.replace(/ /g, '-')); // Replace spaces with hyphens
-    const drinksToFilter = drinks.replace(/ /g, '-'); // Convert spaces to hyphens
-
 
     //For Filter & Search
     const [cafeTopPick, setcafeTopPick] = useState([]);
@@ -235,10 +230,9 @@ function CafeDrinkList() {
                         </div>
                     ))
                 ) : (
-                    <div className="flex flex-col text-center items-center">
-                        <TbCoffeeOff size={60} />
-                        <p className="mt-2">Meow, no cafes that match your criteria. Pls change your filter.</p>
-                    </div>
+                    <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
+                        Meow, no cafes that match your criteria. Please change your search or filter.
+                    </p>
                 )}
             </div>
         </>

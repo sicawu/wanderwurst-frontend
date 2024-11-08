@@ -14,11 +14,9 @@ function MySpace({ profile, setProfile }) {
     const [editMode, setEditMode] = useState(false);
     const [updatedProfile, setUpdatedProfile] = useState({ name: '', email: '' });
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-    const navigate = useNavigate();
-
-    // State for the city filter
     const [selectedCity, setSelectedCity] = useState('');
     const [availableCities, setAvailableCities] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -80,7 +78,7 @@ function MySpace({ profile, setProfile }) {
 
         try {
             const response = await axios.put(`${API_URL}/user/${profile.googleId || profile.id}`, updatedUser);
-            setProfile(response.data); // Update profile with backend confirmation
+            setProfile(response.data);
             setEditMode(false);
         } catch (error) {
             console.error("Error updating profile:", error);
@@ -97,8 +95,8 @@ function MySpace({ profile, setProfile }) {
     const handleDeleteUser = async () => {
         try {
             await axios.delete(`${API_URL}/user/${profile.googleId || profile.id}`);
-            setProfile(null); // Clear profile from state after deletion
-            navigate('/'); // Redirect to home or login page after deletion
+            setProfile(null);
+            navigate('/');
         } catch (error) {
             console.error("Error deleting user:", error);
         }

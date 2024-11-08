@@ -5,7 +5,7 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import WishlistButton from '../components/WishlistButton';
 
 
-const YouMayAlsoLike = ({ cafeSuggestions }) => {
+function YouMayAlsoLike ({ cafeSuggestions }) {
   const [suggestions, setSuggestions] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL;
 

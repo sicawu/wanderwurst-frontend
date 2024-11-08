@@ -4,7 +4,6 @@ import axios from "axios";
 import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
-import { TbCoffeeOff } from "react-icons/tb"
 import WishlistButton from '../components/WishlistButton';
 
 // Helmet library for individual SEO title + description
@@ -217,20 +216,19 @@ function CafeSpecList() {
                   </div>
                 </div>
                 <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full mt-4 block">
-                <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
-                {cafe.location.city}
+                  <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
+                    {cafe.location.city}
                   </p>
                   <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
-                  {cafe.location.country}
+                    {cafe.location.country}
                   </p>
                   <p className="font-bold text-gray-900">{cafe.title}</p>
                 </Link>
               </div>
             ))
           ) : (
-            <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3">
-              <TbCoffeeOff size={30} />
-              <br /> Well... It looks like I haven't found a cafe that exactly matches your criteria - YET! <br />Please try another search + filter.
+            <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
+              Well... It looks like I haven't found a cafe that exactly matches your criteria yet. <br />Please try another search + filter.
             </p>
           )}
         </div>

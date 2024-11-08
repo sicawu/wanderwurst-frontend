@@ -4,7 +4,6 @@ import axios from "axios"
 import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
-import { TbCoffeeOff } from "react-icons/tb"
 import WishlistButton from '../components/WishlistButton';
 
 // Helmet library for individual SEO title + description
@@ -16,7 +15,6 @@ function CafeFoodList() {
     const [cafeFood, setCafeFood] = useState([])
     const [city, setCity] = useState("")
     const { food } = useParams()
-    const foodToFilter = food
 
     //For Filter & Search
     const [cafeTopPick, setcafeTopPick] = useState([]);
@@ -146,7 +144,7 @@ function CafeFoodList() {
                 <meta name="description" content={`Choose your favorite Cafe, ${formatFood(food)}. We exactly have the right cafe for you.`} />
             </Helmet>
             <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-                <span className="text-teal">{formatFood(food)}</span> 
+                <span className="text-teal">{formatFood(food)}</span>
                 <br />is your food preference.
             </h1>
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
@@ -235,10 +233,9 @@ function CafeFoodList() {
                         </div>
                     ))
                 ) : (
-                    <div className="flex flex-col text-center items-center">
-                        <TbCoffeeOff size={60} />
-                        <p className="mt-2">Meow, no cafes that match your criteria. Pls change your filter.</p>
-                    </div>
+                    <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
+                        Meow, no cafes that match your criteria in {formatCity(city)}. Please change your search or filter.
+                    </p>
                 )}
             </div>
         </>

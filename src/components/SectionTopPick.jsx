@@ -8,7 +8,9 @@ import { iconMap, iconDescriptions } from '../config/iconConfig';
 function TopPickSection({ topPick }) {
   return (
     <div className="min-h-screen w-full flex flex-col justify-center mt-10 py-20 gap-5">
-      <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">Know your purpose.</h2>
+      <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">
+        Know your purpose.
+      </h2>
       <div className="flex flex-wrap justify-center items-stretch gap-4">
         {topPick.map((pick, index) => {
           const iconUrl = iconMap[pick];

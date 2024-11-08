@@ -57,14 +57,14 @@ function NavBar({ profile, setProfile }) {
           {/* Cities Dropdown */}
           <div className="relative group">
             <button className="hover:text-gray-400">Cafes by City</button>
-            <div className="absolute left-0 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2">
+            <div className="absolute left-0 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2 w-40">
               {cities.map((city) => (
                 <Link
                   key={city}
                   to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, "-")}`}
                   className="block p-2 hover:bg-gray-200"
                 >
-                 {city}
+                  {city}
                 </Link>
               ))}
             </div>
@@ -80,7 +80,7 @@ function NavBar({ profile, setProfile }) {
                   to={`/best-cafes/for/${purpose.replace(/([A-Z])/g, '-$1').toLowerCase()}`}
                   className="block px-4 py-2 hover:bg-gray-200"
                 >
-                  {purpose.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                  {purpose.replace(/([a-z])([A-Z])/g, '$1 $2').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                 </Link>
               ))}
             </div>
@@ -154,7 +154,7 @@ function NavBar({ profile, setProfile }) {
                     className="block py-2"
                     onClick={() => setShowMobileMenu(false)}
                   >
-                    {purpose.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                    {purpose.replace(/([a-z])([A-Z])/g, '$1 $2').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                   </Link>
                 </li>
               ))}

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react"
 import TopPickSection from "../components/SectionTopPick"
 import axios from "axios"
 
-
 function FilterByFoodPage() {
     const API_URL = import.meta.env.VITE_API_URL
     const [topPick, setTopPick] = useState([])
@@ -19,7 +18,7 @@ function FilterByFoodPage() {
         <>
             <CafeFoodList />
             <div className="bg-beige">
-            <TopPickSection topPick={topPick} />
+                <TopPickSection topPick={topPick} />
             </div>
         </>
     )

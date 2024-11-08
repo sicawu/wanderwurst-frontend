@@ -125,7 +125,7 @@ function CafeDetailsPage() {
                                                     />
                                                 </div>
                                                 <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
-                                                    Top Pick for {topPick.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                                                    Top Pick for {topPick.replace(/([a-z])([A-Z])/g, '$1 $2').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                                                 </span>
                                             </Link>
                                         )

@@ -1,7 +1,7 @@
-import CafeSpecsList from "../components/CafeSpecsList"
 import React, { useState, useEffect } from "react"
-import TopPickSection from "../components/SectionTopPick"
 import axios from "axios"
+import CafeSpecsList from "../components/CafeSpecsList"
+import TopPickSection from "../components/SectionTopPick"
 
 function FilterBySpecsPage() {
     const API_URL = import.meta.env.VITE_API_URL

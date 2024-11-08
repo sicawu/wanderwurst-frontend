@@ -5,14 +5,14 @@ import axios from "axios"
 
 function BestCafesPage() {
   const API_URL = import.meta.env.VITE_API_URL
-    const [topPick, setTopPick] = useState([])
+  const [topPick, setTopPick] = useState([])
 
-    useEffect(() => {
-        axios
-            .get(`${API_URL}/topPick`)
-            .then((response) => setTopPick(response.data))
-            .catch((error) => console.error("Error fetching topPick:", error));
-    }, [API_URL])
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/topPick`)
+      .then((response) => setTopPick(response.data))
+      .catch((error) => console.error("Error fetching topPick:", error));
+  }, [API_URL])
 
   return (
     <>

@@ -3,7 +3,6 @@ import axios from "axios";
 import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
 import { Link } from "react-router-dom";
-import { TbCoffeeOff } from "react-icons/tb";
 import { GoFilter } from "react-icons/go";
 import WishlistButton from '../components/WishlistButton';
 import { Helmet } from "react-helmet-async";
@@ -192,9 +191,8 @@ const CafeList = () => {
             </div>
           ))
         ) : (
-          <div className="text-center">
-            <TbCoffeeOff size={60} />
-            <p className="mt-2">No cafes found with the applied filters</p>
+          <div className="text-center italic">
+            <p className="mt-2">Meow, looks like I don't have a cafe matching your criteria. Please change search or filter.</p>
           </div>
         )}
       </div>

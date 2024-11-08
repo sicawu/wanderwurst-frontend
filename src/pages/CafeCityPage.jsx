@@ -1,7 +1,7 @@
-import CafeCityList from "../components/CafeCityList"
 import React, { useState, useEffect } from "react"
-import TopPickSection from "../components/SectionTopPick"
 import axios from "axios"
+import CafeCityList from "../components/CafeCityList"
+import TopPickSection from "../components/SectionTopPick"
 
 function CafeCityPage() {
     const API_URL = import.meta.env.VITE_API_URL

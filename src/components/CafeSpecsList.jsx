@@ -12,11 +12,8 @@ import { Helmet } from "react-helmet-async";
 
 function CafeSpecList() {
     const API_URL = import.meta.env.VITE_API_URL;
-    const [allCafes, setAllCafes] = useState([]);
     const { specs } = useParams();
-    console.log("Received specs parameter:", specs);
     const encodedSpecs = encodeURIComponent(specs);
-    console.log("Encoded specs parameter:", encodedSpecs);
     const [cafeSpec, setcafeSpec] = useState([]);
     const [filteredCafes, setFilteredCafes] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");

@@ -138,7 +138,7 @@ function CafeCityList() {
             </Helmet>
             <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
                 Best cafes in
-                <br/><span className="text-teal">{formatCity(city)}</span>
+                <br /><span className="text-teal">{formatCity(city)}</span>
             </h1>
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
                 Carefully curated, discover my {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
@@ -232,9 +232,9 @@ function CafeCityList() {
                         </div>
                     ))
                 ) : (
-                    <div className="text-center pb-10">
-                        <p>Meow, no cafes that match your criteria in {formatCity(city)}. Pls change your filter.</p>
-                    </div>
+                    <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
+                        Meow, no cafes that match your criteria in {formatCity(city)}. Please change your search or filter.
+                    </p>
                 )}
             </div>
         </>
