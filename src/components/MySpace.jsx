@@ -123,6 +123,12 @@ function MySpace({ profile, setProfile }) {
                         Your Wishlist
                     </h2>
                     <div className="flex justify-center mt-2">
+                        <Link to={`/user/${profile.googleId || profile.id}`} className="flex items-center text-teal underline">
+                            <MdKeyboardDoubleArrowRight className="mr-1" />
+                            Share Wishlist With Friends
+                        </Link>
+                    </div>
+                    <div className="flex justify-center mt-2">
                         <Link to="/best-cafes" className="flex items-center text-teal underline">
                             <MdKeyboardDoubleArrowRight className="mr-1" />
                             Discover More Cafes
@@ -144,7 +150,7 @@ function MySpace({ profile, setProfile }) {
                         </div>
                     </div>
 
-                    {/* Cafe Cards Display */}
+                    {/* Cafe Wishlist Display */}
                     <div className="px-5 flex flex-wrap justify-center mt-10 pb-10">
                         {filteredCafes.map((cafe) => (
                             <div key={cafe._id} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3">
@@ -220,15 +226,15 @@ function MySpace({ profile, setProfile }) {
                                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                                     <div className="bg-white rounded-lg p-5 shadow-lg">
                                         <h3 className="text-lg font-bold">Are you sure you want to delete your profile?</h3>
-                                        <p className="italic mb-4">There's no way back if deleted. Be sure, you want to leave. :)</p>
-                                        <div className="flex justify-end">
+                                        <p className="italic mb-8">There's no way back if deleted. Be sure, you want to leave. :)</p>
+                                        <div className="flex justify-between">
                                             <button
-                                                className="mr-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-800"
+                                                className="mr-10 px-8 py-2 bg-red-600 text-white rounded hover:bg-red-800"
                                                 onClick={handleDeleteUser}>
                                                 Yes
                                             </button>
                                             <button
-                                                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                                                className="px-20 py-2 bg-teal text-white rounded hover:bg-gray-400"
                                                 onClick={() => setShowDeleteConfirm(false)}>
                                                 No
                                             </button>
@@ -238,7 +244,7 @@ function MySpace({ profile, setProfile }) {
                             )}
                             {/* Logout Button */}
                             <button
-                                className="mt-10 px-6 py-2 font-semibold text-white bg-teal hover:bg-gray-800 rounded-lg transition-colors"
+                                className="mt-10 px-16 py-2 font-semibold text-white bg-teal hover:bg-gray-800 rounded-lg transition-colors"
                                 onClick={handleLogout}>
                                 Logout
                             </button>

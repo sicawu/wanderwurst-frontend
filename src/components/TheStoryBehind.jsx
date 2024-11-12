@@ -22,7 +22,7 @@ function TheStoryBehind() {
                     Slightly Different.
                 </h3>
                 <p className="mb-6 text-gray-700 leading-relaxed">
-                    A sweet spot is that magical place where everything feels just right. Where intention meets reality. Where you get and become the best version. And that’s exactly what I seek while exploring the world. Hi, I’m Simona, the slow traveler behind this. :)
+                    A sweet spot is that magical place where everything feels just right. Where intention and conditions meets reality. Where you get and become the best version. And that’s exactly what I seek while exploring the world. Hi, I’m Simona, the slow traveler behind this. :)
                     <br /><br />
                     On Sweet Spots, I’m excited to share places that hold many beautiful memories of mine. These are cafes that became my living room when I had none, hidden corners of the world that inspired, grounded, and filled my days with connections and laughs. Or simply offered space to hide.
                     <br /><br />

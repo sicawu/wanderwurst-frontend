@@ -26,6 +26,8 @@ import ScrollToTop from "./components/ScrollToTop.jsx"
 // Login & User profile
 import LogInPage from "./pages/LogInPage.jsx"
 import MySpacePage from "./pages/MySpacePage.jsx"
+import MySpacePublicPage from "./pages/MySpacePublicPage.jsx"
+ 
 
 // Import of all components
 import Navbar from "./components/Navbar"
@@ -70,6 +72,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile}  wishlist={wishlist} updateWishlist={updateWishlist}/>} />
+          <Route path="/user/:userId" element={<MySpacePublicPage />} />
         </Routes>
         <Footer />
       </HelmetProvider>

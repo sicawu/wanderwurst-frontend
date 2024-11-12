@@ -70,12 +70,12 @@ function GoogleLogIn() {
   }, [user, navigate]);
 
   return (
-    <div className="bg-gradient-to-b from-black to-gray-800 min-h-screen pb-20">
-      <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-        Become a<br />
-        <span className="text-teal">Sweet Spotter </span>
-      </h1>
-      <div className="flex flex-col items-center">
+    <div className="flex flex-col justify-center bg-gradient-to-b from-black to-gray-800 min-h-screen pb-20">
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="text-white uppercase text-center text-5xl px-0.5 py-0.5 font-extrabold italic">
+          Become a<br />
+          <span className="text-teal">Sweet Spotter </span>
+        </h1>
         <p className="text-lg text-white pt-14 px-4 max-w-md">
           I'm proud and happy you're here. Join our community for free and save your favorite sweet spots!
         </p>
