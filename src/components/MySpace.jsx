@@ -6,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import WishlistButton from '../components/WishlistButton';
 
 const API_URL = import.meta.env.VITE_API_URL;
+const avatar = import.meta.env.VITE_AVATAR;
 
 function MySpace({ profile, setProfile }) {
     const location = useLocation();
@@ -181,11 +182,13 @@ function MySpace({ profile, setProfile }) {
                             Personal Details
                         </h2>
                         {!editMode ? (
-                            <div className="text-center mt-5">
-                                {/*<img
-                                    className="w-24 h-24 rounded-full object-cover my-5"
-                                    src={profile.picture} alt={profile.name}
-                                /> */}
+                            <div className="flex flex-col items-center text-center mt-5">
+                                <img
+                                    className="w-20 h-20 rounded-full object-cover my-5"
+                                    src={profile.picture}
+                                    alt={profile.name}
+                                    onError={(e) => { e.target.onerror = null; e.target.src = avatar; }}   /* If it fails to load picture */
+                                />
                                 <p><b>Name:</b> {profile.name}</p>
                                 <p><b>Email:</b> {profile.email}</p>
                                 <button onClick={handleEditClick} className="text-teal mt-2">
@@ -227,16 +230,16 @@ function MySpace({ profile, setProfile }) {
                                     <div className="bg-white rounded-lg p-5 shadow-lg">
                                         <h3 className="text-lg font-bold">Are you sure you want to delete your profile?</h3>
                                         <p className="italic mb-8">There's no way back if deleted. Be sure, you want to leave. :)</p>
-                                        <div className="flex justify-between">
+                                        <div className="flex justify-end">
                                             <button
-                                                className="mr-10 px-8 py-2 bg-red-600 text-white rounded hover:bg-red-800"
+                                                className="mr-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-800"
                                                 onClick={handleDeleteUser}>
-                                                Yes
+                                                Delete
                                             </button>
                                             <button
                                                 className="px-20 py-2 bg-teal text-white rounded hover:bg-gray-400"
                                                 onClick={() => setShowDeleteConfirm(false)}>
-                                                No
+                                                Don't Delete
                                             </button>
                                         </div>
                                     </div>

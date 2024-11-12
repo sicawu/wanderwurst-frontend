@@ -10,6 +10,7 @@ function NavBar({ profile, setProfile }) {
   const [showCitiesDropdown, setShowCitiesDropdown] = useState(false);
   const [showPurposesDropdown, setShowPurposesDropdown] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL;
+  const avatar = import.meta.env.VITE_AVATAR;
 
   useEffect(() => {
     Promise.all([
@@ -96,8 +97,9 @@ function NavBar({ profile, setProfile }) {
             <Link to="/my-space" className="flex items-center">
               <img
                 className="w-10 h-10 rounded-full border-2"
-                src={profile.picture}
+                src={profile.picture }
                 alt={profile.name}
+                onError={(e) => { e.target.onerror = null; e.target.src = avatar; }}   /* If it fails to load picture */
               />
             </Link>
           ) : (
