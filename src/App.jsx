@@ -72,7 +72,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile}  wishlist={wishlist} updateWishlist={updateWishlist}/>} />
-          <Route path="/user/:userId" element={<MySpacePublicPage />} />
+          <Route path="/user/:publicId" element={<MySpacePublicPage />} />
         </Routes>
         <Footer />
       </HelmetProvider>

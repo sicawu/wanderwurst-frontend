@@ -6,7 +6,7 @@ import WishlistButton from '../components/WishlistButton';
 const API_URL = import.meta.env.VITE_API_URL;
 
 function MySpacePublic() {
-    const { userId } = useParams(); // Get the userId from the URL
+    const { publicId } = useParams(); // Get the userId from the URL
     const [userProfile, setUserProfile] = useState(null);
     const [wishlist, setWishlist] = useState([]);
 
@@ -19,10 +19,10 @@ function MySpacePublic() {
     useEffect(() => {
         const fetchPublicProfile = async () => {
             try {
-                const response = await axios.get(`${API_URL}/user/${userId}`);
+                const response = await axios.get(`${API_URL}/user/public/${publicId}`);
                 setUserProfile(response.data);
                 setWishlist(response.data.wishlist);
-                setAllCafes(response.data.wishlist); // Assuming wishlist contains cafe objects
+                setAllCafes(response.data.wishlist); 
 
                 // Extract unique cities from the wishlist cafes
                 const cities = [...new Set(response.data.wishlist.map(cafe => cafe.location.city))];
@@ -36,7 +36,7 @@ function MySpacePublic() {
         };
 
         fetchPublicProfile();
-    }, [userId]);
+    }, [publicId]);
 
     useEffect(() => {
         // Update filtered cafes when selectedCity changes
@@ -56,7 +56,7 @@ function MySpacePublic() {
                         <span className="text-teal"> {userProfile.name}'s</span> Sweet Spots
                     </h1>
                     <p className="mt-10 mx-10 text-gray-700">
-                        You asked for it, here we go: My fav coffee places around the world. Thank me later.
+                        You asked for it, here we go: My {filteredCafes.length} fav coffee places around the world. Thank me later.
                     </p>
     
                     {/* City Filter Dropdown */}

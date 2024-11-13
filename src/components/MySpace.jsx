@@ -19,11 +19,18 @@ function MySpace({ profile, setProfile }) {
     const [availableCities, setAvailableCities] = useState([]);
     const navigate = useNavigate();
 
+    // For public URL
+    const [publicId, setPublicId] = useState('');
+
     useEffect(() => {
         const fetchProfile = async () => {
             try {
                 const response = await axios.get(`${API_URL}/user/${profile.googleId || profile.id}`);
                 setProfile(response.data);
+                // Create publicId: profile name + last five digits of googleId
+                const lastFiveDigits = (profile.googleId || profile.id).slice(-5); // Get the last five digits of the userId
+                const customId = `${response.data.name.toLowerCase()}${lastFiveDigits}`; // Create custom user ID
+                setPublicId(customId); // Set the custom user ID
             } catch (error) {
                 console.error('Error fetching user profile:', error);
             }
@@ -124,7 +131,7 @@ function MySpace({ profile, setProfile }) {
                         Your Wishlist
                     </h2>
                     <div className="flex justify-center mt-2">
-                        <Link to={`/user/${profile.googleId || profile.id}`} className="flex items-center text-teal underline">
+                        <Link to={`/user/${publicId}`} className="flex items-center text-teal underline">
                             <MdKeyboardDoubleArrowRight className="mr-1" />
                             Share Wishlist With Friends
                         </Link>
