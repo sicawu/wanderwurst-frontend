@@ -61,12 +61,19 @@ const CafeList = () => {
         cafe.drinks.some(drink => drink.toLowerCase().includes(searchTerm.toLowerCase())) ||
         cafe.specs.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()));
 
+        const matchesFilters =
+  (!selectedCity || cafe.location.city.toLowerCase() === selectedCity.toLowerCase()) &&
+  (!selectedDrink || cafe.drinks.includes(selectedDrink)) &&
+  (!selectedFood || cafe.food.includes(selectedFood)) &&
+  (!selectedSpec || cafe.specs.some(spec => spec.toLowerCase() === selectedSpec.toLowerCase()));
+
+/*
       const matchesFilters =
         (!selectedCity || cafe.location.city.toLowerCase() === selectedCity.toLowerCase()) &&
         (!selectedDrink || cafe.drinks.includes(selectedDrink)) &&
         (!selectedFood || cafe.food.includes(selectedFood)) &&
         (!selectedSpec || cafe.specs.includes(selectedSpec.toLowerCase()));
-
+*/
       return matchesSearchTerm && matchesFilters;
     });
     setFilteredCafes(filtered);

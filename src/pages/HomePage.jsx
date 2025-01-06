@@ -45,7 +45,7 @@ function Homepage() {
       <div
         className="min-h-screen flex flex-col justify-center items-center"
         style={{
-          backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726882635/Sweet%20Spots/Phin-Coffee-Restaurant-Hoi-An_o2sd6f.jpg)',
+          backgroundImage: 'url(https://res.cloudinary.com/djkv0io5j/image/upload/v1726719469/Sweet%20Spots/Tan-Coffee-Da-Nang_twqwez.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: '50% 70%'
         }}

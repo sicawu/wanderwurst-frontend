@@ -74,7 +74,7 @@ function NavBar({ profile, setProfile }) {
           {/* Purposes Dropdown */}
           <div className="relative group">
             <button className="hover:text-gray-400">Cafes by Purpose</button>
-            <div className="absolute left-0 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2">
+            <div className="absolute left-0 hidden group-hover:block bg-white text-black shadow-lg rounded-lg py-2 w-40">
               {purposes.map((purpose) => (
                 <Link
                   key={purpose}

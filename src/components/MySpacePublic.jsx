@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import WishlistButton from '../components/WishlistButton';
+import { FaCopy } from 'react-icons/fa';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -22,7 +23,7 @@ function MySpacePublic() {
                 const response = await axios.get(`${API_URL}/user/public/${publicId}`);
                 setUserProfile(response.data);
                 setWishlist(response.data.wishlist);
-                setAllCafes(response.data.wishlist); 
+                setAllCafes(response.data.wishlist);
 
                 // Extract unique cities from the wishlist cafes
                 const cities = [...new Set(response.data.wishlist.map(cafe => cafe.location.city))];
@@ -47,6 +48,27 @@ function MySpacePublic() {
     }, [selectedCity, allCafes]);
 
 
+    const copyToClipboard = () => {
+
+        const url = `${window.location.origin}/user/${publicId}`; // Construct the URL
+
+        navigator.clipboard.writeText(url)
+
+            .then(() => {
+
+                alert('Profile URL copied to clipboard!'); // Notify the user
+
+            })
+
+            .catch(err => {
+
+                console.error('Failed to copy: ', err);
+
+            });
+
+    };
+
+
 
     return (
         <div className="min-h-screen pb-10 bg-gray-50">
@@ -57,8 +79,14 @@ function MySpacePublic() {
                     </h1>
                     <p className="mt-10 mx-10 text-gray-700">
                         You asked for it, here we go: My {filteredCafes.length} fav coffee places around the world. Thank me later.
+                        <span
+                            onClick={copyToClipboard}
+                            className="text-teal cursor-pointer underline ml-2"
+                        >
+                            Copy to Share<FaCopy className="inline-block ml-1" />
+                        </span>
                     </p>
-    
+
                     {/* City Filter Dropdown */}
                     <div className="flex flex-col items-center">
                         <div className="mt-8 w-60 rounded-full shadow-md">
@@ -74,7 +102,7 @@ function MySpacePublic() {
                             </select>
                         </div>
                     </div>
-    
+
                     {/* Cafe Wishlist Display */}
                     <div className="px-5 flex flex-wrap justify-center mt-10 pb-10">
                         {(selectedCity ? filteredCafes : allCafes).map(cafe => (

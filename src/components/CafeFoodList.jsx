@@ -234,7 +234,7 @@ function CafeFoodList() {
                     ))
                 ) : (
                     <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
-                        Meow, no cafes that match your criteria in {formatCity(city)}. Please change your search or filter.
+                        Meow, no cafes that match your criteria. Please change your search or filter.
                     </p>
                 )}
             </div>
