@@ -5,6 +5,7 @@ import FilterPopup from "./PopupFilterCafe";
 import { Link } from "react-router-dom";
 import { GoFilter } from "react-icons/go";
 import WishlistButton from '../components/WishlistButton';
+import CafeCarousel from "../components/CafeCarousel";
 import { Helmet } from "react-helmet-async";
 
 const CafeList = () => {
@@ -61,19 +62,19 @@ const CafeList = () => {
         cafe.drinks.some(drink => drink.toLowerCase().includes(searchTerm.toLowerCase())) ||
         cafe.specs.some(spec => spec.toLowerCase().includes(searchTerm.toLowerCase()));
 
-        const matchesFilters =
-  (!selectedCity || cafe.location.city.toLowerCase() === selectedCity.toLowerCase()) &&
-  (!selectedDrink || cafe.drinks.includes(selectedDrink)) &&
-  (!selectedFood || cafe.food.includes(selectedFood)) &&
-  (!selectedSpec || cafe.specs.some(spec => spec.toLowerCase() === selectedSpec.toLowerCase()));
-
-/*
       const matchesFilters =
         (!selectedCity || cafe.location.city.toLowerCase() === selectedCity.toLowerCase()) &&
         (!selectedDrink || cafe.drinks.includes(selectedDrink)) &&
         (!selectedFood || cafe.food.includes(selectedFood)) &&
-        (!selectedSpec || cafe.specs.includes(selectedSpec.toLowerCase()));
-*/
+        (!selectedSpec || cafe.specs.some(spec => spec.toLowerCase() === selectedSpec.toLowerCase()));
+
+      /*
+            const matchesFilters =
+              (!selectedCity || cafe.location.city.toLowerCase() === selectedCity.toLowerCase()) &&
+              (!selectedDrink || cafe.drinks.includes(selectedDrink)) &&
+              (!selectedFood || cafe.food.includes(selectedFood)) &&
+              (!selectedSpec || cafe.specs.includes(selectedSpec.toLowerCase()));
+      */
       return matchesSearchTerm && matchesFilters;
     });
     setFilteredCafes(filtered);
@@ -119,9 +120,15 @@ const CafeList = () => {
         />
       </Helmet>
       <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
-      <span className="text-teal">{filteredCafes.length} Best Cafes</span>
-      <br />in the World
+        <span className="text-teal">{filteredCafes.length} Best Cafes</span>
+        <br />in the World
       </h1>
+      <CafeCarousel
+        urlSlugs={["tan-coffee-da-nang", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"]}
+      />
+      <h2 className="pt-20 text-4xl mb-3 font-extrabold uppercase text-center">
+        Discover Cafes Worldwide
+      </h2>
       <div className="flex justify-center items-center mt-8">
         <div className="flex flex-row items-center space-x-2">
           <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />

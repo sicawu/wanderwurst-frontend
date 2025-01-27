@@ -5,20 +5,20 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import WishlistButton from '../components/WishlistButton';
 
 
-function CafeCarousel () {
+function CafeCarousel({ urlSlugs }) {
   const [suggestions, setSuggestions] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL;
 
   // Hardcoded cafe titles to fetch data for
-  const urlSlugs = ["tan-coffee-da-nang", "zest-ubud", "roots-plant-based-cafe-da-nang"];
+  // const urlSlugs = ["tan-coffee-da-nang", "zest-ubud", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"];
 
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
         const suggestionsData = await Promise.all(
-            urlSlugs.map((urlSlug) => {
+          urlSlugs.map((urlSlug) => {
             return axios
-            .get(`${API_URL}/cafes/${urlSlug}`);
+              .get(`${API_URL}/cafes/${urlSlug}`);
           })
         );
         setSuggestions(suggestionsData.map((response) => response.data));
@@ -50,21 +50,21 @@ function CafeCarousel () {
               key={suggestion._id}
               className="inline-block w-64 h-full"
             >
-               <div className="relative h-72 w-full max-w-full rounded-lg shadow-md">
-                                    <Link to={`/cafes/${suggestion.urlSlug}`} className="h-full w-full block">
-                                        <img src={suggestion.image} alt={suggestion.title} className="h-full w-full object-cover rounded-lg" />
-                                    </Link>
-                                    <div className="absolute top-4 right-4">
-                                        <WishlistButton urlSlug={suggestion.urlSlug} />
-                                    </div>
-                                </div>
-                <Link to={`/cafes/${suggestion.urlSlug}`} className="block mt-4 text-center">
+              <div className="relative h-72 w-full max-w-full rounded-lg shadow-md">
+                <Link to={`/cafes/${suggestion.urlSlug}`} className="h-full w-full block">
+                  <img src={suggestion.image} alt={suggestion.title} className="h-full w-full object-cover rounded-lg" />
+                </Link>
+                <div className="absolute top-4 right-4">
+                  <WishlistButton urlSlug={suggestion.urlSlug} />
+                </div>
+              </div>
+              <Link to={`/cafes/${suggestion.urlSlug}`} className="block mt-4 text-center">
 
                 <p className="font-bold uppercase bg-mint text-gray rounded-full mb-1 mr-1 px-2 py-1 inline-block">
-                {suggestion.location.city}
+                  {suggestion.location.city}
                 </p>
                 <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
-                {suggestion.location.country}
+                  {suggestion.location.country}
                 </p>
                 <p className="font-bold">{suggestion.title}</p>
               </Link>

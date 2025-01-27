@@ -139,25 +139,34 @@ function CafeDetailsPage() {
 
                                 {/* !!!!! RECOMMENDATION !!!!!! */}
                                 {cafe.recommendation && (
-                                    <p className="text-xl text-center flex justify-center items-center mt-4">
-                                        <TbBulb size={30} className="mr-1" />
-                                        <span className="font-bold">MUST TRY:&nbsp;</span>
-                                        {cafe.recommendation}
-                                    </p>
+                                    <div className="mt-4">
+                                        <div className="flex justify-center items-center text-xl text-center">
+                                            <TbBulb size={30} className="mr-1" />
+                                            <span className="font-bold">MUST TRY:&nbsp;</span>
+                                        </div>
+                                        <p className="text-xl text-center mt-2">
+                                            {cafe.recommendation}
+                                        </p>
+                                    </div>
                                 )}
+
 
                                 {/* !!!!! Specs !!!!!! */}
                                 <div className="flex flex-wrap justify-center mt-5">
-                                    {Array.isArray(cafe.specs) && cafe.specs.map((spec, index) => (
-                                        <Link
-                                            to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-                                            className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green-500 transition duration-200"
-                                            key={index}
-                                        >
-                                            {spec}
-                                        </Link>
-                                    ))}
+                                    {Array.isArray(cafe.specs) && cafe.specs
+                                        .slice() // Create a shallow copy to avoid mutating the original array
+                                        .sort((a, b) => a.localeCompare(b)) // Sort alphabetically
+                                        .map((spec, index) => (
+                                            <Link
+                                                to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
+                                                className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green-500 transition duration-200"
+                                                key={index}
+                                            >
+                                                {spec}
+                                            </Link>
+                                        ))}
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -169,28 +178,34 @@ function CafeDetailsPage() {
                                     <>
                                         <h2 className="text-2xl font-extrabold uppercase text-center pb-3">Drinks Options</h2>
                                         <div className="flex flex-wrap justify-center">
-                                            {cafe.drinks.map((drink, index) => (
-                                                <Link
-                                                    to={`/best-cafes/drinks/${drink.toLowerCase().replace(/\s+/g, '-')}`}
-                                                    className="font-bold bg-coral text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black transition duration-200"
-                                                    key={index}
-                                                >
-                                                    {drink}
-                                                </Link>
-                                            ))}
+                                            {Array.isArray(cafe.drinks) && cafe.drinks
+                                                .slice() // Create a shallow copy to avoid mutating the original array
+                                                .sort((a, b) => a.localeCompare(b)) // Sort alphabetically
+                                                .map((drink, index) => (
+                                                    <Link
+                                                        to={`/best-cafes/drinks/${drink.toLowerCase().replace(/\s+/g, '-')}`}
+                                                        className="font-bold bg-coral text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black transition duration-200"
+                                                        key={index}
+                                                    >
+                                                        {drink}
+                                                    </Link>
+                                                ))}
                                         </div>
+
                                     </>
                                 )}
 
                                 {/* !!!!! Food !!!!!! */}
-                                {Array.isArray(cafe.food) &&
-                                    cafe.food.length > 0 && (
-                                        <>
-                                            <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                                Food Options
-                                            </h2>
-                                            <div className="flex flex-wrap px-10 justify-center">
-                                                {cafe.food.map((food, index) => (
+                                {Array.isArray(cafe.food) && cafe.food.length > 0 && (
+                                    <>
+                                        <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
+                                            Food Options
+                                        </h2>
+                                        <div className="flex flex-wrap px-10 justify-center">
+                                            {cafe.food
+                                                .slice() // Create a shallow copy to avoid mutating the original array
+                                                .sort((a, b) => a.localeCompare(b)) // Sort alphabetically
+                                                .map((food, index) => (
                                                     <Link
                                                         to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific food; to lowercase + replacing empty spaces in food
                                                         className="font-bold bg-olive text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
@@ -199,9 +214,10 @@ function CafeDetailsPage() {
                                                         {food}
                                                     </Link>
                                                 ))}
-                                            </div>
-                                        </>
-                                    )}
+                                        </div>
+                                    </>
+                                )}
+
 
                                 {/* !!!!! Opening hours !!!!!! */}
                                 <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">

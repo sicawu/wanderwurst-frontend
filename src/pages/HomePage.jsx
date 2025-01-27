@@ -80,7 +80,10 @@ function Homepage() {
         <FoodSection className="flex-1" food={food} />
         <DrinksSection className="flex-1" drinks={drinks} />
       </div>
-      <CafeCarousel />
+      <CafeCarousel
+        urlSlugs={["tan-coffee-da-nang", "zest-ubud", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"]}
+      />
+
       <SpecsSection specs={specs} />
       <TheStoryBehind />
     </>

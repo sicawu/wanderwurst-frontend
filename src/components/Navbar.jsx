@@ -97,7 +97,7 @@ function NavBar({ profile, setProfile }) {
             <Link to="/my-space" className="flex items-center">
               <img
                 className="w-10 h-10 rounded-full border-2"
-                src={profile.picture }
+                src={profile.picture}
                 alt={profile.name}
                 onError={(e) => { e.target.onerror = null; e.target.src = avatar; }}   /* If it fails to load picture */
               />
@@ -132,7 +132,7 @@ function NavBar({ profile, setProfile }) {
                     className="block py-2"
                     onClick={() => setShowMobileMenu(false)}
                   >
-                    Cafes in {city}
+                    Cafes in <span className="text-teal">{city}</span>
                   </Link>
                 </li>
               ))}
@@ -156,7 +156,9 @@ function NavBar({ profile, setProfile }) {
                     className="block py-2"
                     onClick={() => setShowMobileMenu(false)}
                   >
-                    {purpose.replace(/([a-z])([A-Z])/g, '$1 $2').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                    <span className="text-teal">
+                      {purpose.replace(/([a-z])([A-Z])/g, '$1 $2').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                    </span>
                   </Link>
                 </li>
               ))}
