@@ -18,7 +18,7 @@ function TheStoryBehind() {
                 <h2 className="text-4xl font-extrabold uppercase text-center">
                     A Travel Blog.
                 </h2>
-                <h3 className="pb-4 text-3xl font-extrabold uppercase text-center ">
+                <h3 className="pb-4 text-2xl font-extrabold uppercase text-center ">
                     Slightly Different.
                 </h3>
                 <p className="mb-6 text-gray-700 leading-relaxed">
@@ -29,9 +29,9 @@ function TheStoryBehind() {
                     This is more than just a list of destinations; it’s personal. I’ve poured my heart, full stack skills, and creative twist into this. So, follow my journey and explore my favorite sweet spots worldwide.
                 </p>
                 <div className="flex justify-center">
-                    <Link 
-                        to="/about" 
-                        className="inline-flex items-center justify-center px-6 py-3 font-semibold text-white bg-gold hover:bg-black rounded-lg shadow-lg"
+                    <Link
+                        to="/about"
+                        className="bg-gold text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center"
                     >
                         More about the (Hi)Story
                     </Link>

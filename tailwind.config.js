@@ -11,7 +11,7 @@ export default {
         ivory: '#F8F7F2',
         olive: '#4B830D',
         green:"#67726e",
-        cream: '#F3F2EB',
+        cream: '#F7F6F2',
         coral: '#FF6F61',
         'gray-800': '#2d3748', // dark gray for contrast text
         'gray-50': '#f9fafb', // light gray for backgrounds

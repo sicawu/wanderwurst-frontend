@@ -7,7 +7,7 @@ import { iconMap, iconDescriptions } from '../config/iconConfig';
 
 function TopPickSection({ topPick }) {
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center mt-10 py-20 gap-5">
+    <div className="min-h-screen bg-cream w-full flex flex-col justify-center mt-10 py-20 gap-5">
       <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">
         Know your purpose.
       </h2>

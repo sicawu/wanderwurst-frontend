@@ -12,6 +12,8 @@ function CafeCarousel({ urlSlugs }) {
   // Hardcoded cafe titles to fetch data for
   // const urlSlugs = ["tan-coffee-da-nang", "zest-ubud", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"];
 
+  console.log({ urlSlugs });
+
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
@@ -28,7 +30,7 @@ function CafeCarousel({ urlSlugs }) {
     };
 
     fetchSuggestions();
-  }, [API_URL]);
+  }, [API_URL, urlSlugs]);
 
   return (
     <>

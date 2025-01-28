@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import WishlistButton from '../components/WishlistButton';
+import CafeCarousel from "../components/CafeCarousel";
 
 // Filter + Search
 import Searchbar from "./Searchbar";
@@ -23,6 +24,7 @@ function CafeCityList() {
     const [selectedFood, setSelectedFood] = useState("");
     const [selectedSpec, setSelectedSpec] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const [favoriteCafes, setFavoriteCafes] = useState([]);
 
     // State to hold the selected filters' descriptions
     const [filters, setFilters] = useState({
@@ -66,6 +68,19 @@ function CafeCityList() {
     useEffect(() => {
         getCityCafes();
     }, [city]);
+
+    useEffect(() => {
+        axios
+            .get(`${API_URL}/cafes/city/${city}/favorites`)
+            .then((response) => {
+                //console.log(response.data)
+                setFavoriteCafes(response.data);
+            })
+            .catch((error) => console.error("Error fetching favorite cafes:", error));
+    }, [city]);
+
+    const favoriteUrlSlugs = favoriteCafes.map((cafe) => cafe.urlSlug);
+    //console.log(favoriteUrlSlugs);
 
     // Search through cafes based on search term, city, drinks, food, and specs
     useEffect(() => {
@@ -143,6 +158,8 @@ function CafeCityList() {
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
                 Carefully curated, discover my {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
             </p>
+
+            <CafeCarousel urlSlugs={favoriteUrlSlugs}/>
 
             {/* Search Bar & Filter Toggle Button */}
             <div className="flex justify-center items-center my-8">
@@ -230,6 +247,7 @@ function CafeCityList() {
                                 <p className="font-bold text-gray-900">{cafe.title}</p>
                             </Link>
                         </div>
+
                     ))
                 ) : (
                     <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">

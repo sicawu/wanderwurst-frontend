@@ -9,7 +9,7 @@ function SpecsSection({ specs }) {
                     <Link
                         key={spec}
                         to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="bg-peach text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center"
+                        className="bg-green text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center"
                     >
                         {spec}
                     </Link>
