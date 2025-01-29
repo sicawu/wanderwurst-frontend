@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import WishlistButton from '../components/WishlistButton';
 import CafeCarousel from "../components/CafeCarousel";
+import CafeLeafletMaps from "../components/CafeLeafletMapsCafesinOneCity.jsx"
+
 
 // Filter + Search
 import Searchbar from "./Searchbar";
@@ -156,10 +158,8 @@ function CafeCityList() {
                 <br /><span className="text-teal">{formatCity(city)}</span>
             </h1>
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                Carefully curated, discover my {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
+                Carefully curated, discover all {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
             </p>
-
-            <CafeCarousel urlSlugs={favoriteUrlSlugs}/>
 
             {/* Search Bar & Filter Toggle Button */}
             <div className="flex justify-center items-center my-8">
@@ -249,12 +249,16 @@ function CafeCityList() {
                         </div>
 
                     ))
+                    
                 ) : (
                     <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
                         Meow, no cafes that match your criteria in {formatCity(city)}. Please change your search or filter.
                     </p>
                 )}
             </div>
+            <CafeLeafletMaps cafes={cafeCity} />
+
+            <CafeCarousel urlSlugs={favoriteUrlSlugs} />
         </>
     );
 }

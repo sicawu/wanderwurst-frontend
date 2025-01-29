@@ -7,7 +7,7 @@ import { iconMap, iconDescriptions } from '../config/iconConfig';
 
 function TopPickSection({ topPick }) {
   return (
-    <div className="min-h-screen bg-cream w-full flex flex-col justify-center mt-10 py-20 gap-5">
+    <div className="min-h-screen w-full flex flex-col justify-center py-20 gap-5">
       <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">
         Know your purpose.
       </h2>
@@ -19,7 +19,7 @@ function TopPickSection({ topPick }) {
           return (
             <div className="flex flex-col items-center mb-5 lg:w-1/4 w-1/3 rounded-2xl hover:bg-white hover:shadow-xl hover:bg-white" key={index}>
               <Link to={`/best-cafes/for/${linkText}`} className="w-12 h-12">
-                <img src={iconUrl} alt={pick} className="w-full h-full border-2 border-teal rounded-full object-cover object-center" />
+                <img src={iconUrl} alt={pick} className="w-full h-full border-2 border-mint rounded-full object-cover object-center" />
               </Link>
               <Link to={`/best-cafes/for/${linkText}`}>
                 <div className="flex flex-col items-center min-h-[4rem] flex-grow">

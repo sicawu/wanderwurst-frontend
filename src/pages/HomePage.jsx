@@ -64,8 +64,8 @@ function Homepage() {
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                className="inline-flex items-center justify-center px-4 py-3 font-semibold text-white bg-gold hover:bg-black rounded-lg transition-colors ease-out duration-200"
-              >
+                className="bg-gold text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center"
+                >
                 {city}
               </Link>
             ))}

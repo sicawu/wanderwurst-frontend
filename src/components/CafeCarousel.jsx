@@ -73,7 +73,7 @@ function CafeCarousel({ urlSlugs }) {
             </div>
           ))
         ) : (
-          <p className="pb-10">
+          <p className="pb-10 text-center">
             My recommendations will be available soon, stay tuned. :)
           </p>
         )}
