@@ -9,6 +9,7 @@ import SpecsSection from "../components/SectionSpecs";
 import TheStoryBehind from "../components/TheStoryBehind";
 import CafeCarousel from "../components/CafeCarousel";
 
+
 function Homepage() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [cities, setCities] = useState([]);
@@ -19,7 +20,6 @@ function Homepage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch all data in parallel
     Promise.all([
       axios.get(`${API_URL}/cities`),
       axios.get(`${API_URL}/specs`),

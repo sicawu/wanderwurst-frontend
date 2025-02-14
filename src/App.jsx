@@ -27,7 +27,11 @@ import ScrollToTop from "./components/ScrollToTop.jsx"
 import LogInPage from "./pages/LogInPage.jsx"
 import MySpacePage from "./pages/MySpacePage.jsx"
 import MySpacePublicPage from "./pages/MySpacePublicPage.jsx"
- 
+
+// GA Tracking Hooks & Consent Banner
+import usePageView from "./hooks/usePageView"
+import useLinkTracking from "./hooks/useLinkTracking"
+import CookieConsentBanner from './components/CookieConsentBanner'
 
 // Import of all components
 import Navbar from "./components/Navbar"
@@ -36,29 +40,32 @@ import MySpace from "./components/MySpace"
 
 
 function App() {
+  usePageView()
+  useLinkTracking()
   const [profile, setProfile] = useState(null);
   const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem('wishlist')) || [])
 
   const updateWishlist = (urlSlug, isWished) => {
     let newWishlist = [...wishlist];
     if (isWished) {
-        // Remove from wishlist
-        newWishlist = newWishlist.filter(item => item !== urlSlug);
+      // Remove from wishlist
+      newWishlist = newWishlist.filter(item => item !== urlSlug);
     } else {
-        // Add to wishlist
-        newWishlist.push(urlSlug);
+      // Add to wishlist
+      newWishlist.push(urlSlug);
     }
     setWishlist(newWishlist);
     localStorage.setItem('wishlist', JSON.stringify(newWishlist));
-};
+  };
   return (
     <>
+      <CookieConsentBanner />
       <HelmetProvider>
         <ScrollToTop />
-        <Navbar profile={profile} setProfile={setProfile}/>
+        <Navbar profile={profile} setProfile={setProfile} />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/cafes/:urlSlug" element={<CafeDetailsPage wishlist={wishlist} updateWishlist={updateWishlist}/>} />
+          <Route path="/cafes/:urlSlug" element={<CafeDetailsPage wishlist={wishlist} updateWishlist={updateWishlist} />} />
           <Route path="/best-cafes" element={<BestCafesPage />} />
           <Route path="/best-cafes/:specs" element={<CafeSpecsPage />} />  {/* All cafes for one specific spec, e.g. cosy*/}
           <Route path="/best-cafes/city/:city" element={<CafeCityPage />} />  {/* All cafes for one specific city, e.g. Bangkok*/}
@@ -71,7 +78,7 @@ function App() {
           <Route path="/data-privacy" element={<DataPrivacy />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<LogInPage />} />
-          <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile}  wishlist={wishlist} updateWishlist={updateWishlist}/>} />
+          <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile} wishlist={wishlist} updateWishlist={updateWishlist} />} />
           <Route path="/user/:publicId" element={<MySpacePublicPage />} />
         </Routes>
         <Footer />

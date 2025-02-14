@@ -158,7 +158,7 @@ function CafeCityList() {
                 <br /><span className="text-teal">{formatCity(city)}</span>
             </h1>
             <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-                Carefully curated, discover all {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems brought much joy to my heart while exploring {formatCity(city)}'s beauty.
+                Carefully curated, discover my {filteredCafes.length} favorite coffee shops in {formatCity(city)}. These little gems hold my travel memories in and brought much joy to my heart while exploring {formatCity(city)}'s beauty.
             </p>
 
             {/* Search Bar & Filter Toggle Button */}

@@ -48,9 +48,8 @@ const CafeLeafletMaps = ({ cafes }) => {
     // Create the popup content with a link to the cafe detail page
     const popupContent = `
       <b>${title}</b><br>
-      ${location.address || ''}<br>
       ${location.city || ''}<br>
-      <a href="/cafes/${urlSlug}" target="_blank" rel="noopener noreferrer">View Details</a>
+      <a href="/cafes/${urlSlug}" target="_blank" rel="noopener noreferrer">More About the Cafe</a>
     `;
 
     marker.bindPopup(popupContent);
