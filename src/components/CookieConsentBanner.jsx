@@ -4,10 +4,18 @@ import CookieConsent from 'react-cookie-consent';
 const CookieConsentBanner = () => {
   const GA_ID = import.meta.env.VITE_GA_ID;
 
-  useEffect(() => {
-    const isConsentGiven = localStorage.getItem("user-consent");
+  // Helper function to get a cookie value by name
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
 
-    if (isConsentGiven === "true" && GA_ID) {
+  useEffect(() => {
+    const isConsentGiven = getCookie("userConsent") === "true";
+
+    if (isConsentGiven && GA_ID) {
       // Load the GA script if consent is given
       const script = document.createElement('script');
       script.async = true;
@@ -27,7 +35,7 @@ const CookieConsentBanner = () => {
     <CookieConsent
       location="bottom"
       buttonText="I Agree"
-      cookieName="user-consent"
+      cookieName="userConsent"
       style={{ background: "#2B373B" }}
       buttonStyle={{
         background: "#4CAF50",
@@ -38,10 +46,10 @@ const CookieConsentBanner = () => {
       }}
       expires={365}
       onAccept={() => {
-        localStorage.setItem("user-consent", "true");
+        document.cookie = `userConsent=true; path=/; max-age=${365 * 24 * 60 * 60}; Secure; SameSite=Strict`;
       }}
       onDecline={() => {
-        localStorage.setItem("user-consent", "false");
+        document.cookie = `userConsent=false; path=/; max-age=${365 * 24 * 60 * 60}; Secure; SameSite=Strict`;
       }}
     >
       This website uses cookies to enhance the user experience.

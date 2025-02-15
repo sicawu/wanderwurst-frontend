@@ -18,13 +18,16 @@ function Footer() {
         </Link>
       </div>
 
-      {/* Legal links */}
+      {/* Legal and tracking links */}
       <div className="flex space-x-4 mb-4 text-sm">
         <Link to="/legal-notice" className="hover:underline">
           Legal Notice
         </Link>
         <Link to="/data-privacy" className="hover:underline">
           Data Privacy
+        </Link>
+        <Link to="/tracking" className="hover:underline">
+          Tracking Preferences
         </Link>
       </div>
 

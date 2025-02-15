@@ -32,6 +32,11 @@ import MySpacePublicPage from "./pages/MySpacePublicPage.jsx"
 import usePageView from "./hooks/usePageView"
 import useLinkTracking from "./hooks/useLinkTracking"
 import CookieConsentBanner from './components/CookieConsentBanner'
+import TrackingSettingsPage from "./pages/TrackingSettingsPage.jsx"
+
+// Inside the <Routes> component
+<Route path="/tracking-settings" element={<TrackingSettingsPage />} />
+
 
 // Import of all components
 import Navbar from "./components/Navbar"
@@ -76,6 +81,7 @@ function App() {
           <Route path="/random" element={<RandomCafePage />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/data-privacy" element={<DataPrivacy />} />
+          <Route path="/tracking" element={<TrackingSettingsPage />} />
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/my-space" element={<MySpace profile={profile} setProfile={setProfile} wishlist={wishlist} updateWishlist={updateWishlist} />} />

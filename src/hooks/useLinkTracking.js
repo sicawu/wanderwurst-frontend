@@ -1,25 +1,32 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
 
 const useLinkTracking = () => {
   useEffect(() => {
     const handleClick = (event) => {
+      // Check user consent before proceeding
+      const userConsent = localStorage.getItem("userConsent") === "true";
+
+      if (!userConsent) {
+        return; // Do not track if user has not enabled tracking
+      }
+
       const target = event.target.closest("a"); // Identify the closest anchor tag
       if (target && window.gtag) {
         window.gtag("event", "link_click", {
           event_category: "Link",
           event_label: target.href, // The href of the clicked link
-        })
+        });
       }
-    }
+    };
 
     // Add a global event listener for clicks
-    document.addEventListener("click", handleClick)
+    document.addEventListener("click", handleClick);
 
     // Cleanup on component unmount
     return () => {
       document.removeEventListener("click", handleClick);
-    }
-  }, [])
-}
+    };
+  }, []);
+};
 
-export default useLinkTracking
+export default useLinkTracking;
