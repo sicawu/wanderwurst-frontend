@@ -81,6 +81,27 @@ function CafeDetailsPage() {
                         <title>{`${cafe.metaTitle || cafe.title} | Sweet Spots`}</title>
                         <meta name="description" content={cafe.metaDescription || cafe.description} />
                     </Helmet>
+
+                    {/* !!!!! BREADCRUMB NAVIGATION !!!!!! */}
+                    <div className="flex items-center space-x-2 text-gray-600 text-sm px-5 pt-5">
+                        <Link to="/" className="hover:underline text-gray-500">
+                            Home
+                        </Link>
+                        <span>/</span>
+                        {cafe.location?.city ? (
+                            <>
+                                <Link
+                                    to={`/best-cafes/city/${cafe.location.city.toLowerCase().replace(/\s+/g, '-')}`}
+                                    className="hover:underline text-gray-500"
+                                >
+                                    {cafe.location.city}
+                                </Link>
+                                <span>/</span>
+                            </>
+                        ) : null}
+                        <span className="text-black underline text-green">{cafe.title}</span>
+                    </div>
+
                     <div className="flex justify-center items-center">
                         <div className="grid md:grid-cols-2 sm:grid-cols-1">
                             <div className="flex justify-center p-5 relative">

@@ -27,7 +27,7 @@ function Footer() {
           Data Privacy
         </Link>
         <Link to="/tracking" className="hover:underline">
-          Tracking Preferences
+          Manage Tracking
         </Link>
       </div>
 

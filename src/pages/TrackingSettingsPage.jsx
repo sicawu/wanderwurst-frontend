@@ -7,11 +7,12 @@ const TrackingSettingsPage = () => {
   // Load the current tracking preference from cookies
   useEffect(() => {
     const consent = Cookies.get("userConsent") === "true"; // Check consent status
+    setTrackingEnabled(consent); // Set state based on cookie value
     if (consent) {
       loadGAScript(); // Load GA script only if consent is true
     }
   }, []);
-  
+
   const loadGAScript = () => {
     const GA_ID = import.meta.env.VITE_GA_ID;
   
@@ -33,7 +34,6 @@ const TrackingSettingsPage = () => {
       gtag("config", GA_ID, { anonymize_ip: true }); // Respect user privacy
     };
   };
-  
 
   // Update the tracking preference in cookies
   const handleToggle = () => {
@@ -43,39 +43,41 @@ const TrackingSettingsPage = () => {
 
     if (newState) {
       loadGAScript(); // Load GA script when enabled
-    } else {
-      alert("Tracking has been disabled.");
     }
+    // No alert when tracking is disabled
   };
 
   return (
-    <div className="tracking-settings-container p-4 bg-white shadow rounded-md max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">Tracking Settings</h1>
-      <p className="mb-4 text-gray-600">
-        Use the toggle below to enable or disable tracking for analytics on this website. Your preference will be saved for future visits.
-      </p>
+    <div className="flex flex-col min-h-screen bg-light-gray">
+      {/* Main Content */}
+      <div className="tracking-settings-container flex-grow p-8 bg-white shadow-lg rounded-xl max-w-lg mx-auto my-10">
+        <h1 className="text-3xl font-semibold mb-6 text-dark-gray">Tracking Settings</h1>
+        <p className="mb-6 text-base text-gray-700">
+          Use the toggle below to enable or disable tracking for analytics on this website. Your preference will be saved for future visits.
+        </p>
 
-      {/* Toggle Switch */}
-      <div className="flex items-center gap-4">
-        <label className="flex items-center cursor-pointer">
-          <span className="mr-2 text-gray-800 font-medium">
-            {isTrackingEnabled ? "Google Analytics" : "Google Analytics"}
-          </span>
-          <div
-            className={`relative w-12 h-6 rounded-full transition-colors duration-300 border ${
-              isTrackingEnabled ? "bg-olive" : "bg-gray"
-            }`}
-            onClick={handleToggle}
-          >
+        {/* Toggle Switch */}
+        <div className="flex items-center gap-6">
+          <label className="flex items-center cursor-pointer">
+            <span className="mr-3 text-xl text-dark-gray font-medium">
+              {isTrackingEnabled ? "Google Analytics" : "Google Analytics"}
+            </span>
             <div
-              className={`absolute w-6 h-6 bg-green rounded-full border shadow transform transition-transform duration-300 ${
-                isTrackingEnabled ? "translate-x-6" : "translate-x-0"
+              className={`relative w-14 h-8 rounded-full transition-colors duration-300 border-2 ${
+                isTrackingEnabled ? "bg-olive" : "bg-light-gray"
               }`}
-            ></div>
-          </div>
-        </label>
+              onClick={handleToggle}
+            >
+              <div
+                className={`absolute w-7 h-7 bg-white rounded-full border-2 shadow-lg transform transition-transform duration-300 ${
+                  isTrackingEnabled ? "translate-x-7" : "translate-x-0"
+                }`}
+              ></div>
+            </div>
+          </label>
+        </div>
       </div>
-    </div>
+      </div>
   );
 };
 

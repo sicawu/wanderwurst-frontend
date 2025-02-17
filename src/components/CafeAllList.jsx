@@ -123,12 +123,6 @@ const CafeList = () => {
         <span className="text-teal">{filteredCafes.length} Best Cafes</span>
         <br />in the World
       </h1>
-      <CafeCarousel
-        urlSlugs={["tan-coffee-da-nang", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"]}
-      />
-      <h2 className="pt-20 text-4xl mb-3 font-extrabold uppercase text-center">
-        Discover Cafes Worldwide
-      </h2>
       <div className="flex justify-center items-center mt-8">
         <div className="flex flex-row items-center space-x-2">
           <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
@@ -210,6 +204,9 @@ const CafeList = () => {
           </div>
         )}
       </div>
+      <CafeCarousel
+        urlSlugs={["tan-coffee-da-nang", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"]}
+      />
     </>
   );
 };
