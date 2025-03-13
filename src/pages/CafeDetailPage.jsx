@@ -171,7 +171,6 @@ function CafeDetailsPage() {
                                     </div>
                                 )}
 
-
                                 {/* !!!!! Specs !!!!!! */}
                                 <div className="flex flex-wrap justify-center mt-5">
                                     {Array.isArray(cafe.specs) && cafe.specs
@@ -180,7 +179,7 @@ function CafeDetailsPage() {
                                         .map((spec, index) => (
                                             <Link
                                                 to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-                                                className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green-500 transition duration-200"
+                                                className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green transition duration-200"
                                                 key={index}
                                             >
                                                 {spec}

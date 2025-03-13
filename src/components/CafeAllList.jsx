@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Searchbar from "./Searchbar";
-import FilterPopup from "./PopupFilterCafe";
+import InlineFilterCafe from "./InlineFilterCafe";
 import { Link } from "react-router-dom";
-import { GoFilter } from "react-icons/go";
 import WishlistButton from '../components/WishlistButton';
 import CafeCarousel from "../components/CafeCarousel";
 import { Helmet } from "react-helmet-async";
@@ -17,7 +16,6 @@ const CafeList = () => {
   const [selectedDrink, setSelectedDrink] = useState("");
   const [selectedFood, setSelectedFood] = useState("");
   const [selectedSpec, setSelectedSpec] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
 
   const [filters, setFilters] = useState({
     city: "",
@@ -68,13 +66,6 @@ const CafeList = () => {
         (!selectedFood || cafe.food.includes(selectedFood)) &&
         (!selectedSpec || cafe.specs.some(spec => spec.toLowerCase() === selectedSpec.toLowerCase()));
 
-      /*
-            const matchesFilters =
-              (!selectedCity || cafe.location.city.toLowerCase() === selectedCity.toLowerCase()) &&
-              (!selectedDrink || cafe.drinks.includes(selectedDrink)) &&
-              (!selectedFood || cafe.food.includes(selectedFood)) &&
-              (!selectedSpec || cafe.specs.includes(selectedSpec.toLowerCase()));
-      */
       return matchesSearchTerm && matchesFilters;
     });
     setFilteredCafes(filtered);
@@ -123,18 +114,16 @@ const CafeList = () => {
         <span className="text-teal">{filteredCafes.length} Best Cafes</span>
         <br />in the World
       </h1>
-      <div className="flex justify-center items-center mt-8">
-        <div className="flex flex-row items-center space-x-2">
+      
+      <div className="container mx-auto px-4 mt-8">
+        {/* Search Bar */}
+        <div className="flex justify-center mb-6">
           <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
-          <button
-            className="py-2 px-4 rounded-full"
-            onClick={() => setShowPopup(true)}
-          >
-            <GoFilter size={40} className="rounded-full hover:bg-white hover:shadow-lg transition duration-300" />
-          </button>
         </div>
-        {showPopup && (
-          <FilterPopup
+        
+        {/* Inline Filters */}
+        <div className="mb-6">
+          <InlineFilterCafe
             onCityFilter={(city) => handleFilterChange('city', city)}
             onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
             onFoodFilter={(food) => handleFilterChange('food', food)}
@@ -143,36 +132,40 @@ const CafeList = () => {
             drinks={filterValues.drinks}
             foods={filterValues.foods}
             specs={filterValues.specs}
-            setShowPopup={setShowPopup}
+            selectedCity={selectedCity}
+            selectedDrink={selectedDrink}
+            selectedFood={selectedFood}
+            selectedSpec={selectedSpec}
           />
-        )}
-      </div>
+        </div>
 
-      <div className="mt-4 px-7">
-        {Object.entries(filters).map(([key, value]) =>
-          value && (
-            <span
-              key={key}
-              className="inline-block border border-grey py-0.5 px-2 mr-2 mb-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300"
-            >
-              {value}
-              <button
-                onClick={() => handleFilterChange(key, "")}
-                className="ml-2"
+        {/* Filter Tags */}
+        <div className="mt-4">
+          {Object.entries(filters).map(([key, value]) =>
+            value && (
+              <span
+                key={key}
+                className="inline-block border border-grey py-0.5 px-2 mr-2 mb-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300"
               >
-                x
-              </button>
-            </span>
-          )
-        )}
-        {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
-          <button
-            onClick={clearFilters}
-            className="bg-grey border border-grey px-2 py-0.5 mt-1 text-sm shadow-md hover:bg-mint hover:shadow-lg transition duration-300"
-          >
-            Clear Filters
-          </button>
-        )}
+                {value}
+                <button
+                  onClick={() => handleFilterChange(key, "")}
+                  className="ml-2"
+                >
+                  x
+                </button>
+              </span>
+            )
+          )}
+          {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
+            <button
+              onClick={clearFilters}
+              className="bg-grey border border-grey px-2 py-0.5 mt-1 text-sm shadow-md hover:bg-mint hover:shadow-lg transition duration-300"
+            >
+              Clear Filters
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
@@ -211,4 +204,4 @@ const CafeList = () => {
   );
 };
 
-export default CafeList
+export default CafeList;
