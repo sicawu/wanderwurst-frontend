@@ -104,7 +104,7 @@ function CafeFoodList() {
         setSearchTerm(event.target.value)
     }
 
-  // Handle filter changes
+    // Handle filter changes
     const handleFilterChange = (filterType, value) => {
         switch (filterType) {
             case 'city':
@@ -149,54 +149,57 @@ function CafeFoodList() {
             </p>
 
             <div className="container mx-auto px-4 mt-8">
-                {/* Search Bar */}
-                <div className="flex justify-center mb-6">
-                    <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
+                {/* Search and Filters in one line */}
+                <div className="flex flex-wrap items-center justify-center mb-6">
+                    <div className="w-full md:w-auto mb-8 pr-4 md:mb-8">
+                        <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
+                    </div>
+                    <div>
+                        <InlineFilterCafe
+                            onCityFilter={(city) => handleFilterChange('city', city)}
+                            onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
+                            onFoodFilter={(food) => handleFilterChange('food', food)}
+                            onSpecFilter={(spec) => handleFilterChange('spec', spec)}
+                            cities={filterValues.cities}
+                            drinks={filterValues.drinks}
+                            foods={filterValues.foods}
+                            specs={filterValues.specs}
+                            selectedCity={selectedCity}
+                            selectedDrink={selectedDrink}
+                            selectedFood={selectedFood}
+                            selectedSpec={selectedSpec}
+                            className="w-full md:w-1/2"
+                        />
+                    </div>
                 </div>
-
-                {/* Inline Filters */}
-                <InlineFilterCafe
-                    onCityFilter={(city) => handleFilterChange('city', city)}
-                    onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
-                    onFoodFilter={(food) => handleFilterChange('food', food)}
-                    onSpecFilter={(spec) => handleFilterChange('spec', spec)}
-                    cities={filterValues.cities}
-                    drinks={filterValues.drinks}
-                    foods={filterValues.foods}
-                    specs={filterValues.specs}
-                    selectedCity={selectedCity}
-                    selectedDrink={selectedDrink}
-                    selectedFood={selectedFood}
-                    selectedSpec={selectedSpec}
-                    showFoodFilter={false} // Change to true to enable drink filtering
-                />
-
-                {/* Display selected filters */}
-                <div className="mt-4">
-                    {Object.entries(filters).map(([key, value]) =>
-                        value ? (
-                            <span
-                                key={key}
-                                className="inline-block border border-grey py-0.5 px-2 mr-2 text-sm shadow-md hover:bg-white hover:shadow-lg transition duration-300"
-                            >
-                                {value}
-                                <button
-                                    onClick={() => handleFilterChange(key, "")}
-                                    className="ml-2"
+                {/* Filter Tags Container with Reduced Fixed Height */}
+                <div className="mt-2 h-10 overflow-y-auto">
+                    <div className="flex flex-wrap justify-center">
+                        {Object.entries(filters).map(([key, value]) =>
+                            value && (
+                                <span
+                                    key={key}
+                                    className="inline-flex items-center border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm bg-gray-50 hover:bg-white transition duration-300"
                                 >
-                                    x
-                                </button>
-                            </span>
-                        ) : null
-                    )}
-                    {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
-                        <button
-                            onClick={clearFilters}
-                            className="bg-grey border border-grey px-2 py-0.5 mt-1 text-sm shadow-md hover:bg-mint hover:shadow-lg transition duration-300"
-                        >
-                            Clear Filters
-                        </button>
-                    )}
+                                    {value}
+                                    <button
+                                        onClick={() => handleFilterChange(key, "")}
+                                        className="ml-1"
+                                    >
+                                        x
+                                    </button>
+                                </span>
+                            )
+                        )}
+                        {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
+                            <button
+                                onClick={clearFilters}
+                                className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full px-2 py-0.5 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
+                            >
+                                Clear All Filters
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 
