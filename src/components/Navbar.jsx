@@ -52,7 +52,7 @@ function NavBar({ profile, setProfile }) {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8 text-lg">
+        <nav className="hidden md:flex space-x-8 text-md">
           <Link to="/best-cafes" className="hover:text-gray-400">Discover Cafes</Link>
 
           {/* Cities Dropdown */}

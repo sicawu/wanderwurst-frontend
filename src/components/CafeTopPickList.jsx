@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import Searchbar from "./Searchbar"
+import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
+
 import WishlistButton from '../components/WishlistButton';
 import InlineFilterCafe from "./InlineFilterCafe";
-
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async";
@@ -15,12 +15,12 @@ function CafeSpecList() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [filteredCafes, setFilteredCafes] = useState([]);
   const [cafeTopPick, setcafeTopPick] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCity, setSelectedCity] = useState("")
-  const [selectedDrink, setSelectedDrink] = useState("")
-  const [selectedFood, setSelectedFood] = useState("")
-  const [selectedSpec, setSelectedSpec] = useState("")
-  const [showPopup, setShowPopup] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedDrink, setSelectedDrink] = useState("");
+  const [selectedFood, setSelectedFood] = useState("");
+  const [selectedSpec, setSelectedSpec] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
   const { toppick } = useParams();
   const topPickToFilter = toppick;
 
@@ -30,7 +30,7 @@ function CafeSpecList() {
     drink: "",
     food: "",
     spec: ""
-  })
+  });
 
   // State to hold the unique filter values
   const [filterValues, setFilterValues] = useState({
@@ -67,13 +67,12 @@ function CafeSpecList() {
 
   useEffect(() => {
     getCafes();
-  }, [topPickToFilter])
-
+  }, [topPickToFilter]);
 
   // Capitalize the first letter of each word and keep spaces - For Headline in Frontend
   const formatTopPicks = (toppick) => {
     return toppick.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  }
+  };
 
   // Search through cafes based on search term, city, drinks, food and specs
   useEffect(() => {
@@ -91,14 +90,15 @@ function CafeSpecList() {
       const selectedSpecsMatch = selectedSpec ? cafe.specs.some((spec) => spec.toLowerCase() === selectedSpec.toLowerCase()) : true;
 
       return (titleMatch || descriptionMatch || cityMatch || countryMatch || foodMatch || drinksMatch || specsMatch) && selectedCityMatch && selectedDrinksMatch && selectedFoodMatch && selectedSpecsMatch;
-    })
-    setFilteredCafes(filtered)
-  }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, cafeTopPick])
+    });
+    setFilteredCafes(filtered);
+  }, [searchTerm, selectedCity, selectedDrink, selectedFood, selectedSpec, cafeTopPick]);
 
   // Handle search input change
   const handleSearch = (event) => {
-    setSearchTerm(event.target.value)
-  }
+    setSearchTerm(event.target.value);
+  };
+
   // Handle filter changes
   const handleFilterChange = (filterType, value) => {
     switch (filterType) {
@@ -118,6 +118,7 @@ function CafeSpecList() {
         break;
     }
     setFilters(prev => ({ ...prev, [filterType]: value }));
+    // Removed setShowPopup(false) here since FilterPopup has an "Apply" button to close it
   };
 
   // Clear all filters
@@ -137,21 +138,33 @@ function CafeSpecList() {
       </Helmet>
       <div>
         {toppick && (
-          <h1 className="bg-black text-white uppercase text-center text-3xl px-0.5 py-0.5 font-extrabold italic">
-            <span className="text-teal">{formatTopPicks(toppick)} </span>
-            <br /> is your intention.
-          </h1>
-        )}
-        <p className="text-1xl pt-10 px-10 flex justify-center text-center ">
-          I got you! Explore my {filteredCafes.length} top coffee shops for {formatTopPicks(toppick)}.
-        </p>
-        <div className="container mx-auto px-4 mt-8">
-          {/* Search and Filters in one line */}
-          <div className="flex flex-wrap items-center justify-center mb-6">
-            <div className="w-full md:w-auto mb-8 pr-4 md:mb-8">
+          <div className="bg-black text-white uppercase text-center text-3xl px-0.5 py-3 font-extrabold italic flex flex-col md:flex-row md:items-center md:justify-between">
+            {/* Empty left column for desktop spacing (hidden on mobile) */}
+            <div className="hidden md:block md:w-1/3"></div>
+
+            {/* Center column (headline) */}
+            <div className="flex justify-center md:w-1/3">
+              <h1 className="text-center">
+                <span className="text-teal">{formatTopPicks(toppick)}</span>
+                <br /> is your intention.
+              </h1>
+            </div>
+
+            {/* Right column (search bar) */}
+            <div className="flex justify-center md:justify-end md:w-1/3 px-4 mt-4 md:mt-0">
               <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
             </div>
-            <div>
+          </div>
+        )}
+
+        <p className="text-1xl pt-10 px-10 flex justify-center text-center">
+          I got you! Explore my {filteredCafes.length} top coffee shops for {formatTopPicks(toppick)}.
+        </p>
+        <div className="container mx-auto px-4 mt-6">
+          {/* Filters: Inline on desktop, button on mobile */}
+          <div className="flex flex-wrap items-center justify-center mb-6">
+            {/* Desktop: Show inline filters */}
+            <div className="hidden md:flex">
               <InlineFilterCafe
                 onCityFilter={(city) => handleFilterChange('city', city)}
                 onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
@@ -165,12 +178,37 @@ function CafeSpecList() {
                 selectedDrink={selectedDrink}
                 selectedFood={selectedFood}
                 selectedSpec={selectedSpec}
-                className="w-full md:w-1/2"
               />
             </div>
+            {/* Mobile: Show filter button */}
+            <div className="md:hidden flex justify-center">
+              <button
+                onClick={() => setShowPopup(!showPopup)}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-300 rounded-full text-sm font-medium text-gray-800 hover:bg-gray-200 transition duration-200"
+              >
+                <GoFilter size={16} />
+                Filters
+              </button>
+            </div>
           </div>
-          {/* Filter Tags Container with Reduced Fixed Height */}
-          <div className="mt-2 h-10 overflow-y-auto">
+
+          {/* Mobile Popup */}
+          {showPopup && (
+            <FilterPopup
+              onCityFilter={(city) => handleFilterChange('city', city)}
+              onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
+              onFoodFilter={(food) => handleFilterChange('food', food)}
+              onSpecFilter={(spec) => handleFilterChange('spec', spec)}
+              cities={filterValues.cities}
+              drinks={filterValues.drinks}
+              foods={filterValues.foods}
+              specs={filterValues.specs}
+              setShowPopup={setShowPopup}
+            />
+          )}
+
+          {/* Filter Tags Container */}
+          <div className="overflow-y-auto">
             <div className="flex flex-wrap justify-center">
               {Object.entries(filters).map(([key, value]) =>
                 value && (
@@ -191,7 +229,7 @@ function CafeSpecList() {
               {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
                 <button
                   onClick={clearFilters}
-                  className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full px-2 py-0.5 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
+                  className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
                 >
                   Clear All Filters
                 </button>
@@ -200,7 +238,7 @@ function CafeSpecList() {
           </div>
         </div>
 
-        <div className="pt-0 pb-7 px-7 flex flex-wrap justify-center mb-20 mt-10">
+        <div className="px-7 flex flex-wrap justify-center">
           {filteredCafes.length > 0 ? (
             filteredCafes.map((cafe) => (
               <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
@@ -231,7 +269,7 @@ function CafeSpecList() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default CafeSpecList
+export default CafeSpecList;

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Searchbar from "./Searchbar";
 import InlineFilterCafe from "./InlineFilterCafe";
+import FilterPopup from "./PopupFilterCafe";
+import { GoFilter } from "react-icons/go";
 import { Link } from "react-router-dom";
 import WishlistButton from '../components/WishlistButton';
 import CafeCarousel from "../components/CafeCarousel";
@@ -16,6 +18,7 @@ const CafeList = () => {
   const [selectedDrink, setSelectedDrink] = useState("");
   const [selectedFood, setSelectedFood] = useState("");
   const [selectedSpec, setSelectedSpec] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const [filters, setFilters] = useState({
     city: "",
@@ -91,6 +94,7 @@ const CafeList = () => {
         break;
     }
     setFilters(prev => ({ ...prev, [filterType]: value }));
+    // Removed setShowPopup(false) here since FilterPopup has an "Apply" button to close it
   };
 
   const clearFilters = () => {
@@ -110,19 +114,60 @@ const CafeList = () => {
           content="Discover my favorite cafes worldwide. Carefully curated, your little safe space in the world."
         />
       </Helmet>
-      <h1 className="bg-black text-white uppercase text-center text-3xl py-0.5 font-extrabold italic">
-        <span className="text-teal">{filteredCafes.length} Best Cafes</span>
-        <br />in the World
-      </h1>
+      <div>
+        <div className="bg-black text-white uppercase text-center text-3xl px-0.5 py-3 font-extrabold italic flex flex-col md:flex-row md:items-center md:justify-between">
+          {/* Empty left column for desktop spacing (hidden on mobile) */}
+          <div className="hidden md:block md:w-1/3"></div>
 
-      <div className="container mx-auto px-4 mt-8">
-        {/* Search and Filters in one line */}
-        <div className="flex flex-wrap items-center justify-center mb-6">
-          <div className="w-full md:w-auto mb-8 pr-4 md:mb-8">
+          {/* Center column (headline) */}
+          <div className="flex justify-center md:w-1/3">
+            <h1 className="text-center">
+              <span className="text-teal">{filteredCafes.length} Best Cafes</span>
+              <br />in the World
+            </h1>
+          </div>
+
+          {/* Right column (search bar) */}
+          <div className="flex justify-center md:justify-end md:w-1/3 px-4 md:mt-0">
             <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
           </div>
-          <div>
-            <InlineFilterCafe
+        </div>
+
+        <div className="container mx-auto px-4 mt-6">
+          {/* Filters: Inline on desktop, button on mobile */}
+          <div className="flex flex-wrap items-center justify-center">
+            {/* Desktop: Show inline filters */}
+            <div className="hidden md:flex">
+              <InlineFilterCafe
+                onCityFilter={(city) => handleFilterChange('city', city)}
+                onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
+                onFoodFilter={(food) => handleFilterChange('food', food)}
+                onSpecFilter={(spec) => handleFilterChange('spec', spec)}
+                cities={filterValues.cities}
+                drinks={filterValues.drinks}
+                foods={filterValues.foods}
+                specs={filterValues.specs}
+                selectedCity={selectedCity}
+                selectedDrink={selectedDrink}
+                selectedFood={selectedFood}
+                selectedSpec={selectedSpec}
+              />
+            </div>
+            {/* Mobile: Show filter button */}
+            <div className="md:hidden flex justify-center">
+              <button
+                onClick={() => setShowPopup(!showPopup)}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-300 rounded-full text-sm font-medium text-gray-800 hover:bg-gray-200 transition duration-200"
+              >
+                <GoFilter size={16} />
+                Filters
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Popup */}
+          {showPopup && (
+            <FilterPopup
               onCityFilter={(city) => handleFilterChange('city', city)}
               onDrinkFilter={(drink) => handleFilterChange('drink', drink)}
               onFoodFilter={(food) => handleFilterChange('food', food)}
@@ -131,77 +176,74 @@ const CafeList = () => {
               drinks={filterValues.drinks}
               foods={filterValues.foods}
               specs={filterValues.specs}
-              selectedCity={selectedCity}
-              selectedDrink={selectedDrink}
-              selectedFood={selectedFood}
-              selectedSpec={selectedSpec}
-              className="w-full md:w-1/2"
+              setShowPopup={setShowPopup}
             />
-          </div>
-        </div>
-        {/* Filter Tags Container with Reduced Fixed Height */}
-        <div className="mt-2 h-10 overflow-y-auto">
-          <div className="flex flex-wrap justify-center">
-            {Object.entries(filters).map(([key, value]) =>
-              value && (
-                <span
-                  key={key}
-                  className="inline-flex items-center border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm bg-gray-50 hover:bg-white transition duration-300"
-                >
-                  {value}
-                  <button
-                    onClick={() => handleFilterChange(key, "")}
-                    className="ml-1"
-                  >
-                    x
-                  </button>
-                </span>
-              )
-            )}
-            {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
-              <button
-                onClick={clearFilters}
-                className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full px-2 py-0.5 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
-              >
-                Clear All Filters
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
+          )}
 
-      <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
-        {filteredCafes.length > 0 ? (
-          filteredCafes.map(cafe => (
-            <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-              <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
-                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                  <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
-                </Link>
-                <div className="absolute top-4 right-4 z-20">
-                  <WishlistButton urlSlug={cafe.urlSlug} />
-                </div>
-              </div>
-              <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full mt-2 block">
-                <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
-                  {cafe.location.city}
-                </p>
-                <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
-                  {cafe.location.country}
-                </p>
-                <p className="font-bold text-gray-900">{cafe.title}</p>
-              </Link>
+          {/* Filter Tags Container */}
+          <div className="overflow-y-auto">
+            <div className="flex flex-wrap justify-center">
+              {Object.entries(filters).map(([key, value]) =>
+                value && (
+                  <span
+                    key={key}
+                    className="inline-flex items-center border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm bg-gray-50 hover:bg-white transition duration-300"
+                  >
+                    {value}
+                    <button
+                      onClick={() => handleFilterChange(key, "")}
+                      className="ml-1"
+                    >
+                      x
+                    </button>
+                  </span>
+                )
+              )}
+              {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
+                <button
+                  onClick={clearFilters}
+                  className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
+                >
+                  Clear All Filters
+                </button>
+              )}
             </div>
-          ))
-        ) : (
-          <div className="text-center italic">
-            <p className="mt-2">Meow, looks like I don't have a cafe matching your criteria. Please change search or filter.</p>
           </div>
-        )}
+        </div>
+
+        <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
+          {filteredCafes.length > 0 ? (
+            filteredCafes.map(cafe => (
+              <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
+                <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
+                  <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
+                    <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
+                  </Link>
+                  <div className="absolute top-4 right-4 z-20">
+                    <WishlistButton urlSlug={cafe.urlSlug} />
+                  </div>
+                </div>
+                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full mt-2 block">
+                  <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
+                    {cafe.location.city}
+                  </p>
+                  <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
+                    {cafe.location.country}
+                  </p>
+                  <p className="font-bold text-gray-900">{cafe.title}</p>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <div className="text-center italic">
+              <p className="mt-2">Meow, looks like I don't have a cafe matching your criteria. Please change search or filter.</p>
+            </div>
+          )}
+        </div>
+        <CafeCarousel
+          urlSlugs={["tan-coffee-da-nang", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"]}
+        />
       </div>
-      <CafeCarousel
-        urlSlugs={["tan-coffee-da-nang", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"]}
-      />
     </>
   );
 };

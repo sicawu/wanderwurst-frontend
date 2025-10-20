@@ -33,26 +33,26 @@ function FilterPopup({
   }, []);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 animate-fade-in">
       <div
         ref={popupRef}
-        className="relative bg-white p-8 rounded-lg shadow-xl max-w-md w-full border-2 border-gray-300"
+        className="relative bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-200 transform transition-all duration-300 ease-out scale-100"
       >
         {/* Close Button */}
         <button
-          className="absolute top-4 right-4 text-gray-700 hover:text-gray-900 transition-colors duration-200"
+          className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full p-2 transition-all duration-200"
           onClick={() => setShowPopup(false)}
         >
-          <IoClose size={30} />
+          <IoClose size={24} />
         </button>
 
         {/* Popup Title */}
-        <h2 className="text-center text-2xl font-extrabold text-black uppercase tracking-wide mt-2 mb-6">
+        <h2 className="text-center text-2xl font-bold text-gray-900 uppercase tracking-wider mt-2 mb-8">
           Make Some Magic
         </h2>
 
         {/* Filters */}
-        <div className="flex flex-col space-y-5 mb-12">
+        <div className="flex flex-col space-y-6 mb-10">
           <CafeFilter
             onCityFilter={onCityFilter}
             onDrinkFilter={onDrinkFilter}
@@ -70,12 +70,14 @@ function FilterPopup({
         </div>
 
         {/* Apply Button */}
-        <button
-          className="w-1/2 max-w-md bg-teal text-white font-semibold py-3 rounded-full shadow-md hover:bg-black transition duration-300 text-lg"
-          onClick={() => setShowPopup(false)}
-        >
-          Apply
-        </button>
+        <div className="flex justify-center">
+          <button
+            className="w-full max-w-xs bg-teal text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-black hover:shadow-xl transition-all duration-300 text-lg"
+            onClick={() => setShowPopup(false)}
+          >
+            Apply
+          </button>
+        </div>
       </div>
     </div>
   );

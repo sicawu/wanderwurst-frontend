@@ -1,21 +1,27 @@
-import React from "react"
-import { FaSearch } from "react-icons/fa"
+import React from "react";
+import { FiSearch } from "react-icons/fi";
 
-function SearchBar({ searchTerm, handleSearch }) {
+function Searchbar({ searchTerm, handleSearch }) {
   return (
-    <div className="w-60 flex rounded-full shadow-md max-w-md mx-auto">
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearch}
-        className="py-2 px-4 rounded-l-full flex-grow focus:outline-none"
-      />
-      <button className="flex items-center justify-center w-16 bg-ivory rounded-r-full">
-        <FaSearch />
-      </button>
+    <div className="flex justify-center md:justify-end sm:justify-center w-1/3 px-4">
+      <div className="relative">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search cafés..."
+          className="rounded-full border border-gray-300 bg-white text-black text-sm py-1.5 pl-3 pr-8 w-40 focus:outline-none focus:ring-2 focus:ring-teal transition"
+        />
+        <button
+          type="button"
+          className="absolute right-2 top-4 text-gray-500 hover:text-black"
+          onClick={() => handleSearch({ target: { value: "" } })}
+        >
+          <FiSearch size={14} />
+        </button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default SearchBar
+export default Searchbar;

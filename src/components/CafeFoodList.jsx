@@ -173,7 +173,7 @@ function CafeFoodList() {
                     </div>
                 </div>
                 {/* Filter Tags Container with Reduced Fixed Height */}
-                <div className="mt-2 h-10 overflow-y-auto">
+                <div className="overflow-y-auto">
                     <div className="flex flex-wrap justify-center">
                         {Object.entries(filters).map(([key, value]) =>
                             value && (
@@ -194,7 +194,7 @@ function CafeFoodList() {
                         {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
                             <button
                                 onClick={clearFilters}
-                                className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full px-2 py-0.5 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
+                                className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
                             >
                                 Clear All Filters
                             </button>
