@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function DrinksSection({ drinks }) {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-teal via-teal-600 to-teal-800 flex flex-col justify-center lg:justify-start items-center py-24 px-4 sm:px-6">
+    <div className="min-h-screen w-full bg-gradient-to-br from-teal via-teal-600 to-teal-400 flex flex-col justify-center lg:justify-start items-center py-24 px-4 sm:px-6">
       <h2 className="pb-10 text-3xl sm:text-4xl md:text-5xl text-cream mb-4 font-extrabold uppercase text-center animate-fade-in">
         Find your Fuel.
       </h2>

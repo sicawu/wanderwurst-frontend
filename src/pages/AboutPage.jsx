@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaRocket, FaUsers, FaLightbulb } from 'react-icons/fa'; // Added icons for visual interest
-import CTACafesCommunity from "../components/CTACafesCommunity"
 
 
 function AboutPage() {
@@ -69,7 +68,6 @@ function AboutPage() {
                     </p>
                 </div>
             </div>
-            <CTACafesCommunity />
         </div>
     );
 }

@@ -53,7 +53,7 @@ const WishlistButton = ({ urlSlug }) => {
             <PiHeartStraightFill
                 size={50}
                 className="transition-transform duration-200 hover:scale-110"
-                color={isWished ? 'red' : 'beige'}
+                color={isWished ? 'red' : 'white'}
             />
         </div>
     );

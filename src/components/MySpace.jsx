@@ -121,10 +121,12 @@ function MySpace({ profile, setProfile }) {
                         <p className="mx-10 text-gray-700">
                             Welcome (back), you little legend. I'm happy to have you here, {profile.name}.
                         </p>
-                        <p className="italic text-xs mt-2 text-gray-500">
-                            Lots of love, Simona xx
-                        </p>
                     </div>
+                       <button
+                                className="mt-10 px-16 py-2 font-semibold text-white bg-teal hover:bg-gray-800 rounded-lg transition-colors"
+                                onClick={handleLogout}>
+                                Logout
+                            </button>
 
                     {/* Wishlist Section */}
                     <h2 className="pt-16 text-4xl font-extrabold uppercase text-center text-gray-800">

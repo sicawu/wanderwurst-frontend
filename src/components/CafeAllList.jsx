@@ -237,7 +237,7 @@ const CafeList = () => {
                     </div>
                   </div>
                   {/* Cafe Title Below Image */}
-                  <p className="text-gray-900 font-bold text-lg mt-4 text-center">
+                  <p className="text-gray-900 font-bold text-lg mt-1 text-center">
                     {cafe.title}
                   </p>
                 </Link>

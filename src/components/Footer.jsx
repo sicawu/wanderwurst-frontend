@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { GiBalloonDog } from "react-icons/gi";
+            import CTACafesCommunity from "../components/CTACafesCommunity";
+
 
 function Footer() {
   return (
     <footer className="bg-black text-white py-6 flex flex-col items-center">
+                      <CTACafesCommunity  />
+
       {/* Logo */}
       <div className="mb-4">
         <Link className="flex items-center px-2 py-0.5 " to="/">

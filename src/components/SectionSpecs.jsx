@@ -3,14 +3,16 @@ import { Link } from "react-router-dom"
 function SpecsSection({ specs }) {
     return (
         <div className="min-h-screen w-full bg-mint flex flex-col justify-center items-center py-16 px-4">
-            <h2 className="pb-10 text-4xl text-white mb-4 font-extrabold uppercase text-center">Set priorities.</h2>
-            <div className="flex flex-wrap justify-center items-center gap-4">
+            <h2 className="pb-10 text-3xl sm:text-4xl md:text-5xl text-ivory mb-4 font-extrabold uppercase text-center animate-fade-in">
+                Set priorities.
+            </h2>
+            <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
                 {specs.map((spec) => (
                     <Link
                         key={spec}
                         to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="bg-green text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center"
-                    >
+                        className="bg-darkcoral text-cream hover:bg-coral font-semibold py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-coral"
+                        aria-label={`Explore cafes with ${spec}`}                    >
                         {spec}
                     </Link>
                 ))}
