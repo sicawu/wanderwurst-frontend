@@ -72,9 +72,11 @@ function CafeDetailsPage() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen bg-gray-50">
             {cafe === null ? (
-                <p>Loading...</p>
+                <div className="flex justify-center items-center min-h-screen">
+                    <p className="text-lg text-gray-600">Loading...</p>
+                </div>
             ) : (
                 <>
                     <Helmet>
@@ -82,9 +84,9 @@ function CafeDetailsPage() {
                         <meta name="description" content={cafe.metaDescription || cafe.description} />
                     </Helmet>
 
-                    {/* !!!!! BREADCRUMB NAVIGATION !!!!!! */}
-                    <div className="flex items-center space-x-2 text-gray-600 text-sm px-5 pt-5">
-                        <Link to="/" className="hover:underline text-gray-500">
+                    {/* Breadcrumb Navigation */}
+                    <div className="flex items-center space-x-2 text-gray-600 text-sm px-4 sm:px-6 pt-4 sm:pt-6">
+                        <Link to="/" className="hover:underline text-gray-500 transition-colors">
                             Home
                         </Link>
                         <span>/</span>
@@ -92,175 +94,174 @@ function CafeDetailsPage() {
                             <>
                                 <Link
                                     to={`/best-cafes/city/${cafe.location.city.toLowerCase().replace(/\s+/g, '-')}`}
-                                    className="hover:underline text-gray-500"
+                                    className="hover:underline text-gray-500 transition-colors"
                                 >
                                     {cafe.location.city}
                                 </Link>
                                 <span>/</span>
                             </>
                         ) : null}
-                        <span className="text-black underline text-green">{cafe.title}</span>
+                        <span className="text-black underline text-teal">{cafe.title}</span>
                     </div>
 
-                    <div className="flex justify-center items-center">
-                        <div className="grid md:grid-cols-2 sm:grid-cols-1">
-                            <div className="flex justify-center p-5 relative">
-                                <div className="relative">
-                                    <img
-                                        className="h-[100vh] w-full object-cover rounded-2xl"
-                                        src={cafe.image}
-                                        alt={`${cafe.title}${cafe.location && cafe.location.city ? `, ${cafe.location.city}, ${cafe.location.country}` : ''}`}
-                                    />
-                                    {/* Add WishlistButton here */}
-                                    <div className="absolute top-5 right-5 z-10">
-                                        <WishlistButton
-                                            urlSlug={urlSlug}
-                                            isWished={isWished} // Pass the isWished state if needed
-                                            setIsWished={setIsWished} // Pass the setter if you need to update it
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h1 className="text-5xl p-10 flex justify-center uppercase text-center font-extrabold italic">
-                                    {cafe.title}
-                                </h1>
-
-                                {/* !!!!! ICONS FOR TOP PICKS !!!!!! */}
-                                <div className="flex flex-row justify-center mb-10 gap-5">
-                                    {cafe.topPick && cafe.topPick.map((topPick, index) => {
-                                        const iconUrl = iconMap[topPick];
-                                        const urlText = topPick.replace(/([A-Z])/g, '-$1').toLowerCase()
-                                        return (
-                                            <Link
-                                                to={`/best-cafes/for/${urlText}`}
-                                                key={index}
-                                                className="relative group"
-                                            >
-                                                <div className="w-12 h-12"
-                                                    key={index}>
-                                                    <img
-                                                        src={iconUrl}
-                                                        alt={topPick}
-                                                        className="w-full h-full border-2 border-teal rounded-full object-cover object-center hover:bg-white hover:shadow-xl"
-                                                    />
-                                                </div>
-                                                <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
-                                                    Top Pick for {topPick.replace(/([a-z])([A-Z])/g, '$1 $2').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                                                </span>
-                                            </Link>
-                                        )
-                                    })}
-                                </div>
-
-                                {/* !!!!! DESCRIPTION !!!!!! */}
-                                <p className="text-xl text-center px-5">
-                                    {cafe.description}
-                                </p>
-
-                                {/* !!!!! RECOMMENDATION !!!!!! */}
-                                {cafe.recommendation && (
-                                    <div className="mt-4">
-                                        <div className="flex justify-center items-center text-xl text-center">
-                                            <TbBulb size={30} className="mr-1" />
-                                            <span className="font-bold">MUST TRY:&nbsp;</span>
+                    {/* Main Content Grid */}
+                    <div className="flex flex-col md:flex-row justify-center items-start px-4 sm:px-6 py-6">
+                        {/* Image Section */}
+                        <div className="w-full md:w-1/2 flex justify-center p-4 relative">
+                            <div className="relative w-full max-w-md md:max-w-none">
+                                <img
+                                    className="h-96 sm:h-[32rem] md:h-[90vh] w-full object-cover rounded-2xl shadow-lg"
+                                    src={cafe.image}
+                                    alt={`${cafe.title}${cafe.location && cafe.location.city ? `, ${cafe.location.city}, ${cafe.location.country}` : ''}`}
+                                />
+                                {/* Wishlist Button */}
+                                <div className="absolute top-4 right-4 z-10">
+                                    <WishlistButton
+                                        urlSlug={urlSlug}
+                                        isWished={isWished} // Pass the isWished state if needed
+                                        setIsWished={setIsWished} // Pass the setter if you need to update it
+                                    />                            
                                         </div>
-                                        <p className="text-xl text-center mt-2">
-                                            {cafe.recommendation}
-                                        </p>
+                                        
+                            </div>
+                        </div>
+
+                        {/* Details Section */}
+                        <div className="w-full md:w-1/2 p-4">
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl text-center uppercase font-extrabold italic mb-6 text-gray-900">
+                                {cafe.title}
+                            </h1>
+
+                            {/* Top Picks Icons */}
+                            <div className="flex flex-wrap justify-center gap-4 mb-8">
+                                {cafe.topPick && cafe.topPick.map((topPick, index) => {
+                                    const iconUrl = iconMap[topPick];
+                                    const urlText = topPick.replace(/([A-Z])/g, '-$1').toLowerCase()
+                                    return (
+                                        <Link
+                                            to={`/best-cafes/for/${urlText}`}
+                                            key={index}
+                                            className="relative group"
+                                        >
+                                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-teal overflow-hidden hover:shadow-xl transition-shadow">
+                                                <img
+                                                    src={iconUrl}
+                                                    alt={topPick}
+                                                    className="w-full h-full object-cover hover:scale-110 transition-transform"
+                                                />
+                                            </div>
+                                            <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
+                                                Top Pick for {topPick.replace(/([a-z])([A-Z])/g, '$1 $2').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                                            </span>
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+
+                            {/* Description */}
+                            <p className="text-lg sm:text-xl text-center text-gray-700 mb-6 leading-relaxed">
+                                {cafe.description}
+                            </p>
+
+                            {/* Recommendation */}
+                            {cafe.recommendation && (
+                                <div className="bg-yellow-100 p-4 rounded-lg mb-6">
+                                    <div className="flex justify-center items-center text-lg sm:text-xl font-bold text-center mb-2">
+                                        <TbBulb size={24} className="mr-2 text-yellow-600" />
+                                        MUST TRY:
                                     </div>
-                                )}
-
-                                {/* !!!!! Specs !!!!!! */}
-                                <div className="flex flex-wrap justify-center mt-5">
-                                    {Array.isArray(cafe.specs) && cafe.specs
-                                        .slice() // Create a shallow copy to avoid mutating the original array
-                                        .sort((a, b) => a.localeCompare(b)) // Sort alphabetically
-                                        .map((spec, index) => (
-                                            <Link
-                                                to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
-                                                className="font-bold bg-black text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-green transition duration-200"
-                                                key={index}
-                                            >
-                                                {spec}
-                                            </Link>
-                                        ))}
+                                    <p className="text-center text-gray-800">
+                                        {cafe.recommendation}
+                                    </p>
                                 </div>
+                            )}
 
+                            {/* Specs */}
+                            <div className="flex flex-wrap justify-center gap-2 mb-6">
+                                {Array.isArray(cafe.specs) && cafe.specs
+                                    .slice()
+                                    .sort((a, b) => a.localeCompare(b))
+                                    .map((spec, index) => (
+                                        <Link
+                                            to={`/best-cafes/${spec.toLowerCase().replace(/\s+/g, '-')}`}
+                                            className="font-bold bg-black text-white rounded-full px-3 py-1 text-sm hover:bg-teal transition-colors"
+                                            key={index}
+                                        >
+                                            {spec}
+                                        </Link>
+                                    ))}
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-center items-center bg-ivory mt-10 pt-10 pb-16">
-                        <div className="grid md:grid-cols-2 sm:grid-cols-1 ">
+
+                    {/* Additional Info Section */}
+                    <div className="bg-white py-12 px-4 sm:px-6">
+                        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Left Column: Drinks, Food, Hours */}
                             <div>
-                                {/* !!!!! Drinks !!!!!! */}
+                                {/* Drinks */}
                                 {Array.isArray(cafe.drinks) && cafe.drinks.length > 0 && (
-                                    <>
-                                        <h2 className="text-2xl font-extrabold uppercase text-center pb-3">Drinks Options</h2>
-                                        <div className="flex flex-wrap justify-center">
-                                            {Array.isArray(cafe.drinks) && cafe.drinks
-                                                .slice() // Create a shallow copy to avoid mutating the original array
-                                                .sort((a, b) => a.localeCompare(b)) // Sort alphabetically
+                                    <div className="mb-8">
+                                        <h2 className="text-2xl font-extrabold uppercase text-center mb-4 text-gray-900">Drinks Options</h2>
+                                        <div className="flex flex-wrap justify-center gap-2">
+                                            {cafe.drinks
+                                                .slice()
+                                                .sort((a, b) => a.localeCompare(b))
                                                 .map((drink, index) => (
                                                     <Link
                                                         to={`/best-cafes/drinks/${drink.toLowerCase().replace(/\s+/g, '-')}`}
-                                                        className="font-bold bg-coral text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black transition duration-200"
+                                                        className="font-bold bg-coral text-white rounded-full px-3 py-1 text-sm hover:bg-black transition-colors"
                                                         key={index}
                                                     >
                                                         {drink}
                                                     </Link>
                                                 ))}
                                         </div>
-
-                                    </>
+                                    </div>
                                 )}
 
-                                {/* !!!!! Food !!!!!! */}
+                                {/* Food */}
                                 {Array.isArray(cafe.food) && cafe.food.length > 0 && (
-                                    <>
-                                        <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                            Food Options
-                                        </h2>
-                                        <div className="flex flex-wrap px-10 justify-center">
+                                    <div className="mb-8">
+                                        <h2 className="text-2xl font-extrabold uppercase text-center mb-4 text-gray-900">Food Options</h2>
+                                        <div className="flex flex-wrap justify-center gap-2">
                                             {cafe.food
-                                                .slice() // Create a shallow copy to avoid mutating the original array
-                                                .sort((a, b) => a.localeCompare(b)) // Sort alphabetically
+                                                .slice()
+                                                .sort((a, b) => a.localeCompare(b))
                                                 .map((food, index) => (
                                                     <Link
-                                                        to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`} // Linking to an SEO overview page for a specific food; to lowercase + replacing empty spaces in food
-                                                        className="font-bold bg-olive text-white rounded mb-2 mt-4 mx-1 px-1.5 text-base leading-6 inline-block hover:bg-black hover:shadow-xl"
+                                                        to={`/best-cafes/food/${food.toLowerCase().replace(/\s+/g, '-')}`}
+                                                        className="font-bold bg-olive text-white rounded-full px-3 py-1 text-sm hover:bg-black transition-colors"
                                                         key={index}
                                                     >
                                                         {food}
                                                     </Link>
                                                 ))}
                                         </div>
-                                    </>
+                                    </div>
                                 )}
 
-
-                                {/* !!!!! Opening hours !!!!!! */}
-                                <h2 className="text-2xl font-extrabold uppercase text-center pt-10 pb-3 flex justify-center text-center font-extrabold">
-                                    Opening Hours
-                                </h2>
-                                <CafeOpeningHours placeId={cafe.placeId} />
+                                {/* Opening Hours */}
+                                <div>
+                                    <h2 className="text-2xl font-extrabold uppercase text-center mb-4 text-gray-900">Opening Hours</h2>
+                                    <CafeOpeningHours placeId={cafe.placeId} />
+                                </div>
                             </div>
-                            <div className="flex flex-col items-center align-start pt-10">
-                                {/* !!!!! LOCATION !!!!!! */}
-                                <h2 className="text-2xl font-extrabold uppercase text-center pb-3 flex justify-center text-center font-extrabold">
-                                    How To Get There
-                                </h2>
+
+                            {/* Right Column: Location and Map */}
+                            <div className="flex flex-col items-center">
+                                <h2 className="text-2xl font-extrabold uppercase text-center mb-4 text-gray-900">How To Get There</h2>
                                 {cafe.location && (
-                                    <div className="px-10 pb-5 flex flex-col items-center">
+                                    <div className="mb-6 text-center">
                                         {cafe.location.city && cafe.location.country && (
-                                            <p className="flex items-center mb-2">
-                                                <MdLocationCity className="mr-1 text-xl" />
+                                            <p className="flex items-center justify-center mb-2 text-gray-700">
+                                                <MdLocationCity className="mr-2 text-xl" />
                                                 {cafe.location.city}, {cafe.location.country}
                                             </p>
                                         )}
                                         {cafe.location.address && (
-                                            <p className="flex items-center">
-                                                <FaLocationDot className="mr-1 text-xl" />
+                                            <p className="flex items-center justify-center text-gray-700">
+                                                <FaLocationDot className="mr-2 text-xl" />
                                                 {cafe.location.address}
                                             </p>
                                         )}
@@ -269,7 +270,7 @@ function CafeDetailsPage() {
                                                 href={cafe.linkGoogleMaps}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="mt-3 underline flex items-center text-blue-500 hover:text-blue-700"
+                                                className="mt-4 inline-flex items-center text-blue-500 hover:text-blue-700 transition-colors"
                                             >
                                                 <span className="mr-2">Open in Google Maps</span>
                                                 <FaExternalLinkAlt className="text-lg" />
@@ -277,7 +278,9 @@ function CafeDetailsPage() {
                                         )}
                                     </div>
                                 )}
-                                <LeafletMap cafe={cafe} className="w-full h-full pt-10" />
+                                <div className="flex items-center justify-center w-full h-full sm:h-96 rounded-lg overflow-hidden shadow-lg overflow-hidden">
+                                    <LeafletMap cafe={cafe} className="pt-10" />
+                                </div>
                             </div>
                         </div>
                     </div>

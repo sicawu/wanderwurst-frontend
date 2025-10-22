@@ -29,13 +29,13 @@ function GoogleLogIn() {
         .then((res) => {
           const userProfile = res.data;
           setProfile(userProfile);
-          /*
+
           localStorage.setItem('userProfile', JSON.stringify(userProfile));
           localStorage.setItem('accessToken', user.access_token);
-          */
+          /*
           sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
           sessionStorage.setItem('accessToken', user.access_token);
-          
+          */
           console.log(`User profile`, userProfile);
 
           const userData = {

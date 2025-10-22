@@ -50,22 +50,22 @@ function Homepage() {
           backgroundPosition: '50% 70%'
         }}
       >
-        <h1 className="text-5xl text-white p-9 flex justify-center uppercase text-center font-extrabold" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
+        <div className="absolute inset-0 bg-black bg-opacity-10">
+        </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl text-white font-extrabold uppercase mb-8 animate-fade-in" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.7)" }}>
           Find your Sweet Spot
         </h1>
 
         {/* Choose a City Section */}
         <div className="w-full max-w-lg mb-16 bg-cover bg-center">
-          <h2 className="text-xl text-white mb-4" style={{ textShadow: "0px 0px 20px rgba(0,0,0,0.5)" }}>
-            Choose a City
+            <h2 className="text-xl sm:text-2xl text-white mb-6 font-semibold" style={{ textShadow: "0px 0px 15px rgba(0,0,0,0.6)" }}>            Choose a City
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {cities.map((city) => (
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-gold text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center"
-                >
+                  className="bg-gradient-to-r from-gold to-yellow-500 text-white hover:from-black hover:to-gray-800 font-semibold py-2 px-4 sm:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold"              >
                 {city}
               </Link>
             ))}

@@ -4,6 +4,7 @@ import axios from "axios";
 import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
+import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa"; // For location icons
 
 import WishlistButton from '../components/WishlistButton';
 import InlineFilterCafe from "./InlineFilterCafe";
@@ -239,34 +240,42 @@ function CafeSpecList() {
         </div>
 
         <div className="px-7 flex flex-wrap justify-center">
-          {filteredCafes.length > 0 ? (
-            filteredCafes.map((cafe) => (
-              <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-                <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
-                  <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                    <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
-                  </Link>
-                  <div className="absolute top-4 right-4 z-20">
-                    <WishlistButton urlSlug={cafe.urlSlug} />
-                  </div>
-                </div>
-                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full mt-4 block">
-                  <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
-                    {cafe.location.city}
-                  </p>
-                  <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
-                    {cafe.location.country}
-                  </p>
-                  <p className="font-bold text-gray-900">{cafe.title}</p>
-                </Link>
+  {filteredCafes.length > 0 ? (
+    filteredCafes.map((cafe) => (
+      <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
+        <Link to={`/cafes/${cafe.urlSlug}`} className="group">
+          <div className="relative h-80 w-full overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform group-hover:scale-105">
+            <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover" />
+            {/* Overlay Text on Image */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4 rounded-b-2xl">
+              <div className="flex items-center justify-between mb-2">
+                <p className="flex items-center text-white font-bold text-xs bg-mint/90 text-gray-800 rounded-full px-3 py-1">
+                  <FaMapMarkerAlt className="mr-1" />
+                  {cafe.location.city}
+                </p>
+                <p className="flex items-center text-white font-bold text-xs bg-teal/90 rounded-full px-3 py-1">
+                  <FaGlobe className="mr-1" />
+                  {cafe.location.country}
+                </p>
               </div>
-            ))
-          ) : (
-            <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
-              Well... It looks like I haven't found a cafe that exactly matches your criteria yet. <br />Please try another search + filter.
-            </p>
-          )}
-        </div>
+            </div>
+            <div className="absolute top-4 right-4 z-20">
+              <WishlistButton urlSlug={cafe.urlSlug} />
+            </div>
+          </div>
+          {/* Cafe Title Below Image */}
+          <p className="text-gray-900 font-bold text-lg mt-1 text-center">
+            {cafe.title}
+          </p>
+        </Link>
+      </div>
+    ))
+  ) : (
+    <p className="flex flex-col text-center items-center text-sm my-10 mb-20 gap-3 italic">
+      Well... It looks like I haven't found a cafe that exactly matches your criteria yet. <br />Please try another search + filter.
+    </p>
+  )}
+</div>
       </div>
     </>
   );

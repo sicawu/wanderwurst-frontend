@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import WishlistButton from '../components/WishlistButton';
 import CafeCarousel from "../components/CafeCarousel";
 import { Helmet } from "react-helmet-async";
+import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa"; // For location icons
 
 const CafeList = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -128,14 +129,14 @@ const CafeList = () => {
           </div>
 
           {/* Right column (search bar) */}
-          <div className="flex justify-center md:justify-end md:w-1/3 px-4 md:mt-0">
+          <div className="flex justify-center md:justify-end md:w-1/3 px-4 mt-4 md:mt-0">
             <Searchbar searchTerm={searchTerm} handleSearch={handleSearch} />
           </div>
         </div>
 
         <div className="container mx-auto px-4 mt-6">
           {/* Filters: Inline on desktop, button on mobile */}
-          <div className="flex flex-wrap items-center justify-center">
+          <div className="flex flex-wrap items-center justify-center mb-6">
             {/* Desktop: Show inline filters */}
             <div className="hidden md:flex">
               <InlineFilterCafe
@@ -202,7 +203,7 @@ const CafeList = () => {
               {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
                 <button
                   onClick={clearFilters}
-                  className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
+                  className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full px-2 py-0.5 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
                 >
                   Clear All Filters
                 </button>
@@ -215,22 +216,30 @@ const CafeList = () => {
           {filteredCafes.length > 0 ? (
             filteredCafes.map(cafe => (
               <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-                <div className="relative h-72 w-full max-w-full rounded-2xl border-solid">
-                  <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full block">
-                    <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover border-solid rounded-2xl" />
-                  </Link>
-                  <div className="absolute top-4 right-4 z-20">
-                    <WishlistButton urlSlug={cafe.urlSlug} />
+                <Link to={`/cafes/${cafe.urlSlug}`} className="group">
+                  <div className="relative h-80 w-full overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform group-hover:scale-105">
+                    <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover" />
+                    {/* Overlay Text on Image */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4 rounded-b-2xl">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="flex items-center text-white font-bold text-xs bg-mint/90 text-gray-800 rounded-full px-3 py-1">
+                          <FaMapMarkerAlt className="mr-1" />
+                          {cafe.location.city}
+                        </p>
+                        <p className="flex items-center text-white font-bold text-xs bg-teal/90 rounded-full px-3 py-1">
+                          <FaGlobe className="mr-1" />
+                          {cafe.location.country}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="absolute top-4 right-4 z-20">
+                      <WishlistButton urlSlug={cafe.urlSlug} />
+                    </div>
                   </div>
-                </div>
-                <Link to={`/cafes/${cafe.urlSlug}`} className="h-full w-full mt-2 block">
-                  <p className="font-bold uppercase bg-mint text-gray-800 rounded-full mb-1 mr-1 px-2 py-1 inline-block">
-                    {cafe.location.city}
+                  {/* Cafe Title Below Image */}
+                  <p className="text-gray-900 font-bold text-lg mt-4 text-center">
+                    {cafe.title}
                   </p>
-                  <p className="font-bold uppercase bg-teal text-white rounded-full mb-1 px-2 py-1 inline-block">
-                    {cafe.location.country}
-                  </p>
-                  <p className="font-bold text-gray-900">{cafe.title}</p>
                 </Link>
               </div>
             ))
