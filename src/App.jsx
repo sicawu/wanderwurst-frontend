@@ -17,6 +17,7 @@ import TopPickPage from "./pages/TopPickPage.jsx"
 import CafeDrinksPage from "./pages/CafeDrinksPage.jsx"
 import CafeFoodPage from "./pages/CafeFoodPage.jsx"
 import AboutPage from "./pages/AboutPage.jsx"
+import ContactPage from "./pages/ContactPage.jsx"
 import NotFoundPage from "./pages/NotFoundPage.jsx"
 import RandomCafePage from "./pages/RandomCafePage.jsx"
 import LegalNotice from "./pages/LegalNotice.jsx"
@@ -78,6 +79,7 @@ function App() {
           <Route path="/best-cafes/drinks/:drinks" element={<CafeDrinksPage />} />  {/* All cafes for one specific drinks option, e.g. juices, smoothies*/}
           <Route path="/best-cafes/food/:food" element={<CafeFoodPage />} />  {/* All cafes for one specific food option, e.g. vegan, vegetarian*/}
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/random" element={<RandomCafePage />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/data-privacy" element={<DataPrivacy />} />
