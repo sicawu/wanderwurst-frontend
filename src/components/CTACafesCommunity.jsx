@@ -13,7 +13,7 @@ function CTACafesCommunity() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link
-                    to="/"
+                    to="/best-cafes"
                     className="bg-teal hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
                     aria-label="Explore cafes"
                 >

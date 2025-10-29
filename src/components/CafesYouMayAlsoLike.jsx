@@ -34,7 +34,7 @@ function YouMayAlsoLike ({ cafeSuggestions }) {
       </div>
 
       {/* Horizontal scrolling container */}
-      <div className="overflow-x-auto whitespace-nowrap flex space-x-4 px-5 pb-5 mb-20 justify-start lg:justify-center">
+      <div className="overflow-x-auto whitespace-nowrap flex space-x-4 px-5 pb-20 justify-start lg:justify-center">
         {suggestions.length > 0 ? (
           suggestions.map((suggestion) => (
             <div
