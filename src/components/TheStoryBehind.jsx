@@ -6,14 +6,12 @@ function TheStoryBehind() {
         <section className="bg-gradient-to-br from-gray-50 to-gray-200 py-16 px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
             {/* Image Section */}
             <div className="md:w-1/2 flex justify-center">
-                <div className="relative overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 hover:scale-105">
+                <div className="relative overflow-hidden">
                     <img
                         src="https://res.cloudinary.com/djkv0io5j/image/upload/v1727849638/Sweet%20Spots/simona-wurst-sweet-spots_tb2i1l.jpg"
                         alt="The Story Behind - Simona Wurst"
                         className="w-full h-auto object-cover"
                     />
-                    {/* Optional Overlay for Depth */}
-                    <div className="absolute inset-0 bg-black bg-opacity-10 hover:bg-opacity-0 transition-opacity duration-300"></div>
                 </div>
             </div>
 
@@ -26,12 +24,13 @@ function TheStoryBehind() {
                     Slightly Different.
                 </h3>
                 <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-8 max-w-2xl mx-auto md:mx-0">
-                    A sweet spot is that magical place where everything feels just right. Where intention and conditions meet reality. Where you get and become the best version. And that’s exactly what I seek while exploring the world. Hi, I’m Simona, the slow traveler behind this. :)
+                    A sweet spot is that magical place where everything feels just right—where intention meets reality, and you become the best version of yourself. Hi, I’m Simona, the slow traveler behind this. :)
                     <br /><br />
-                    On Sweet Spots, I’m excited to share places that hold many beautiful memories of mine. These are cafes that became my living room when I had none, hidden corners of the world that inspired, grounded, and filled my days with connections and laughs. Or simply offered space to hide.
+                    On Sweet Spots, I share cafes and hidden corners that became my living room, inspired my days, or offered a quiet hideaway. These are more than destinations—they’re personal memories, filled with connection, laughter, and reflection.
                     <br /><br />
-                    This is more than just a list of destinations; it’s personal. I’ve poured my heart, full stack skills, and creative twist into this. So, follow my journey and explore my favorite sweet spots worldwide.
+                    I’ve poured my heart, creativity, and full stack skills into this, so follow along and explore my favorite sweet spots worldwide.
                 </p>
+
                 <div className="flex justify-center md:justify-start">
                     <Link
                         to="/about"

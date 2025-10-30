@@ -23,6 +23,9 @@ function Footer() {
 
       {/* Legal and tracking links */}
       <div className="flex space-x-4 mb-4 text-sm">
+        <Link to="/contact" className="hover:underline">
+          Contact
+        </Link>
         <Link to="/legal-notice" className="hover:underline">
           Legal Notice
         </Link>
