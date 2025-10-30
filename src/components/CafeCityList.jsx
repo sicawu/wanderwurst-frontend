@@ -291,7 +291,7 @@ function CafeCityList() {
                         </div>
                     )}
                 </div>
-
+                <CafeLeafletMaps cafes={cafeCity} />
                 <CafeCarousel
                     urlSlugs={["tan-coffee-da-nang", "revolver-canggu", "namaskara-coffee-and-superfoods-ubud"]}
                 />
