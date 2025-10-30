@@ -78,7 +78,7 @@ function MySpacePublic() {
                         <span className="text-teal"> {userProfile.name}'s</span> Sweet Spots
                     </h1>
                     <p className="mt-10 mx-10 text-gray-700">
-                        You asked for it, here we go: My {filteredCafes.length} fav coffee places around the world. Thank me later.
+                        You asked for it, here we go: My {filteredCafes.length} fav coffee places. Check these out, thank me later.
                         <span
                             onClick={copyToClipboard}
                             className="text-teal cursor-pointer underline ml-2"

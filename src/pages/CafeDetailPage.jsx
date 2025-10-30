@@ -129,18 +129,18 @@ function CafeDetailsPage() {
 
                         {/* Details Section */}
                         <div className="w-full md:w-1/2 p-4">
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl text-center uppercase font-extrabold italic mb-2 text-gray-900">
-    {cafe.title}
-</h1>
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl text-center uppercase font-extrabold italic mb-2 text-gray-900">
+                                {cafe.title}
+                            </h1>
 
-{cafe.googleRating && (
-    <div className="flex flex-col items-center text-center mb-6">
-        <GoogleRatingStars rating={cafe.googleRating} />
-        <p className="text-sm text-gray-600 mt-1">
-            Based on <span className="font-semibold">Google reviews</span>
-        </p>
-    </div>
-)}
+                            {cafe.googleRating && (
+                                <div className="flex flex-col items-center text-center mb-6">
+                                    <GoogleRatingStars rating={cafe.googleRating} />
+                                    <p className="text-sm text-gray-600 mt-1">
+                                        Based on <span className="font-semibold">Google Reviews</span>
+                                    </p>
+                                </div>
+                            )}
 
 
                             {/* Top Picks Icons */}

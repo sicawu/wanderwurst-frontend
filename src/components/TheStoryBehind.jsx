@@ -20,7 +20,7 @@ function TheStoryBehind() {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase text-gray-900 mb-2 animate-fade-in">
                     A Travel Blog.
                 </h2>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold uppercase text-teal mb-6">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold uppercase text-gray-900 mb-6">
                     Slightly Different.
                 </h3>
                 <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-8 max-w-2xl mx-auto md:mx-0">

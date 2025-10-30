@@ -5,8 +5,9 @@ import Searchbar from "./Searchbar"
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
 import WishlistButton from '../components/WishlistButton';
+import GoogleRatingStars from "../components/GoogleRatingStars.jsx";
 import InlineFilterCafe from "./InlineFilterCafe";
-import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa"; // For location icons
+import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa"; 
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async"
@@ -165,10 +166,9 @@ function CafeFoodList() {
                     If there's one thing in the world I don't make jokes about, then it is food. For me, it decides if the day's gonna be great - or not. Choose your favorite cafe with {formatFood(food)}.
                 </p>
 
+                               {/* Filters */}
                 <div className="container mx-auto px-4 mt-6">
-                    {/* Filters: Inline on desktop, button on mobile */}
-                    <div className="flex flex-wrap items-center justify-center mb-6">
-                        {/* Desktop: Show inline filters */}
+                    <div className="flex flex-wrap items-center justify-center mb-2">
                         <div className="hidden md:flex">
                             <InlineFilterCafe
                                 onCityFilter={(city) => handleFilterChange('city', city)}
@@ -185,7 +185,6 @@ function CafeFoodList() {
                                 selectedSpec={selectedSpec}
                             />
                         </div>
-                        {/* Mobile: Show filter button */}
                         <div className="md:hidden flex justify-center">
                             <button
                                 onClick={() => setShowPopup(!showPopup)}
@@ -212,66 +211,74 @@ function CafeFoodList() {
                         />
                     )}
 
-                    {/* Filter Tags Container */}
-                    <div className="h-10 overflow-y-auto">
-                        <div className="flex flex-wrap justify-center">
+                    {/* Selected Filters Centered */}
+                    <div className="mt-2">
+                        <div className="flex flex-wrap justify-center gap-2">
                             {Object.entries(filters).map(([key, value]) =>
                                 value && (
-                                    <span
+                                    <div
                                         key={key}
-                                        className="inline-flex items-center border border-gray-300 rounded-full py-0.5 px-2 mr-2 mb-1 text-xs shadow-sm bg-gray-50 hover:bg-white transition duration-300"
+                                        className="flex items-center border border-gray-300 rounded-full text-xs shadow-sm bg-gray-50 hover:bg-white transition duration-300"
                                     >
-                                        {value}
+                                        <span className="px-3 py-1 leading-none min-w-[50px] text-center">{value}</span>
                                         <button
                                             onClick={() => handleFilterChange(key, "")}
-                                            className="ml-1"
+                                            className="px-2 py-1 border-l border-gray-300 hover:bg-gray-200 rounded-r-full transition duration-200 min-w-[20px]"
                                         >
-                                            x
+                                            ✕
                                         </button>
-                                    </span>
+                                    </div>
                                 )
                             )}
                             {(selectedCity || selectedDrink || selectedFood || selectedSpec) && (
                                 <button
                                     onClick={clearFilters}
-                                    className="inline-flex items-center bg-gray-100 border border-gray-300 rounded-full px-2 py-0.5 text-xs shadow-sm hover:bg-gray-200 transition duration-300"
+                                    className="flex items-center px-3 py-1 border border-gray-300 rounded-full text-xs shadow-sm bg-gray-50 hover:bg-gray-200 transition duration-300"
                                 >
-                                    Clear All Filters
+                                    Clear All
                                 </button>
                             )}
                         </div>
                     </div>
                 </div>
 
-                <div className="px-7 flex flex-wrap justify-center">
+              <div className="pt-0 px-7 flex flex-wrap justify-center mt-10 pb-10">
                     {filteredCafes.length > 0 ? (
-                        filteredCafes.map((cafe) => (
-                            <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5 mb-5">
-                                <Link to={`/cafes/${cafe.urlSlug}`} className="group">
-                                    <div className="relative h-80 w-full overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform group-hover:scale-105">
-                                        <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover" />
-                                        {/* Overlay Text on Image */}
-                                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4 rounded-b-2xl">
-                                            <div className="flex items-center justify-between mb-2">
-                                                <p className="flex items-center text-white font-bold text-xs bg-mint/90 text-gray-800 rounded-full px-3 py-1">
-                                                    <FaMapMarkerAlt className="mr-1" />
-                                                    {cafe.location.city}
-                                                </p>
-                                                <p className="flex items-center text-white font-bold text-xs bg-teal/90 rounded-full px-3 py-1">
-                                                    <FaGlobe className="mr-1" />
-                                                    {cafe.location.country}
-                                                </p>
+                        filteredCafes.map(cafe => (
+                            <div key={cafe._id} className="mb-20 w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-5">
+                                <div className="relative group">
+                                    <Link to={`/cafes/${cafe.urlSlug}`}>
+                                        <div className="relative h-80 w-full overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform group-hover:scale-105">
+                                            <img src={cafe.image} alt={cafe.title} className="h-full w-full object-cover" />
+                                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4 rounded-b-2xl">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <p className="flex items-center text-white font-bold text-xs bg-mint/90 text-gray-800 rounded-full px-3 py-1">
+                                                        <FaMapMarkerAlt className="mr-1" />
+                                                        {cafe.location.city}
+                                                    </p>
+                                                    <p className="flex items-center text-white font-bold text-xs bg-teal/90 rounded-full px-3 py-1">
+                                                        <FaGlobe className="mr-1" />
+                                                        {cafe.location.country}
+                                                    </p>
+                                                </div>
+                                                {cafe.googleRating && (
+                                                    <div className="mt-1 flex justify-center">
+                                                        <GoogleRatingStars rating={cafe.googleRating} />
+                                                        <span className="text-xs text-gray-200 ml-2 flex items-center">from Google</span>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
-                                        <div className="absolute top-4 right-4 z-20">
-                                            <WishlistButton urlSlug={cafe.urlSlug} />
-                                        </div>
+                                    </Link>
+
+                                    {/* Wishlist Button outside Link */}
+                                    <div className="absolute top-4 right-4 z-30">
+                                        <WishlistButton urlSlug={cafe.urlSlug} />
                                     </div>
-                                    {/* Cafe Title Below Image */}
-                                    <p className="text-gray-900 font-bold text-lg mt-1 text-center">
-                                        {cafe.title}
-                                    </p>
-                                </Link>
+                                </div>
+                                <p className="text-gray-900 font-bold text-lg mt-1 text-center">
+                                    {cafe.title}
+                                </p>
                             </div>
                         ))
                     ) : (
@@ -284,6 +291,4 @@ function CafeFoodList() {
         </>
     )
 }
-
-
 export default CafeFoodList

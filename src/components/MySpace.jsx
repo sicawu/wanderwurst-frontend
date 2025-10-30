@@ -119,7 +119,7 @@ function MySpace({ profile, setProfile }) {
                     </h1>
                     <div className="flex flex-col items-center justify-center mt-12">
                         <p className="mx-10 text-gray-700">
-                            Welcome (back), you little legend. I'm happy to have you here, {profile.name}.
+                            Welcome (back), you little legend. I'm happy to have you here.
                         </p>
                     </div>
                        <button

@@ -24,7 +24,7 @@ function GoogleRatingStars({ rating }) {
   return (
     <div className="flex items-center space-x-1">
       {stars}
-      <span className="ml-2 text-sm text-gray-600">
+      <span className="ml-2 text-sm text-white">
         {rating.toFixed(1)}
       </span>
     </div>

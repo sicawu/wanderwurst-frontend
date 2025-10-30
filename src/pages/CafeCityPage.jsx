@@ -28,23 +28,25 @@ function CafeCityPage() {
     return (
         <>
             <CafeCityList />
-
             {/* Cities Section */}
-            <div className="min-h-[50vh] bg-cream w-full flex flex-col justify-center py-20 gap-5">
-                <h2 className="pb-10 text-4xl font-extrabold uppercase text-center">
+            <div className="min-h-[60vh] bg-cream w-full flex flex-col justify-center py-20 px-6">
+                <h2 className="pb-10 text-4xl md:text-4xl font-extrabold uppercase text-center tracking-tight text-gray-900">
                     Broaden Your Horizon.
                 </h2>
-                <div className="flex flex-wrap justify-center px-10 gap-4">
+
+                <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
                     {cities.map((city) => (
                         <Link
                             key={city}
                             to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                            className="bg-gold text-white border-1 border-black hover:bg-black font-semibold py-1 px-5 rounded-full shadow-md text-center">
+                            className="bg-gold hover:bg-black text-white font-semibold py-2 px-6 rounded-full shadow-md text-center border border-transparent hover:border-black transition-all duration-300 ease-in-out transform hover:scale-105"
+                        >
                             {city}
                         </Link>
                     ))}
                 </div>
             </div>
+
             {/* Toppick Section */}
             <div className="bg-beige">
                 <TopPickSection topPick={topPick} />

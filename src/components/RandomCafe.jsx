@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa"; // For location icons
+import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa";
+import GoogleRatingStars from "../components/GoogleRatingStars.jsx";
 
 function RandomCafe() {
     const API_URL = import.meta.env.VITE_API_URL;
