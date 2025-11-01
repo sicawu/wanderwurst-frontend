@@ -39,7 +39,7 @@ function Footer() {
 
       {/* Copyright */}
       <div className="text-sm italic">
-        <p>© Sweet Spots by Simona</p>
+        <p>© 2025, Sweet Spots by Simona</p>
       </div>
     </footer>
   );

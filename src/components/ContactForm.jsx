@@ -32,7 +32,7 @@ function ContactForm() {
   }, []);
 
   return (
-    <section className="bg-white py-16 px-4 sm:px-6 lg:px-8 max-w-2xl mx-auto text-center">
+    <section className="bg-white pb-16 px-4 sm:px-6 lg:px-8 max-w-2xl mx-auto text-center">
       <p className="text-gray-600 mb-8">
         Have a question, suggestion, or just want to say hi? I'm thrilled to hear from you!
       </p>

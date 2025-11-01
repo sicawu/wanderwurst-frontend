@@ -1,23 +1,22 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function TheStoryBehind() {
     return (
-        <section className="bg-gradient-to-br from-gray-50 to-gray-200 py-16 px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+        <section className="bg-gradient-to-br from-gray-50 to-gray-200 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[80vh]">
             {/* Image Section */}
-            <div className="md:w-1/2 flex justify-center">
-                <div className="relative overflow-hidden">
-                    <img
-                        src="https://res.cloudinary.com/djkv0io5j/image/upload/v1727849638/Sweet%20Spots/simona-wurst-sweet-spots_tb2i1l.jpg"
-                        alt="The Story Behind - Simona Wurst"
-                        className="w-full h-auto object-cover"
-                    />
-                </div>
+            <div className="h-screen w-auto">
+                <img
+                    src="https://res.cloudinary.com/djkv0io5j/image/upload/v1727849638/Sweet%20Spots/simona-wurst-sweet-spots_tb2i1l.jpg"
+                    alt="The Story Behind - Simona Wurst"
+                    className="w-full h-full object-cover"
+                />
             </div>
 
             {/* Text Section */}
-            <div className="md:w-1/2 text-center md:text-left">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase text-gray-900 mb-2 animate-fade-in">
+            <div className="w-full md:w-1/2 px-8 md:px-16 py-12 py-16 text-center md:text-left flex flex-col justify-center">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase text-gray-900 mb-2">
                     A Travel Blog.
                 </h2>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold uppercase text-gray-900 mb-6">
