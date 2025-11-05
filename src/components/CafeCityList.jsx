@@ -4,12 +4,12 @@ import axios from "axios";
 import WishlistButton from '../components/WishlistButton';
 import CafeCarousel from "../components/CafeCarousel";
 import GoogleRatingStars from "../components/GoogleRatingStars.jsx";
-import CafeLeafletMaps from "../components/CafeLeafletMapsCafesinOneCity.jsx";
+import CafeLeafletMaps from "../components/CafeLeafletMapsCafesInOneCity.jsx";
 import InlineFilterCafe from "./InlineFilterCafe";
 import Searchbar from "./Searchbar";
 import FilterPopup from "./PopupFilterCafe";
 import { GoFilter } from "react-icons/go";
-import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa"; // For location icons
+import { FaMapMarkerAlt, FaGlobe } from "react-icons/fa";
 
 // Helmet library for individual SEO title + description
 import { Helmet } from "react-helmet-async";
