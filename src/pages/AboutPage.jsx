@@ -29,7 +29,7 @@ function AboutPage() {
             Introducing Sweet Spots - A Heart Project
           </h2>
           <p className="text-gray-700 text-lg leading-relaxed">
-            Sweet Spots is a carefully curated collection of places that are special to me—places that inspired me, make me feel comfortable and happy, and felt like home while being away from home. I love to travel; slow traveling helps me find spots that make me feel grounded, happy, and safe. These "sweet spots" are my sanctuaries: spaces that inspire and energize me.
+            Sweet Spots is a carefully curated collection of places that are special to me—places that inspired me, make me feel comfortable and happy, and felt like home while being away from home.I love to travel; slow traveling helps me find spots that make me feel grounded, happy, and safe. These "sweet spots" are my sanctuaries: spaces that inspire and energize me.
           </p>
            <p className="text-lg sm:text-2xl text-white max-w-3xl">
             Discover the magic of places that inspire you, make you feel at home, and energize your travels. Sweet Spots are more than destinations—they're experiences.
@@ -62,8 +62,7 @@ function AboutPage() {
               <FaLightbulb className="text-teal-400 text-4xl mb-4 mx-auto" />
               <h3 className="text-xl font-extrabold italic mb-2">The Idea</h3>
               <p className="text-gray-700 text-sm leading-relaxed">
-                I love to travel; Sweet Spots are spaces that inspire and energize me, making each journey meaningful.
-              </p>
+There's millions of cafes out there. Sharing my favorite spaces              </p>
             </div>
 
             {/* Mission */}
