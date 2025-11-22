@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import React, { useState } from "react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react";
 
 import "./App.css"
 import "./index.css"
@@ -91,6 +91,7 @@ function App() {
           <Route path="/user/:publicId" element={<MySpacePublicPage />} />
         </Routes>
         <Footer />
+                <Analytics />
       </HelmetProvider>
     </>
   )
