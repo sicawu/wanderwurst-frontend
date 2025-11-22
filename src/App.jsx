@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import React, { useState } from "react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import "./App.css"
 import "./index.css"
