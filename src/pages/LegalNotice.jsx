@@ -15,15 +15,6 @@ function LegalNotice() {
             <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
                 Simona Wurst
             </p>
-            <h2 className="text-black uppercase text-center text-xl m-1 px-0.5 py-0.5 font-extrabold italic">
-                Kontakt</h2>
-            <p className="text-1xl px-10 pb-5 flex justify-center text-center ">
-                Simona Wurst <br />
-                Daukernweg 22  <br />
-                73635 Rudersberg  <br />
-                Mail: vue.de.mona@gmail.com  <br />
-            </p>
-
         </>
     )
 }
