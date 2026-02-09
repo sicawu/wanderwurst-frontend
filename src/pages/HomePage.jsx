@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../App.css";
+import { Helmet } from "react-helmet-async"
 import TopPickSection from "../components/SectionTopPick";
 import FoodSection from "../components/SectionFood";
 import DrinksSection from "../components/SectionDrinks";
@@ -42,6 +43,10 @@ function Homepage() {
 
   return (
     <>
+      <Helmet>
+        <title>{`Your Cafe Guide by Simona | Sweet Spots`}</title>
+        <meta name="description" content="Discover the perfect cafe in your city, based on what you are looking for. These are special places to me. Check them out." />
+      </Helmet>
       <div
         className="min-h-screen flex flex-col justify-center items-center"
         style={{
@@ -58,14 +63,14 @@ function Homepage() {
 
         {/* Choose a City Section */}
         <div className="w-full max-w-lg mb-16 bg-cover bg-center">
-            <h2 className="text-xl sm:text-2xl text-white mb-6 font-semibold" style={{ textShadow: "0px 0px 15px rgba(0,0,0,0.6)" }}>            Choose a City
+          <h2 className="text-xl sm:text-2xl text-white mb-6 font-semibold" style={{ textShadow: "0px 0px 15px rgba(0,0,0,0.6)" }}>            Choose a City
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {cities.map((city) => (
               <Link
                 key={city}
                 to={`/best-cafes/city/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="bg-gradient-to-r from-gold to-yellow-500 text-white hover:from-black hover:to-gray-800 font-semibold py-2 px-4 sm:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold"              >
+                className="bg-gradient-to-r from-gold to-yellow-500 text-white hover:from-black hover:to-gray-800 font-semibold py-2 px-4 sm:px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold"              >
                 {city}
               </Link>
             ))}
